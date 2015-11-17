@@ -18,13 +18,19 @@ sudo apt-get install build-essential wget git lzop u-boot-tools binfmt-support \
                      qemu qemu-user-static multistrap parted dosfstools
 ```
 
-## Build the image:
+## Options
+The build process has a few options you can set.
+* **DIST**: debian distribution [wheezy, jessie (default), etc]
+* **DIST_ARCH**: image architecture [rpi (armel), rpi2 (armhf, default)]
+* **IMAGE_MB**: Size of the image, 32MB is for the fat boot, which is included in this option (640 default, thus 608MB for the root partition)
+
+## Example: Build an RPi2 Jessie image:
 Just use the make utility to build e.g. an debian-jessie-rpi.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
 ```
 sudo make DIST=jessie IMAGE_MB=1024
 ```
 
-This will install the firmware, compile the kernel, bootstrap Debian and create a 1024mb img file (default is 640), which then can be transferred to a sd card (e.g. using dd):
+This will install the firmware, compile the kernel, bootstrap Debian and create a 1024MB img file, which then can be transferred to a sd card (e.g. using dd):
 ```
 sudo dd bs=1M if=debian-jessie-rpi.img of=/dev/YOUR_SD_CARD && sync
 ```
