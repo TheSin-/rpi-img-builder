@@ -5,6 +5,7 @@ Script to build a minimal Debian sd card image.
 
 ## Features:
 * Supports building Wheezy or Jessie (default) images (specify using the DIST variable)
+* Supports building RPi or RPi2 (default) images (specify using the DIST_ARCH variable)
 * SSH login: pi/pi
 * Host name: raspberrypi-MACADDRESS (e.g. raspberrypi-1a2b3c4d5e6f)
 * SSH host keys are generated and saved permanently on first boot
