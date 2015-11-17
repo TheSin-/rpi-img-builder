@@ -1,0 +1,11 @@
+--- etc/default/tmpfs.orig	2015-01-02 08:35:20.080472620 -0700
++++ etc/default/tmpfs	2015-01-02 08:36:46.977004309 -0700
+@@ -18,7 +18,7 @@
+ # mount /tmp as a tmpfs.  Defaults to no; set to yes to enable (/tmp
+ # will be part of the root filesystem if disabled).  /tmp may also be
+ # configured to be a separate mount in /etc/fstab.
+-#RAMTMP=no
++RAMTMP=yes
+ 
+ # Size limits.  Please see tmpfs(5) for details on how to configure
+ # tmpfs size limits.

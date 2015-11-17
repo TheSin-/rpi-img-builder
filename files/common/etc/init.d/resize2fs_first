@@ -1,0 +1,61 @@
+#!/bin/sh -e
+### BEGIN INIT INFO
+# Provides: resize2fs_first
+# Required-Start: $local_fs
+# Required-Stop:
+# Default-Start: S
+# Default-Stop:
+# Short-Description: Resize the root filesystem to fill partition
+# Description:
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+do_expand_rootfs() {
+	PART_NUM=2
+	LAST_PART_NUM=$(parted /dev/mmcblk0 -ms unit s p | tail -n 1 | cut -f 1 -d:)
+
+	if [ "$LAST_PART_NUM" != "$PART_NUM" ]; then
+		log_daemon_msg "/dev/mmcblk0p2 is not the last partition. Don't know how to expand"
+		return 1
+	fi
+
+	# Get the starting offset of the root partition
+	PART_START=$(parted /dev/mmcblk0 -ms unit s p | grep "^${PART_NUM}" | cut -f 2 -d: | sed 's/[^0-9]*//g')
+	[ "$PART_START" ] || return 1
+	# Return value will likely be error for fdisk as it fails to reload the
+	# partition table because the root fs is mounted
+	fdisk /dev/mmcblk0 <<EOF
+p
+d
+$PART_NUM
+n
+p
+$PART_NUM
+$PART_START
+
+p
+w
+EOF
+	ASK_TO_REBOOT=1
+}
+
+case "$1" in
+	start)
+		log_daemon_msg "Starting resize2fs_first" &&
+		do_expand_rootfs &&
+		rm /etc/init.d/resize2fs_first &&
+		update-rc.d resize2fs_first remove &&
+		mv /root/resize2fs_last /etc/init.d/resize2fs_last &&
+		chmod +x /etc/init.d/resize2fs_last &&
+		update-rc.d resize2fs_last defaults &&
+		log_end_msg $? &&
+		reboot
+	;;
+	*)
+		echo "Usage: $0 start" >&2
+		exit 3
+	;;
+esac
+
+exit 0

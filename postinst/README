@@ -1,0 +1,7 @@
+Place your custom post installation scripts here and mark them executable.
+They will be executed in the emulated target by postinstall.sh
+You can also place scripts in a subdirectory with the same name as the DIST
+variable as defined in common.mk, allowing you to specify scripts custom to
+a specific distribution.  The scripts in a distribution subdirectory will
+be executed after the common ones.
+

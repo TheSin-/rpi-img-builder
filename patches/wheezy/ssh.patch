@@ -1,0 +1,31 @@
+--- etc/init.d/ssh.orig	2015-01-02 15:46:07.477434366 -0700
++++ etc/init.d/ssh	2015-01-02 15:48:49.429437506 -0700
+@@ -72,6 +72,20 @@
+     fi
+ }
+ 
++check_host_keys() {
++    if run_by_init; then
++        if [ ! -e /etc/ssh/ssh_host_rsa_key ]; then
++            log_action_msg "Generating SSH host keys..." || true
++#           mount -n -o remount,rw / || echo "Remounting / rw failed"
++            ssh-keygen -q -t rsa -N "" -f /etc/ssh/ssh_host_rsa_key
++            ssh-keygen -q -t dsa -N "" -f /etc/ssh/ssh_host_dsa_key
++            ssh-keygen -q -t ecdsa -N "" -f /etc/ssh/ssh_host_ecdsa_key
++#           sync || echo "sync failed"
++#           mount -n -o remount,ro / || echo "Remounting / ro failed"
++        fi
++    fi
++}
++
+ export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
+ 
+ case "$1" in
+@@ -79,6 +93,7 @@
+ 	check_privsep_dir
+ 	check_for_no_start
+ 	check_dev_null
++	check_host_keys
+ 	log_daemon_msg "Starting OpenBSD Secure Shell server" "sshd" || true
+ 	if start-stop-daemon --start --quiet --oknodo --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd -- $SSHD_OPTS; then
+ 	    log_end_msg 0 || true

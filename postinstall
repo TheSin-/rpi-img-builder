@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+set -e
+
+#
+# NOTE: This script is run within the chroot after second stage debootstrap!
+#
+
+set -e
+
+if [ "$#" -ne 2 ]; then
+	echo "Usage: $0 DIST DIST_URL"
+	exit 1
+fi
+
+DIST=$1
+DIST_URL=$2
+
+echo "Running postinstall script..."
+
+# Sanitize environnement
+LC_ALL=C
+LANG=C
+
+# Make dpkg/apt-get noninteractive
+export DEBIAN_FRONTEND=noninteractive
+
+# Prevent apt-get from starting services
+echo "#!/bin/sh
+exit 101
+" > /usr/sbin/policy-rc.d
+chmod +x /usr/sbin/policy-rc.d
+
+# Set the locale
+ln -s /usr/share/i18n/SUPPORTED /etc/locale.gen
+sed -i -e 's/^ *[a-zA-Z]/# &/' /etc/locale.gen
+sed -i "s/^#[[:space:]]*en_US\.UTF-8\(.*\)/en_US\.UTF-8\1/g" /etc/locale.gen
+locale-gen
+
+/var/lib/dpkg/info/base-passwd.preinst install
+/var/lib/dpkg/info/dash.preinst install
+dpkg --force-all --configure debconf initramfs-tools mawk
+dpkg --force-all -i /var/cache/apt/archives/linux-image-*-rpi*.deb
+dpkg --force-all -i /var/cache/apt/archives/raspberrypi-*.deb
+dpkg --configure -a
+rm -f /etc/hostname
+rm -f /etc/ssh/ssh_host_*
+
+# Set root password
+echo "root:pi" | chpasswd
+
+# Add user pi
+useradd -m pi -s /bin/bash
+
+# Set pi password
+echo "pi:pi" | chpasswd
+
+# Add pi to sudo group
+adduser pi sudo
+adduser pi audio
+adduser pi video
+
+# Set timezone
+dpkg-reconfigure -f noninteractive tzdata
+
+# Initialize /etc/apt/sources.list (remove multistrap from the filenames)
+for i in /etc/apt/sources.list.d/*; do
+	mv $i $(dirname $i)/$(echo $i | cut -d"-" -f2);
+done
+
+# Make sure we have more then main for firmwares and other tools
+if test -f /etc/apt/sources.list.d/debian.list; then
+	perl -pi -e 's, main, main contrib non-free,g' /etc/apt/sources.list.d/debian.list
+fi
+
+apt-get update
+
+# Install extra packages
+if [ -f /packages.txt ]; then
+	apt-get -y install $(cat /packages.txt);
+fi
+
+# Run custom install scripts
+if [ -d /postinst ]; then
+	echo "Running custom postinst scripts"
+	for i in `find /postinst -maxdepth 1 -type f -executable -not -name "*~"`; do
+		echo "  Running $i"
+		$i
+	done
+else
+	echo "No custom postinst scripts found"
+fi
+
+# Run custom install scripts for a specific distribution
+if [ -d /postinst/$DIST ]; then
+	echo "Running custom $DIST postinst scripts"
+	for i in `find /postinst/$DIST -maxdepth 1 -type f -executable -not -name "*~"`; do
+		echo "  Running $i"
+		$i
+	done
+else
+	echo "No custom $DIST postinst scripts found"
+fi
+
+# Re-enable services to start
+rm /usr/sbin/policy-rc.d
+
+# Cleanup
+echo "Running clean up"
+apt-get autoclean
+apt-get clean
+dpkg --clear-avail

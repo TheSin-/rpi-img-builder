@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#
+# This script is invoked after the createimg script copied the boot partition
+# to the mounted image.
+#
+# The first argument is the folder of the mounted boot partition.
+#
+

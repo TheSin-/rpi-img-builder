@@ -1,0 +1,34 @@
+[General]
+#arch=armel
+#directory=/opt/multistrap/
+# same as --tidy-up option if set to true
+# cleanup=true
+# same as --no-auth option if set to true
+# keyring packages listed in each bootstrap will
+# still be installed.
+# noauth=false
+# extract all downloaded archives (default is true)
+# unpack=true
+# enable MultiArch for the specified architectures
+# default is empty
+# multiarch=
+# aptsources is a list of sections to be used for downloading packages
+# and lists and placed in the /etc/apt/sources.list.d/multistrap.sources.list
+# of the target. Order is not important
+aptsources=Debian Bluefalls
+# the order of sections is not important.
+# the bootstrap option determines which repository
+# is used to calculate the list of Priority: required packages.
+bootstrap=Debian Bluefalls
+
+[Bluefalls]
+packages=bluefalls-archive-keyring raspberrypi-bootloader linux-image-__ARCH__ libraspberrypi0 libraspberrypi-bin
+source=http://debian.bluefalls.ca/
+keyring=bluefalls-archive-keyring
+suite=testing
+
+[Debian]
+packages=apt apt-utils mawk ca-certificates sudo openssh-server vim locales ntpdate initramfs-tools systemd-sysv ifupdown net-tools crda whiptail parted man-db
+source=http://http.debian.net/debian
+keyring=debian-archive-keyring
+suite=__SUITE__
