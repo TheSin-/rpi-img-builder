@@ -1,0 +1,9 @@
+debian-*.img
+*.example
+multistrap.list
+rootfs
+rootfs.base
+mnt
+*~
+*.tmp
+*.tar*
