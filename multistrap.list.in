@@ -25,10 +25,12 @@ bootstrap=Debian Bluefalls
 packages=bluefalls-archive-keyring raspberrypi-bootloader linux-image-__ARCH__ libraspberrypi0 libraspberrypi-bin
 source=http://debian.bluefalls.ca/
 keyring=bluefalls-archive-keyring
+components=main
 suite=testing
 
 [Debian]
 packages=apt apt-utils mawk ca-certificates sudo openssh-server vim locales ntpdate initramfs-tools systemd-sysv ifupdown net-tools crda whiptail parted man-db
 source=http://http.debian.net/debian
 keyring=debian-archive-keyring
+components=main contrib non-free
 suite=__SUITE__

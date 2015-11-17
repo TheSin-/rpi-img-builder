@@ -67,11 +67,6 @@ for i in /etc/apt/sources.list.d/*; do
 	mv $i $(dirname $i)/$(echo $i | cut -d"-" -f2);
 done
 
-# Make sure we have more then main for firmwares and other tools
-if test -f /etc/apt/sources.list.d/debian.list; then
-	perl -pi -e 's, main, main contrib non-free,g' /etc/apt/sources.list.d/debian.list
-fi
-
 apt-get update
 
 # Install extra packages
