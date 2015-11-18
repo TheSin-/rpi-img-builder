@@ -28,7 +28,7 @@ The build process has a few options you can set.
 ## Example: Build an RPi2 Jessie image:
 Just use the make utility to build e.g. an debian-jessie-rpi2.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
 ```
-sudo make DIST=jessie DIST_ARCH=armhf IMAGE_MB=1024
+sudo make distclean && sudo make DIST=jessie DIST_ARCH=armhf IMAGE_MB=1024
 ```
 
 This will install the firmware, compile the kernel, bootstrap Debian and create a 1024MB img file, which then can be transferred to a sd card (e.g. using dd):
