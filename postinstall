@@ -42,8 +42,6 @@ dpkg --force-all --configure debconf initramfs-tools mawk
 dpkg --force-all -i /var/cache/apt/archives/linux-image-*-rpi*.deb
 dpkg --force-all -i /var/cache/apt/archives/raspberrypi-*.deb
 dpkg --configure -a
-rm -f /etc/hostname
-rm -f /etc/ssh/ssh_host_*
 
 # Set root password
 echo "root:pi" | chpasswd
@@ -101,6 +99,8 @@ rm /usr/sbin/policy-rc.d
 
 # Cleanup
 echo "Running clean up"
+rm -f /etc/hostname
+rm -f /etc/ssh/ssh_host_*
 apt-get autoclean
 apt-get clean
 dpkg --clear-avail
