@@ -78,17 +78,29 @@ img_size=$(( $cylinders*$bytes_per_cylinder + $bytes ))
 dd if=/dev/zero of=$outfile bs=1024 count=$(( $img_size/1024 ))
 sync
 
-# Using --unit M with sfdisk would be too easy... unfortunately it seems like it
-# has issues when the first partition starts at an arbitrary offset...
+# Using fdisk, older sfdisks have a hard time with this for some reason
 first_part_start_sector=$((1*1024*1024/$bytes))
 first_part_end_sector=$(( $(( $(( $(($boot_mb*1024*1024/$bytes)) + $first_part_start_sector + $sectors_per_cylinder - 1 )) / $sectors_per_cylinder )) * $sectors_per_cylinder ))
 second_part_start_sector=$first_part_end_sector
 second_part_end_sector=$(($cylinders*$sectors_per_cylinder))
 
 # Partition the disk
-sfdisk --no-reread $outfile  <<EOF
-$first_part_start_sector,$(($first_part_end_sector-$first_part_start_sector)),0x0C,*
-$second_part_start_sector,$(($second_part_end_sector-$second_part_start_sector)),L
+fdisk $outfile <<EOF
+n
+p
+1
+$first_part_start_sector
+$(($first_part_end_sector-$first_part_start_sector))
+t
+b
+a
+n
+p
+2
+$second_part_start_sector
+$(($second_part_end_sector-$second_part_start_sector))
+p
+w
 EOF
 
 if mountpoint -q mnt; then
