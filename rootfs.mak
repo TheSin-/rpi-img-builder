@@ -46,6 +46,7 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	mount -o bind /proc $@/proc
 	mount -o bind /sys $@/sys
 	mount -o bind /dev $@/dev
+	cp cmdline.txt.template $@/boot/cmdline.txt
 	cp packages.txt $@
 	cp postinstall $@
 	if [ -d "postinst" ]; then cp -r postinst $@ ; fi

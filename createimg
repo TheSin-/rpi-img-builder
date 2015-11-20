@@ -152,13 +152,14 @@ lodev=$(losetup_partition $outfile 1)
 partprobe $lodev
 echo "Mounting boot partition on $lodev..."
 mount -t vfat $lodev mnt/
-if [ "$root_dev" != "" ]; then
-	sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/$(echo $root_dev | sed -e 's/[\/&]/\\&/g')/" cmdline.txt.template > mnt/cmdline.txt
-else
-	sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/UUID=$root_uuid/" cmdline.txt.template > mnt/cmdline.txt
-fi
-cp mnt/cmdline.txt cmdline.example
 mv $boot_dir/* mnt/
+if [ "$root_dev" != "" ]; then
+	sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/$(echo $root_dev | sed -e 's/[\/&]/\\&/g')/" mnt/cmdline.txt > mnt/cmdline.txti.new
+else
+	sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/UUID=$root_uuid/" mnt/cmdline.txt > mnt/cmdline.txt.new
+fi
+mv mnt/cmdline.txt.new mnt/cmdline.txt
+cp mnt/cmdline.txt cmdline.example
 if [ -x "./createimg-bootfs-post" ] ; then
 	./createimg-bootfs-post mnt/
 fi
