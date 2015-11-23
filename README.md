@@ -6,7 +6,7 @@ Script to build a minimal Debian sd card image.
 ## Features:
 * Supports building Wheezy or Jessie (default) images (specify using the DIST variable)
 * Supports building RPi or RPi2 (default) images (specify using the DIST_ARCH variable)
-* SSH login: pi/pi
+* Logins: root/pi and pi/pi (no ssh root access)
 * Host name: raspberrypi-MACADDRESS (e.g. raspberrypi-1a2b3c4d5e6f)
 * SSH host keys are generated and saved permanently on first boot
 * Automatic mounting of USB storage devices using usbmount
@@ -34,7 +34,7 @@ sudo make distclean && sudo make DIST=jessie DIST_ARCH=armhf IMAGE_MB=1024
 
 This will install the firmware, compile the kernel, bootstrap Debian and create a 1024MB img file, which then can be transferred to a sd card (e.g. using dd):
 ```
-sudo dd bs=1024 if=debian-jessie-rpi2.img of=/dev/YOUR_SD_CARD && sync
+sudo dd bs=1024 if=debian-jessie-rpi2.img of=/dev/YOUR_SD_CARD && sudo sync
 ```
 
 ## Customize your image:
