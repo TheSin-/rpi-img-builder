@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -e
+
+if [ ! -e /etc/ssh/ssh_host* ]; then
+	/usr/sbin/dpkg-reconfigure -f noninteractive openssh-server
+	/etc/init.d/ssh restart
+fi

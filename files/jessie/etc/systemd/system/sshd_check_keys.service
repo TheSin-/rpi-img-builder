@@ -1,3 +1,4 @@
+# this file is only an example and does not work on RPi due to missing time
 [Unit]
 Description=Check and regenerate SSH host keys
 DefaultDependencies=no

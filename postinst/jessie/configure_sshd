@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# This file is only an example and does not work on RPi due to missing time
 set -e
 
 # Enable root login using passwords
