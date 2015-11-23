@@ -39,3 +39,6 @@ sudo dd bs=1024 if=debian-jessie-rpi2.img of=/dev/YOUR_SD_CARD && sync
 
 ## Customize your image:
 It should be fairly easy to customize your image for your own needs.  You can add package names to `packages.txt`, drop scripts into the `postinst` folder and add patches to the `patches` folder, as well as add any files you want as part of the root file system into the `files` folder.  This should allow you install extra packages (e.g. using apt-get) and modify configurations to your needs.  Of course, you can do all this manually after booting the device, but the goal of this project is to be able to generate re-usable images that can be deployed on any number of RaspberryPi devices (think of it as "firmware" of a consumer device).
+
+## Special note about config.txt
+If you want to customize config.txt please just edit `files/common/etc/rpi/config.txt.template`.
