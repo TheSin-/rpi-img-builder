@@ -10,7 +10,8 @@ Script to build a minimal Debian sd card image.
 * Host name: raspberrypi-MACADDRESS (e.g. raspberrypi-1a2b3c4d5e6f)
 * SSH host keys are generated and saved permanently on first boot
 * Automatic mounting of USB storage devices using usbmount
-* Automatic resize on first boot (It will auto reboot once on first boot)
+* Automatic resize on first boot (It will auto reboot once done)
+* Automaticly reruns dbconfig install scripts on boot (It eill auto reboot once done)
 
 ## Prerequisites:
 On a x86 based Debian system, make sure the following packages are installed:
