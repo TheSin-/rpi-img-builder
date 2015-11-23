@@ -1,1 +1,1 @@
-isc-dhcp-client rsyslog cron usbmount wpasupplicant
+isc-dhcp-client rsyslog cron fake-hwclock usbmount wpasupplicant
