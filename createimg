@@ -154,7 +154,7 @@ echo "Mounting boot partition on $lodev..."
 mount -t vfat $lodev mnt/
 mv $boot_dir/* mnt/
 if [ "$root_dev" != "" ]; then
-	sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/$(echo $root_dev | sed -e 's/[\/&]/\\&/g')/" mnt/cmdline.txt > mnt/cmdline.txti.new
+	sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/$(echo $root_dev | sed -e 's/[\/&]/\\&/g')/" mnt/cmdline.txt > mnt/cmdline.txt.new
 else
 	sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/UUID=$root_uuid/" mnt/cmdline.txt > mnt/cmdline.txt.new
 fi
