@@ -24,7 +24,10 @@ sudo apt-get install build-essential wget git lzop u-boot-tools binfmt-support \
 The build process has a few options you can set.
 * **DIST**: debian distribution [wheezy, jessie (default), etc]
 * **DIST_ARCH**: image architecture [armel (rpi), armhf (rpi2, default)]
-* **IMAGE_MB**: Size of the image, 32MB is for the fat boot, which is included in this option (640 default, thus 608MB for the root partition)
+* **IMAGE_MB**: size of the image, 32MB is for the fat boot, which is included in this option (640 default, thus 608MB for the root partition)
+* **USER**: user account that gets created (Default pi)
+* **PASS**: user account password (Default pi)
+* **ROOTPASS**: root password (Default pi)
 
 ## Example: Build an RPi2 Jessie image:
 Just use the make utility to build e.g. an debian-jessie-rpi2.img.  Be sure to run this with sudo, as root privileges are required to mount the image.

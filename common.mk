@@ -9,6 +9,10 @@ endif
 
 ROOT_DEV := /dev/mmcblk0p2
 
+USER ?= pi
+PASS ?= pi
+ROOTPASS ?= pi
+
 IMAGE_MB ?= 640
 BOOT_MB ?= 32
 ROOT_MB=$(shell expr $(IMAGE_MB) - $(BOOT_MB))

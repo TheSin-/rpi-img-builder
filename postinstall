@@ -7,13 +7,15 @@ set -e
 
 set -e
 
-if [ "$#" -ne 2 ]; then
-	echo "Usage: $0 DIST DIST_URL"
+if [ "$#" -eq 5 ]; then
+	echo "Usage: $0 DIST DIST_URL PASS USER ROOTPASS"
 	exit 1
 fi
 
 DIST=$1
 DIST_URL=$2
+PASS=$3
+USER=$4
 
 echo "Running postinstall script..."
 
@@ -47,18 +49,18 @@ dpkg --configure -a
 echo snd-bcm2835 >> /etc/modules
 
 # Set root password
-echo "root:pi" | chpasswd
+echo "root:$ROOTPASS" | chpasswd
 
-# Add user pi
-useradd -m pi -s /bin/bash
+# Add user $USER
+useradd -m $USER -s /bin/bash
 
-# Set pi password
-echo "pi:pi" | chpasswd
+# Set $USER password
+echo "$USER:$PASS" | chpasswd
 
-# Add pi to sudo group
-adduser pi sudo
-adduser pi audio
-adduser pi video
+# Add $USER to sudo group
+adduser $USER sudo
+adduser $USER audio
+adduser $USER video
 
 # Set timezone
 dpkg-reconfigure -f noninteractive tzdata
