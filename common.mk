@@ -13,6 +13,8 @@ USER ?= pi
 PASS ?= pi
 ROOTPASS ?= pi
 
+LOCALE ?= en_US.UTF-8
+
 IMAGE_MB ?= 640
 BOOT_MB ?= 32
 ROOT_MB=$(shell expr $(IMAGE_MB) - $(BOOT_MB))
