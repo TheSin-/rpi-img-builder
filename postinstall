@@ -7,7 +7,7 @@ set -e
 
 set -e
 
-if [ "$#" -eq 6 ]; then
+if [ "$#" -eq 7 ]; then
 	echo "Usage: $0 DIST DIST_URL LOCALE PASS USER ROOTPASS"
 	exit 1
 fi
