@@ -10,7 +10,7 @@
 #    sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1
 #
 .PHONY: all
-all: build
+all: distclean build
 
 # Build steps
 BUILD_STEPS := rootfs
