@@ -8,15 +8,15 @@ set -e
 set -e
 
 if [ "$#" -eq 6 ]; then
-	echo "Usage: $0 DIST LOCALE PASS USER ROOTPASS"
+	echo "Usage: $0 DIST LOCALE UNAME UPASS RPASS"
 	exit 1
 fi
 
 DIST=$1
 LOCALE=$2
-PASS=$3
-USER=$4
-ROOTPASS=$5
+UNAME=$3
+UPASS=$4
+RPASS=$5
 
 echo "Running postinstall script..."
 
@@ -54,18 +54,18 @@ dpkg --configure -a
 echo snd-bcm2835 >> /etc/modules
 
 # Set root password
-echo "root:${ROOTPASS}" | chpasswd
+echo "root:${RPASS}" | chpasswd
 
-# Add user $USER
-useradd -m ${USER} -s /bin/bash
+# Add user $UNAME
+useradd -m ${UNAME} -s /bin/bash
 
-# Set $USER password
-echo "${USER}:${PASS}" | chpasswd
+# Set $UNAME password
+echo "${UNAME}:${UPASS}" | chpasswd
 
-# Add $USER to sudo group
-adduser ${USER} sudo
-adduser ${USER} audio
-adduser ${USER} video
+# Add $UNAME to sudo group
+adduser ${UNAME} sudo
+adduser ${UNAME} audio
+adduser ${UNAME} video
 
 # Initialize /etc/apt/sources.list (remove multistrap from the filenames)
 for i in /etc/apt/sources.list.d/*; do

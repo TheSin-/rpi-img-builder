@@ -26,9 +26,9 @@ The build process has a few options you can set.
 * **DIST_ARCH**: image architecture [armel (rpi), armhf (rpi2, default)]
 * **IMAGE_MB**: size of the image, 32MB is for the fat boot, which is included in this option (640 default, thus 608MB for the root partition)
 * **LOCALE**: system locale (Default en_US.UTF-8) `Make sure you type this exactly like in /usr/share/i18n/SUPPORTED`
-* **USER**: user account that gets created (Default pi)
-* **PASS**: user account password (Default pi)
-* **ROOTPASS**: root password (Default pi)
+* **UNAME**: user account that gets created (Default pi)
+* **UPASS**: user account password (Default pi)
+* **RPASS**: root password (Default pi)
 
 ## Example: Build an RPi2 Jessie image:
 Just use the make utility to build e.g. an debian-jessie-rpi2.img.  Be sure to run this with sudo, as root privileges are required to mount the image.

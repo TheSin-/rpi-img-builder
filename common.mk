@@ -8,9 +8,9 @@ endif
 
 ROOT_DEV := /dev/mmcblk0p2
 
-USER ?= pi
-PASS ?= pi
-ROOTPASS ?= pi
+UNAME ?= pi
+UPASS ?= pi
+RPASS ?= pi
 
 LOCALE ?= en_US.UTF-8
 
