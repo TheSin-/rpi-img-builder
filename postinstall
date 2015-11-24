@@ -38,7 +38,7 @@ chmod +x /usr/sbin/policy-rc.d
 ln -s /usr/share/i18n/SUPPORTED /etc/locale.gen
 sed -i -e 's/^ *[a-zA-Z]/# &/' /etc/locale.gen
 sed -i "s/^#[[:space:]]*$(LOCALE)\(.*\)/$(LOCALE)\1/g" /etc/locale.gen
-echo $(LOCALE) >> /etc/default/locale
+echo "LANG=$(LOCALE)" >> /etc/default/locale
 locale-gen
 
 # Finish multistrap
