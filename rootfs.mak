@@ -53,6 +53,8 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	chroot $@ /bin/bash -c "/postinstall $(DIST) $(DIST_URL)"
 	for i in patches/*.patch ; do patch -p0 -d $@ < $$i ; done
 	if [ -d patches/$(DIST) ]; then for i in patches/$(DIST)/*.patch; do patch -p0 -d $@ < $$i ; done fi
+	if [ -f files/common/etc/hostname ]; then cp files/common/etc/hostname $@/etc/hostname; fi
+	if [ -f files/$(DIST)/etc/hostname ]; then cp files/$(DIST)/etc/hostname $@/etc/hostname; fi
 	umount $@/proc
 	umount $@/sys
 	umount $@/dev
