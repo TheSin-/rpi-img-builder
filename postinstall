@@ -7,15 +7,17 @@ set -e
 
 set -e
 
-if [ "$#" -eq 5 ]; then
-	echo "Usage: $0 DIST DIST_URL PASS USER ROOTPASS"
+if [ "$#" -eq 6 ]; then
+	echo "Usage: $0 DIST DIST_URL LOCALE PASS USER ROOTPASS"
 	exit 1
 fi
 
 DIST=$1
 DIST_URL=$2
-PASS=$3
-USER=$4
+LOCALE=$3
+PASS=$4
+USER=$5
+ROOTPASS=$6
 
 echo "Running postinstall script..."
 
@@ -35,9 +37,11 @@ chmod +x /usr/sbin/policy-rc.d
 # Set the locale
 ln -s /usr/share/i18n/SUPPORTED /etc/locale.gen
 sed -i -e 's/^ *[a-zA-Z]/# &/' /etc/locale.gen
-sed -i "s/^#[[:space:]]*en_US\.UTF-8\(.*\)/en_US\.UTF-8\1/g" /etc/locale.gen
+sed -i "s/^#[[:space:]]*$(LOCALE)\(.*\)/$(LOCALE)\1/g" /etc/locale.gen
+echo $(LOCALE) >> /etc/default/locale
 locale-gen
 
+# Finish multistrap
 /var/lib/dpkg/info/base-passwd.preinst install
 /var/lib/dpkg/info/dash.preinst install
 dpkg --force-all --configure debconf initramfs-tools mawk

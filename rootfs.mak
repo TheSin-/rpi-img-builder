@@ -50,7 +50,7 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	cp packages.txt $@
 	cp postinstall $@
 	if [ -d "postinst" ]; then cp -r postinst $@ ; fi
-	chroot $@ /bin/bash -c "/postinstall $(DIST) $(DIST_URL) $(PASS) $(USER) $(ROOTPASS)"
+	chroot $@ /bin/bash -c "/postinstall $(DIST) $(DIST_URL) $(LOCALE) $(PASS) $(USER) $(ROOTPASS)"
 	for i in patches/*.patch ; do patch -p0 -d $@ < $$i ; done
 	if [ -d patches/$(DIST) ]; then for i in patches/$(DIST)/*.patch; do patch -p0 -d $@ < $$i ; done fi
 	if [ -f files/common/etc/hostname ]; then cp files/common/etc/hostname $@/etc/hostname; fi
