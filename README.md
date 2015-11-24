@@ -6,7 +6,7 @@ Script to build a minimal Debian sd card image.
 ## Features:
 * Supports building Wheezy or Jessie (default) images (specify using the DIST variable)
 * Supports building RPi or RPi2 (default) images (specify using the DIST_ARCH variable)
-* Logins: root/pi and pi/pi (no ssh root access)
+* Logins: pi/pi (root account is locked, see postinst/lockroot)
 * Host name: raspberrypi-MACADDRESS (e.g. raspberrypi-1a2b3c4d5e6f)
 * SSH host keys are generated and saved permanently on first boot
 * Automatic mounting of USB storage devices using usbmount
@@ -42,3 +42,6 @@ It should be fairly easy to customize your image for your own needs.  You can ad
 
 ## Special note about config.txt
 If you want to customize config.txt please just edit `files/common/etc/rpi/config.txt.template`.
+
+## Notes
+There are lots of examples, please make sure to check `files` and `postinst` and remove any options you do not want.  There are only there to show how customizable these build scripts are.
