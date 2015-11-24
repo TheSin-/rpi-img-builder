@@ -7,17 +7,16 @@ set -e
 
 set -e
 
-if [ "$#" -eq 7 ]; then
-	echo "Usage: $0 DIST DIST_URL LOCALE PASS USER ROOTPASS"
+if [ "$#" -eq 6 ]; then
+	echo "Usage: $0 DIST LOCALE PASS USER ROOTPASS"
 	exit 1
 fi
 
 DIST=$1
-DIST_URL=$2
-LOCALE=$3
-PASS=$4
-USER=$5
-ROOTPASS=$6
+LOCALE=$2
+PASS=$3
+USER=$4
+ROOTPASS=$5
 
 echo "Running postinstall script..."
 
@@ -37,10 +36,10 @@ chmod +x /usr/sbin/policy-rc.d
 # Set the locale
 ln -s /usr/share/i18n/SUPPORTED /etc/locale.gen
 sed -i -e 's/^ *[a-zA-Z]/# &/' /etc/locale.gen
-sed -i "s/^#[[:space:]]*$(LOCALE)\(.*\)/$(LOCALE)\1/g" /etc/locale.gen
-echo "LANG=$(LOCALE)" >> /etc/default/locale
-echo "locales locales/default_environment_locale select $(LOCALE)" | debconf-set-selections
-echo "locales locales/locales_to_be_generated select $(LOCALE) UTF-8" | debconf-set-selections
+sed -i "s/^#[[:space:]]*${LOCALE}\(.*\)/${LOCALE}\1/g" /etc/locale.gen
+echo "LANG=${LOCALE}" >> /etc/default/locale
+echo "locales locales/default_environment_locale select ${LOCALE}" | debconf-set-selections
+echo "locales locales/locales_to_be_generated select ${LOCALE} UTF-8" | debconf-set-selections
 locale-gen
 
 # Finish multistrap
@@ -55,21 +54,18 @@ dpkg --configure -a
 echo snd-bcm2835 >> /etc/modules
 
 # Set root password
-echo "root:$ROOTPASS" | chpasswd
+echo "root:${ROOTPASS}" | chpasswd
 
 # Add user $USER
-useradd -m $USER -s /bin/bash
+useradd -m ${USER} -s /bin/bash
 
 # Set $USER password
-echo "$USER:$PASS" | chpasswd
+echo "${USER}:${PASS}" | chpasswd
 
 # Add $USER to sudo group
-adduser $USER sudo
-adduser $USER audio
-adduser $USER video
-
-# Set timezone
-dpkg-reconfigure -f noninteractive tzdata
+adduser ${USER} sudo
+adduser ${USER} audio
+adduser ${USER} video
 
 # Initialize /etc/apt/sources.list (remove multistrap from the filenames)
 for i in /etc/apt/sources.list.d/*; do
@@ -95,14 +91,14 @@ else
 fi
 
 # Run custom install scripts for a specific distribution
-if [ -d /postinst/$DIST ]; then
-	echo "Running custom $DIST postinst scripts"
-	for i in `find /postinst/$DIST -maxdepth 1 -type f -executable -not -name "*~"`; do
+if [ -d /postinst/${DIST} ]; then
+	echo "Running custom ${DIST} postinst scripts"
+	for i in `find /postinst/${DIST} -maxdepth 1 -type f -executable -not -name "*~"`; do
 		echo "  Running $i"
 		$i
 	done
 else
-	echo "No custom $DIST postinst scripts found"
+	echo "No custom ${DIST} postinst scripts found"
 fi
 
 # Re-enable services to start

@@ -1,5 +1,4 @@
 DIST ?= jessie
-DIST_URL := http://http.debian.net/debian/
 DIST_ARCH ?= armhf
 ifeq ($(findstring $(DIST_ARCH),armhf),)
   ARCH := rpi
