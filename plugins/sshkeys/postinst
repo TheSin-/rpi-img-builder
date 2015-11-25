@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -e
+
+# Enable root login using passwords
+echo "openssh-server openssh-server/permit-root-login select false" | debconf-set-selections
+sed -i "s/PermitRootLogin without-password/PermitRootLogin no/g" /etc/ssh/sshd_config
+
