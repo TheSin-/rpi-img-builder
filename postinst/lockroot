@@ -1,4 +1,0 @@
-#!/bin/sh
-
-usermod --expiredate 1 root
-passwd -dl root

@@ -1,3 +1,0 @@
-#!/bin/sh
-
-echo $(date --rfc-3339='ns' | cut -d. -f1) > /etc/fake-hwclock.data
