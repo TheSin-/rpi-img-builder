@@ -1,0 +1,37 @@
+#!/bin/sh -e
+### BEGIN INIT INFO
+# Provides:          hostname-init
+# Required-Start:    
+# Required-Stop:     
+# Default-Start:     S
+# Default-Stop:      
+# X-Start-Before:    hostname
+# Short-Description: Creates /etc/hostname if missing.
+# Description:       Creates the /etc/hostname file on the first boot.
+### END INIT INFO
+
+PATH="/sbin:/bin"
+
+. /lib/lsb/init-functions
+
+case "$1" in
+    start)
+    if [ ! -e "/etc/hostname" ]; then
+        mac=`cat /sys/class/net/eth0/address | sed s/://g`
+        hostname="raspberrypi-$mac"
+        log_action_begin_msg "Creating /etc/hostname with $hostname"
+        echo "$hostname" > /etc/hostname
+        hostname "$hostname"
+        if ! grep "^127.0.0.1\s*$hostname\s*" /etc/hosts > /dev/null ; then
+            sed -i "1i 127.0.0.1\\t$hostname" /etc/hosts
+        fi
+        log_action_end_msg 0
+    fi
+    ;;
+
+    *)
+    echo "Usage: /etc/init.d/$0 start"
+    exit 1
+
+esac
+

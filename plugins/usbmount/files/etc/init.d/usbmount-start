@@ -1,0 +1,55 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          usbmount-start
+# Required-Start:    udev $local_fs
+# Required-Stop:
+# Default-Start:     S
+# Default-Stop:
+# Short-Description: Automatically mount USB drives after a cold start
+### END INIT INFO
+
+## This script mounts all partitions of USB drives which
+## have already been recognized by the kernel AND by udevd,
+## but are not yet mounted.
+
+## install with update-rc.d usbmount-start start 99 S
+
+. /lib/lsb/init-functions
+
+. /etc/usbmount/usbmount.conf
+
+create_mountpoints() {
+  for i in $MOUNTPOINTS ; do
+    if [ ! -d "$i" ]; then
+      if [ ! -e /media/usb ]; then
+        ln -s "$i" /media/usb
+      fi
+      mkdir -p "$i"
+    fi
+  done
+}
+
+case "$1" in
+    start)
+    log_action_begin_msg "Coldplugging usbmount devices"
+    create_mountpoints
+    failed=""
+    if ! udevadm trigger --action=add --sysname-match='sd*'; then
+       failed="sd*"
+    fi
+    if ! udevadm trigger --action=add --sysname-match='ub*'; then
+       failed="${failed} ub*"
+    fi
+
+    if [ "x${failed}" = "x" ]; then
+       log_action_end_msg 0
+    else
+       log_action_end_msg 1 "${failed## }"
+    fi
+    ;;
+
+    *)
+    echo "Usage: /etc/init.d/$0 start"
+    exit 1
+
+esac

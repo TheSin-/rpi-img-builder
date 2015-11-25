@@ -14,11 +14,14 @@ RPASS ?= pi
 
 LOCALE ?= en_US.UTF-8
 
-IMAGE_MB ?= 640
+IMAGE_MB ?= -1
 BOOT_MB ?= 32
-ROOT_MB=$(shell expr $(IMAGE_MB) - $(BOOT_MB))
+ifeq ($(IMAGE_MB),-1)
+  ROOT_MB := -1
+else
+  ROOT_MB=$(shell expr $(IMAGE_MB) - $(BOOT_MB))
+endif
 
 BOOT_DIR := boot
 ROOTFS_DIR := rootfs
 IMAGE_FILE := debian-$(DIST)-$(ARCH).img
-

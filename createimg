@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 if [ "$#" -ne 6 ]; then
-	#echo "Usage: $0 OUTFILE BOOT_MEGABYTES TOTAL_MEGABYTES BOOT_DIR ROOTFS_DIR UBOOT_BIN_DIR RAMFS_FILE ROOT_DEV"
 	echo "Usage: $0 OUTFILE BOOT_MEGABYTES TOTAL_MEGABYTES BOOT_DIR ROOTFS_DIR ROOT_DEV"
 	exit 1
 fi
@@ -53,6 +52,11 @@ boot_dir=$4
 rootfs_dir=$5
 root_dev=$6
 
+if [ ${total_mb} -eq -1 ];
+then
+	total_mb=$(($(du -ms ${rootfs_dir} | awk {'print $1'}) + 20 + ${boot_mb}))
+fi
+
 # Calculate desired image size in bytes
 img_size=$(( $total_mb*1024*1024 ))
 
@@ -89,16 +93,16 @@ fdisk $outfile <<EOF
 n
 p
 1
-$first_part_start_sector
-$(($first_part_end_sector-$first_part_start_sector))
+
++${boot_mb}M
 t
 b
 a
 n
 p
 2
-$second_part_start_sector
-$(($second_part_end_sector-$second_part_start_sector))
+
+
 p
 w
 EOF
@@ -165,4 +169,3 @@ if [ -x "./createimg-bootfs-post" ] ; then
 fi
 umount_retry mnt
 losetup_delete_retry $lodev
-

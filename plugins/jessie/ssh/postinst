@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# This file is only an example and does not work on RPi due to missing time
+set -e
+
+# Enable root login using passwords
+echo "openssh-server openssh-server/permit-root-login select false" | debconf-set-selections
+sed -i "s/PermitRootLogin without-password/PermitRootLogin no/g" /etc/ssh/sshd_config
+
+# Install the sshd_check_keys.service
+systemctl enable /etc/systemd/system/sshd_check_keys.service
+

@@ -1,0 +1,32 @@
+#!/bin/sh -e
+### BEGIN INIT INFO
+# Provides:          resize2fs_last
+# Required-Start: $local_fs
+# Required-Stop:
+# Default-Start: S
+# Default-Stop:
+# Short-Description: Resize the root filesystem to fill partition
+# Description:
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+do_finish_expand_rootfs() {
+	resize2fs /dev/mmcblk0p2
+}
+
+case "$1" in
+	start)
+		log_daemon_msg "Starting resize2fs_last" &&
+		do_finish_expand_rootfs &&
+		rm /etc/init.d/resize2fs_last &&
+		update-rc.d resize2fs_last remove &&
+		log_end_msg $?
+	;;
+	*)
+		echo "Usage: $0 start" >&2
+		exit 3
+	;;
+esac
+
+exit 0
