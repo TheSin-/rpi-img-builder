@@ -57,7 +57,7 @@ It should be fairly easy to customize your image for your own needs.  Bulding an
 This should allow you install extra packages (e.g. using apt-get) and modify configurations to your needs.  Of course, you can do all this manually after booting the device, but the goal of this project is to be able to generate re-usable images that can be deployed on any number of RaspberryPi devices (think of it as "firmware" of a consumer device).  The `extrapackages` plugin is an example of a plugin to just add new packages, you can modify it or create a new plugin of your own.
 
 ## Special note about config.txt
-If you want to customize config.txt please just edit `files/common/etc/rpi/config.txt.template`.
+If you want to customize config.txt please just edit `plugins/common/files/etc/rpi/config.txt.template`.
 
 ## Notes
 There are lots of plugin examples included, you can add and remove to your needs.  There are only there to show how customizable these build scripts are.
