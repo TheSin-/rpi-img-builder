@@ -1,4 +1,4 @@
-debian-mini-rpi
+rpi-img-builder
 ===============
 
 Script to build a minimal Debian sd card image for RPi and RPi2.
