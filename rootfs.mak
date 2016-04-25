@@ -44,7 +44,6 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	mount -o bind /proc $@/proc
 	mount -o bind /sys $@/sys
 	mount -o bind /dev $@/dev
-	cp cmdline.txt.template $@/boot/cmdline.txt
 	cat plugins/*/packages plugins/$(DIST)/*/packages 2>/dev/null | xargs > $@/packages.txt
 	cp postinstall $@
 	mkdir $@/postinst
