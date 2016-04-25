@@ -7,16 +7,17 @@ set -e
 
 set -e
 
-if [ "$#" -eq 6 ]; then
-	echo "Usage: $0 DIST LOCALE UNAME UPASS RPASS"
+if [ "$#" -eq 7 ]; then
+	echo "Usage: $0 DIST ARCH LOCALE UNAME UPASS RPASS"
 	exit 1
 fi
 
 DIST=$1
-LOCALE=$2
-UNAME=$3
-UPASS=$4
-RPASS=$5
+ARCH=$2
+LOCALE=$3
+UNAME=$4
+UPASS=$5
+RPASS=$6
 
 echo "Running postinstall script..."
 
