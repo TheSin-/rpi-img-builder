@@ -46,8 +46,15 @@ locale-gen
 /var/lib/dpkg/info/base-passwd.preinst install
 /var/lib/dpkg/info/dash.preinst install
 dpkg --force-all --configure debconf initramfs-tools mawk
-dpkg --force-all -i /var/cache/apt/archives/linux-image-*-rpi*.deb
-dpkg --force-all -i /var/cache/apt/archives/raspberrypi-*.deb
+if ls /var/cache/apt/archives/linux-image-*.deb 1> /dev/null 2>&1; then
+	dpkg --force-all -i /var/cache/apt/archives/linux-image-*.deb
+fi
+if ls /var/cache/apt/archives/raspberrypi-*.deb 1> /dev/null 2>&1; then
+	dpkg --force-all -i /var/cache/apt/archives/raspberrypi-*.deb
+fi
+if ls /var/cache/apt/archives/flash-kernel_*.deb 1> /dev/null 2>&1; then
+	dpkg --force-all -i /var/cache/apt/archives/flash-kernel_*.deb
+fi
 dpkg --configure -a
 
 # Set root password
