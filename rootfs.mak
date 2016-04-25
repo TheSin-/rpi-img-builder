@@ -7,7 +7,7 @@ all: build
 clean: delete-rootfs
 	rm -rf $(wildcard $(IMAGE_FILE) $(IMAGE_FILE).tmp)
 	rm -f multistrap.list
-	rm -f cmdline.example
+	rm -f *.example
 
 .PHONY: distclean
 distclean: delete-rootfs
