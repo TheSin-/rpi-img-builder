@@ -50,9 +50,6 @@ dpkg --force-all -i /var/cache/apt/archives/linux-image-*-rpi*.deb
 dpkg --force-all -i /var/cache/apt/archives/raspberrypi-*.deb
 dpkg --configure -a
 
-# Add sound module on boot
-echo snd-bcm2835 >> /etc/modules
-
 # Set root password
 echo "root:${RPASS}" | chpasswd
 
