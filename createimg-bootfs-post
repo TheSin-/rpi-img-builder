@@ -20,9 +20,8 @@ $boot_uuid=$2
 $root_dev=$3
 
 if [ "$root_dev" != "" ]; then
-        sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/$(echo $root_dev | sed -e 's/[\/&]/\\&/g')/" mnt/cmdline.txt > mnt/cmdline.txt.new
+        sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/$(echo $root_dev | sed -e 's/[\/&]/\\&/g')/" cmdline.txt.template > cmdline.example
 else
-        sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/UUID=$root_uuid/" mnt/cmdline.txt > mnt/cmdline.txt.new
+        sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/UUID=$root_uuid/" cmdline.txt.template > cmdline.example
 fi
-mv mnt/cmdline.txt.new mnt/cmdline.txt
-cp mnt/cmdline.txt cmdline.example
+cp cmdline.example ${mnt}cmdline.txt
