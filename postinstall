@@ -28,6 +28,10 @@ LANG=C
 # Make dpkg/apt-get noninteractive
 export DEBIAN_FRONTEND=noninteractive
 
+# For now there is only one avail, but we will check ARCH to set this in the
+# future (For flash-kernel)
+export FK_MACHINE="Raspberry Pi 2 Model B"
+
 # Prevent apt-get from starting services
 echo "#!/bin/sh
 exit 101
