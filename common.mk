@@ -1,7 +1,9 @@
 DIST ?= jessie
 DIST_ARCH ?= armhf
-ifeq ($(findstring $(DIST_ARCH),armhf),)
+ifeq ($(findstring armel, $(DIST_ARCH)), armel)
   ARCH := rpi
+else ifeq ($(findstring arm64, $(DIST_ARCH)), arm64)
+  ARCH := rpi3
 else
   ARCH := rpi2
 endif
