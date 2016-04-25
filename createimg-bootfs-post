@@ -4,5 +4,25 @@
 # to the mounted image.
 #
 # The first argument is the folder of the mounted boot partition.
+# The second is the boot partition UUID
+# This third is the root partition device name
 #
 
+if [ "$#" -ne 3 ]; then
+	echo "Usage: $0 mnt boot_uuid root_dev"
+	exit 1
+fi
+
+set -e
+
+$mnt=$1
+$boot_uuid=$2
+$root_dev=$3
+
+if [ "$root_dev" != "" ]; then
+        sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/$(echo $root_dev | sed -e 's/[\/&]/\\&/g')/" mnt/cmdline.txt > mnt/cmdline.txt.new
+else
+        sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/UUID=$root_uuid/" mnt/cmdline.txt > mnt/cmdline.txt.new
+fi
+mv mnt/cmdline.txt.new mnt/cmdline.txt
+cp mnt/cmdline.txt cmdline.example
