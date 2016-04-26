@@ -14,9 +14,10 @@ U-BOOT ?= false
 ifeq ($(findstring true,$(U-BOOT)),true)
 	ARCH := rpi2
 	DIST_ARCH := armhf
-	ifneq ($(findstring Debian,$(DISTS)),Debian)
-		DISTS += Debian
-	endif
+endif
+
+ifeq ($(findstring Debian,$(DISTS)),)
+	DISTS += Debian
 endif
 
 ROOT_DEV := /dev/mmcblk0p2
