@@ -49,6 +49,7 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	cp postinstall $@
 	mkdir $@/postinst
 	for i in plugins/*/postinst; do cp $$i $@/postinst/$$(dirname $$i | cut -d/ -f2)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); done
+	chmod +x $@/postinst/*
 	if [ -d plugins/$(DIST) ]; then for i in plugins/$(DIST)/*/postinst; do cp $$i $@/postinst/$(DIST)-$$(dirname $$i | cut -d/ -f3)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); done; fi
 	if [ -d "postinst" ]; then cp -r postinst $@ ; fi
 	chroot $@ /bin/bash -c "/postinstall $(DIST) $(ARCH) $(LOCALE) $(UNAME) $(UPASS) $(RPASS)"
