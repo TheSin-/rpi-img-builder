@@ -5,7 +5,8 @@ all: build
 
 .PHONY: clean
 clean: delete-rootfs
-	rm -rf $(wildcard $(IMAGE_FILE) $(IMAGE_FILE).tmp)
+	rm -rf $(wildcard $(IMAGE_FILE))
+	rm -rf *.img.tmp
 	rm -f multistrap.list
 	rm -f *.example
 
