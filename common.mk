@@ -29,7 +29,7 @@ endif
 ifeq ($(IMAGE_MB),-1)
 	ROOT_MB := -1
 else
-	ROOT_MB=$(shell expr $(IMAGE_MB) - $(BOOT_MB))
+	ROOT_MB := $(shell expr $(IMAGE_MB) - $(BOOT_MB))
 endif
 
 ROOT_DEV := /dev/mmcblk0p2
