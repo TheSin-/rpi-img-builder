@@ -24,4 +24,6 @@ if [ "$root_dev" != "" ]; then
 else
         sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/UUID=$root_uuid/" cmdline.txt.template > cmdline.example
 fi
-cp cmdline.example ${mnt}cmdline.txt
+if [ ! -e $mnt/boot.scr ]; then
+	cp cmdline.example ${mnt}cmdline.txt
+fi
