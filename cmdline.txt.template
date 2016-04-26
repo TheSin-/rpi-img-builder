@@ -1,1 +1,1 @@
-dwc_otg.lpm_enable=0 console=ttyAMA0,115200 console=tty1 root=${ROOT_DEV} rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait quiet
+dwc_otg.fiq_fsm_mask=0xF dwc_otg.lpm_enable=0 console=ttyAMA0,115200 console=tty1 root=${ROOT_DEV} rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait quiet
