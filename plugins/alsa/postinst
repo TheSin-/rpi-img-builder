@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -e
+
+cat <<'EOF' > /etc/asound.conf
+pcm.mmap0 {
+    type mmap_emul;
+    slave {
+      pcm "hw:0,0";
+    }
+}
+pcm.!default {
+  type plug;
+  slave {
+    pcm mmap0;
+  }
+}
+EOF
+
+echo 'snd_bcm2835' >> /etc/modules
