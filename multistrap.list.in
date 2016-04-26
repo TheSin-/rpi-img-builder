@@ -29,7 +29,7 @@ components=main
 suite=testing
 
 [Debian]
-packages=debian-archive-keyring
+packages=debian-archive-keyring locales sed
 source=http://http.debian.net/debian
 keyring=debian-archive-keyring
 components=main contrib non-free
