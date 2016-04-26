@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -e
+
+# Set RPi kernel cmdline
+echo "flash-kernel flash-kernel/linux_cmdline value earlyprintk console=ttyAMA0 console=tty1 root=/dev/mmcblk0p2 rootwait quiet" | debconf-set-selections
+
+dpkg-reconfigure -f noninteractive flash-kernel
+
+cp /usr/lib/u-boot/rpi*/* /boot/
