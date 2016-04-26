@@ -15,9 +15,9 @@ fi
 
 set -e
 
-$mnt=$1
-$boot_uuid=$2
-$root_dev=$3
+mnt=$1
+boot_uuid=$2
+root_dev=$3
 
 if [ "$root_dev" != "" ]; then
         sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/$(echo $root_dev | sed -e 's/[\/&]/\\&/g')/" cmdline.txt.template > cmdline.example
