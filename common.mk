@@ -8,6 +8,13 @@ else
   ARCH := rpi2
 endif
 
+U-BOOT ?= false
+
+ifeq ($(findstring true, $(U-BOOT)), true)
+  ARCH := rpi2
+  DIST_ARCH = armhf
+endif
+
 ROOT_DEV := /dev/mmcblk0p2
 
 UNAME ?= pi
