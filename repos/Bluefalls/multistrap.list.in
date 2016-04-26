@@ -1,0 +1,6 @@
+[Bluefalls]
+packages=bluefalls-archive-keyring
+source=http://debian.bluefalls.ca/
+keyring=bluefalls-archive-keyring
+components=main
+suite=testing

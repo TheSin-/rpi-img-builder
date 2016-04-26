@@ -1,5 +1,5 @@
 DIST ?= jessie
-DISTS ?= Debian Bluefalls
+REPOSITORIES ?= Debian Bluefalls
 DIST_ARCH ?= armhf
 ARCH ?= 0
 UNAME ?= pi
@@ -19,8 +19,10 @@ ifeq ($(ARCH),0)
 	endif
 endif
 
-ifeq ($(findstring Debian,$(DISTS)),)
-	DISTS += Debian
+ifeq ($(findstring Debian,$(REPOSITORIES)),)
+	REPOS := Debian $(REPOSITORIES)
+else
+	REPOS := $(REPOSITORIES)
 endif
 
 ifeq ($(shell test $(BOOT_MB) -lt 38; echo $$?),0)

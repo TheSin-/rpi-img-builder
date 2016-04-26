@@ -1,4 +1,4 @@
 [General]
-aptsources=__DISTS__
-bootstrap=__DISTS__
+aptsources=__REPOSITORIES__
+bootstrap=__REPOSITORIES__
 

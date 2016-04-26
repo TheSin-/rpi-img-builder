@@ -4,12 +4,13 @@ rpi-img-builder
 Script to build a minimal Debian sd card image for RPi and RPi2.
 
 ## Features:
-* Debian dists (Tested with Jessie so far)
+* Debian repository (Tested with Jessie so far)
+* Custom RPi repository
+* Custom repositories
 * Architectures
 * Login: pi/pi
 * Auto size, make as compact as possible or set a size
 * Plugins
-* Distribution Plugins
 
 ## Plugins
 * Host name: raspberrypi-MACADDRESS (e.g. raspberrypi-1a2b3c4d5e6f)
@@ -23,7 +24,7 @@ Script to build a minimal Debian sd card image for RPi and RPi2.
 The build process has a few options you can set.
 * **DIST**: debian distribution [Default jessie]
 * **DIST_ARCH**: image architecture [armel (rpi), armhf (rpi2, default)]
-* **DISTS**: upstream dists based on dists dir [Debian Bluefalls (default)]
+* **REPOSITORIES**: upstream repositories based on repos dir [Debian Bluefalls (default)]
 * **IMAGE_MB**: size of the image, 32MB is for the fat boot, which is included in this option (-1 default which is auto and will leave 20MB on the rootfs free)
 * **LOCALE**: system locale (Default en_US.UTF-8) `Make sure you type this exactly like in /usr/share/i18n/SUPPORTED`
 * **UNAME**: user account that gets created (Default pi)
