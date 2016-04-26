@@ -1,4 +1,5 @@
 DIST ?= jessie
+DISTS ?= Debian Bluefalls
 DIST_ARCH ?= armhf
 ifeq ($(findstring armel, $(DIST_ARCH)), armel)
   ARCH := rpi
@@ -12,7 +13,10 @@ U-BOOT ?= false
 
 ifeq ($(findstring true, $(U-BOOT)), true)
   ARCH := rpi2
-  DIST_ARCH = armhf
+  DIST_ARCH := armhf
+  ifneq ($(findstring Debian, $(DISTS)), Debian)
+    DISTS += Debian
+  endif
 endif
 
 ROOT_DEV := /dev/mmcblk0p2

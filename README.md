@@ -23,6 +23,7 @@ Script to build a minimal Debian sd card image for RPi and RPi2.
 The build process has a few options you can set.
 * **DIST**: debian distribution [Default jessie]
 * **DIST_ARCH**: image architecture [armel (rpi), armhf (rpi2, default)]
+* **DISTS**: upstream dists based on dists dir [Debian Bluefalls (default)]
 * **U-BOOT**: use debian u-boot/flash-kernel [true (rpi2/armhf only), false (default)]
 * **IMAGE_MB**: size of the image, 32MB is for the fat boot, which is included in this option (-1 default which is auto and will leave 20MB on the rootfs free)
 * **LOCALE**: system locale (Default en_US.UTF-8) `Make sure you type this exactly like in /usr/share/i18n/SUPPORTED`

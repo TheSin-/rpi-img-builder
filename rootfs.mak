@@ -26,7 +26,7 @@ build: $(IMAGE_FILE)
 $(ROOTFS_DIR).base:
 	if test -d "$@.tmp"; then rm -rf "$@.tmp" ; fi
 	mkdir -p $@.tmp
-	perl -pe "s{__SUITE__}{$(DIST)}g" < multistrap.list.in | perl -pe "s{__ARCH__}{$(ARCH)}g" > multistrap.list
+	cat `echo multistrap.list.in; for i in $(DISTS); do echo dists/$$i/multistrap.list.in; done | xargs` | perl -pe "s{__DISTS__}{$(DISTS)}g" | perl -pe "s{__SUITE__}{$(DIST)}g" | perl -pe "s{__ARCH__}{$(ARCH)}g" > multistrap.list
 	multistrap --no-auth --arch $(DIST_ARCH) --file multistrap.list --dir $@.tmp
 	cp `which qemu-arm-static` $@.tmp/usr/bin
 	mkdir -p $@.tmp/usr/share/fatboothack/overlays

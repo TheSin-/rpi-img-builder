@@ -1,0 +1,6 @@
+[Bluefalls]
+packages=bluefalls-archive-keyring raspberrypi-bootloader linux-image-__ARCH__ libraspberrypi0 libraspberrypi-bin
+source=http://debian.bluefalls.ca/
+keyring=bluefalls-archive-keyring
+components=main
+suite=testing
