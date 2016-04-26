@@ -3,9 +3,9 @@ DISTS ?= Debian Bluefalls
 DIST_ARCH ?= armhf
 ARCH ?= 0
 ifeq ($(ARCH),0)
-	ifeq ($(findstring armel,$(DIST_ARCH)),armel)
+	ifeq ($(DIST_ARCH),armel)
 		ARCH := rpi
-	else ifeq ($(findstring arm64,$(DIST_ARCH)),arm64)
+	else ifeq ($(DIST_ARCH),arm64)
 		ARCH := rpi3
 	else
 		ARCH := rpi2
