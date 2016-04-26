@@ -54,39 +54,12 @@ root_dev=$6
 
 if [ ${total_mb} -eq -1 ];
 then
-	total_mb=$(($(du -ms ${rootfs_dir} | awk {'print $1'}) + 20 + ${boot_mb}))
+	total_mb=$(($(du -s --block-size=1MB ${rootfs_dir} | awk {'print $1'}) + 20 + ${boot_mb}))
 fi
 
-# Calculate desired image size in bytes
-img_size=$(( $total_mb*1024*1024 ))
-
-# Bytes/Sector
-bytes=512
-# Sectors/Track
-sectors=63
-# Heads/Track
-heads=255
-
-# Bytes/Cylinder = head * sectors * bytes
-bytes_per_cylinder=$(( $heads*$sectors*$bytes ))
-sectors_per_cylinder=$(( $heads*$sectors ))
-
-# Calculate number of cylinders (round up)
-cylinders=$(( $(($img_size+$bytes_per_cylinder-1)) / $bytes_per_cylinder ))
-
-# Recalculate the size (pad with one sector)
-img_size=$(( $cylinders*$bytes_per_cylinder + $bytes ))
-
 # Create disk image
-#qemu-img create -f raw $outfile $img_size
-dd if=/dev/zero of=$outfile bs=1024 count=$(( $img_size/1024 ))
+dd if=/dev/zero of=$outfile bs=1024 count=$(( $total_mb*1024 ))
 sync
-
-# Using fdisk, older sfdisks have a hard time with this for some reason
-first_part_start_sector=$((1*1024*1024/$bytes))
-first_part_end_sector=$(( $(( $(( $(($boot_mb*1024*1024/$bytes)) + $first_part_start_sector + $sectors_per_cylinder - 1 )) / $sectors_per_cylinder )) * $sectors_per_cylinder ))
-second_part_start_sector=$first_part_end_sector
-second_part_end_sector=$(($cylinders*$sectors_per_cylinder))
 
 # Partition the disk
 fdisk $outfile <<EOF
