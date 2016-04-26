@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -e
+
+sed -i 's/#autologin-user=/autologin-user='__RPASS__'/' /etc/lightdm/lightdm.conf
