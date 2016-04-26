@@ -129,7 +129,8 @@ lodev=$(losetup_partition $outfile 1)
 partprobe $lodev
 echo "Mounting boot partition on $lodev..."
 mount -t vfat $lodev mnt/
-mv $boot_dir/* mnt/
+# Copy links as FAT32 can not support links
+rsync --quiet --archive --devices --specials --hard-links --acls --xattrs --sparse --copy-links $boot_dir/* mnt/
 if [ -x "./createimg-bootfs-post" ] ; then
 	./createimg-bootfs-post mnt/ $boot_uuid $root_dev
 fi
