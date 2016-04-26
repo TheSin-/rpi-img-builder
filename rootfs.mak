@@ -44,7 +44,7 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	mount -o bind /proc $@/proc
 	mount -o bind /sys $@/sys
 	mount -o bind /dev $@/dev
-	cat plugins/*/packages plugins/$(DIST)/*/packages 2>/dev/null | xargs > $@/packages.txt
+	cat plugins/*/packages plugins/$(DIST)/*/packages 2>/dev/null | sed -e "s,__ARCH__,$(ARCH),g" | xargs > $@/packages.txt
 	cp postinstall $@
 	mkdir $@/postinst
 	for i in plugins/*/postinst; do cp $$i $@/postinst/$$(dirname $$i | cut -d/ -f2)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); done
