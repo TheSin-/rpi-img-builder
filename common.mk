@@ -1,19 +1,15 @@
 DIST ?= jessie
 DISTS ?= Debian Bluefalls
 DIST_ARCH ?= armhf
-ifeq ($(findstring armel,$(DIST_ARCH)),armel)
-	ARCH := rpi
-else ifeq ($(findstring arm64,$(DIST_ARCH)),arm64)
-	ARCH := rpi3
-else
-	ARCH := rpi2
-endif
-
-U-BOOT ?= false
-
-ifeq ($(findstring true,$(U-BOOT)),true)
-	ARCH := rpi2
-	DIST_ARCH := armhf
+ARCH ?= 0
+ifeq ($(ARCH),0)
+	ifeq ($(findstring armel,$(DIST_ARCH)),armel)
+		ARCH := rpi
+	else ifeq ($(findstring arm64,$(DIST_ARCH)),arm64)
+		ARCH := rpi3
+	else
+		ARCH := rpi2
+	endif
 endif
 
 ifeq ($(findstring Debian,$(DISTS)),)
