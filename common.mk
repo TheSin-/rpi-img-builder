@@ -29,7 +29,7 @@ else
 endif
 
 ifeq ($(findstring Raspbian,$(REPOSITORIES)),Raspbian)
-	REPOS := Raspbian
+	REPOS := Foundation Raspbian
 	DIST_ARCH := armhf
 	REPOBASE := Raspbian
 	ARCH := Raspbian
