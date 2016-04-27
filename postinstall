@@ -76,7 +76,7 @@ apt-get update
 
 # Install extra packages
 if [ -f /packages.txt ]; then
-	apt-get -y install $(cat /packages.txt) --no-install-recommends;
+	apt-get -y --force-yes install $(cat /packages.txt) --no-install-recommends;
 fi
 
 # Run custom install scripts
