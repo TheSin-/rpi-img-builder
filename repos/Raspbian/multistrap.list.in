@@ -1,0 +1,6 @@
+[Raspbian]
+packages=raspbian-archive-keyring apt locales sed
+source=http://archive.raspbian.org/raspbian
+keyring=debian-archive-keyring
+components=main contrib non-free firmware rpi
+suite=__SUITE__
