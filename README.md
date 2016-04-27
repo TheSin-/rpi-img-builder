@@ -52,7 +52,8 @@ sudo dd bs=1M if=debian-jessie-rpi2.img of=/dev/YOUR_SD_CARD && sudo sync
 ## Customize your image:
 It should be fairly easy to customize your image for your own needs.  Bulding and adding plugins is easy.  Each plugin can contain:
 * **packages**: file with one line containing debian packages to install
-* **postinst**: script to run in chroot of the rootfs, make sure this file has the executable bit
+* **preinst**: script to run pre chroot
+* **postinst**: script to run in chroot of the rootfs
 * **files**: dir which conatins files to be copied into the rootfs, perms and atts included
 * **patches**: dir which contains patch files to apply to the rootfs
 
