@@ -42,6 +42,7 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	rsync --quiet --archive --devices --specials --hard-links --acls --xattrs --sparse $(ROOTFS_DIR).base/* $@
 	cd plugins; for i in */files; do if [ -d $$i ]; then cd $$i && find . -type f ! -name '*~' -exec cp --preserve=mode,timestamps --parents \{\} ../../../$@ \;; cd ../..; fi; done
 	if [ -d plugins/$(DIST) ]; then cd plugins/$(DIST); for i in */files; do if [ -d $$i ]; then cd $$i; find . -type f ! -name '*~' -exec cp --preserve=mode,timestamps --parents \{\} ../../../../$@ \;; cd ../../..; fi; done; fi
+	if [ -d plugins/$(REPOBASE) ]; then cd plugins/$(REPOBASE); for i in */files; do if [ -d $$i ]; then cd $$i; find . -type f ! -name '*~' -exec cp --preserve=mode,timestamps --parents \{\} ../../../../$@ \;; cd ../../..; fi; done; fi
 	mount -o bind /proc $@/proc
 	mount -o bind /sys $@/sys
 	mount -o bind /dev $@/dev
