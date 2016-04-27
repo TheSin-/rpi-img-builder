@@ -1,1 +1,1 @@
-raspberrypi-bootloader libraspberrypi0 libraspberrypi-bin
+linux-image-__ARCH__ raspberrypi-bootloader libraspberrypi0 libraspberrypi-bin
