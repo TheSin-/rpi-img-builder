@@ -9,6 +9,8 @@ LOCALE ?= en_US.UTF-8
 IMAGE_MB ?= -1
 BOOT_MB ?= 38
 
+REPOBASE := Debian
+
 ifeq ($(ARCH),0)
 	ifeq ($(DIST_ARCH),armel)
 		ARCH := rpi
@@ -17,12 +19,20 @@ ifeq ($(ARCH),0)
 	else
 		ARCH := rpi2
 	endif
+	REPOBASE := Bluefalls
 endif
 
 ifeq ($(findstring Debian,$(REPOSITORIES)),)
 	REPOS := Debian $(REPOSITORIES)
 else
 	REPOS := $(REPOSITORIES)
+endif
+
+ifeq ($(findstring Raspbian,$(REPOSITORIES)),Raspbian)
+	REPOS := Raspbian
+	DIST_ARCH := armhf
+	REPOBASE := Raspbian
+	ARCH := Raspbian
 endif
 
 ifeq ($(shell test $(BOOT_MB) -lt 38; echo $$?),0)

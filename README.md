@@ -5,6 +5,7 @@ Script to build a minimal Debian sd card image for RPi and RPi2.
 
 ## Features:
 * Debian repository (Tested with Jessie so far)
+* Raspbian repository (This can not be added to others and is armhf only)
 * Custom RPi repository
 * Custom repositories
 * Architectures
@@ -23,8 +24,9 @@ Script to build a minimal Debian sd card image for RPi and RPi2.
 ## Options
 The build process has a few options you can set.
 * **DIST**: debian distribution [Default jessie]
-* **DIST_ARCH**: image architecture [armel (rpi), armhf (rpi2, default)]
-* **REPOSITORIES**: upstream repositories based on repos dir [Debian Bluefalls (default)]
+* **DIST_ARCH**: image architecture [armel, armhf (default), arm64]
+* **REPOSITORIES**: upstream repositories based on repos dir [Bluefalls, Debian, Rasbian, "Debian Bluefalls" (default)]
+* **ARCH**: used to determin the kernel name [[Bluefalls - rpi, rpi2 (default), rpi3], [Debian - armmp (default), armmp-lpae], [Raspbian - no option]]
 * **IMAGE_MB**: size of the image, 32MB is for the fat boot, which is included in this option (-1 default which is auto and will leave 20MB on the rootfs free)
 * **LOCALE**: system locale (Default en_US.UTF-8) `Make sure you type this exactly like in /usr/share/i18n/SUPPORTED`
 * **UNAME**: user account that gets created (Default pi)
@@ -39,14 +41,31 @@ sudo apt-get install build-essential wget git lzop u-boot-tools binfmt-support \
 ```
 
 ## Example: Build an RPi2 Jessie image with a forced size of 1G:
-Just use the make utility to build e.g. an debian-jessie-rpi2.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
+Just use the make utility to build e.g. an jessie-rpi2.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
 ```
 sudo make distclean && sudo make DIST=jessie DIST_ARCH=armhf IMAGE_MB=1024
 ```
 
 This will install the firmware, compile the kernel, bootstrap Debian and create a 1024MB img file, which then can be transferred to a sd card (e.g. using dd):
 ```
-sudo dd bs=1M if=debian-jessie-rpi2.img of=/dev/YOUR_SD_CARD && sudo sync
+sudo dd bs=1M if=jessie-rpi2.img of=/dev/YOUR_SD_CARD && sudo sync
+```
+
+## Example: Build a Debian U-Boot Testing image based on armmp:
+Just use the make utility to build e.g. an testing-armmp.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
+*NOTE:* usbmount isn't in testing, and sounds drivers aren't avail in debian kernel, so move both out of the way.
+```
+mv plugins/disabled/u-boot plugins/
+mv plugins/usbmount plugins/disabled/
+mv plugins/alsa plugins/disabled/
+sudo make distclean && sudo make DIST=Testing REPOSITORY="Debian"
+```
+
+## Customize your image:
+## Example: Build a Raspbian Jessie image:
+Just use the make utility to build e.g. an jessie-rpi2.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
+```
+sudo make distclean && sudo make DIST=jessie REPOSITORY="Raspbian"
 ```
 
 ## Customize your image:
