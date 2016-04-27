@@ -1,1 +1,1 @@
-raspberrypi-bootloader raspberrypi-sys-mods libraspberrypi-bin raspi-config raspi-copies-and-fills
+raspberrypi-bootloader raspberrypi-sys-mods libraspberrypi-bin raspi-config raspi-copies-and-fills wget
