@@ -1,6 +1,6 @@
 [Raspbian]
 packages=raspbian-archive-keyring apt locales sed
-source=http://archive.raspbian.org/debian
+source=http://archive.raspberrypi.org/debian
 keyring=raspbian-archive-keyring
 components=main ui
 suite=__SUITE__
