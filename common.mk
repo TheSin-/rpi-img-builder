@@ -47,4 +47,4 @@ endif
 ROOT_DEV := /dev/mmcblk0p2
 BOOT_DIR := boot
 ROOTFS_DIR := rootfs
-IMAGE_FILE := $(DIST)-$(ARCH).img
+IMAGE_FILE := $(REPOBASE)-$(DIST)-$(ARCH).img
