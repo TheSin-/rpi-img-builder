@@ -47,21 +47,19 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	mount -o bind /dev $@/dev
 	cat plugins/*/packages plugins/$(DIST)/*/packages plugins/$(REPOBASE)/*/packages 2>/dev/null | sed -e "s,__ARCH__,$(ARCH),g" | xargs > $@/packages.txt
 	cp postinstall $@
-	for i in plugins/*/preinst; do chmod +x $$i; ./$$i; done
-	if [ -d plugins/$(DIST) ]; then for i in plugins/$(DIST)/*/preinst; do chmod +x $$i; ./$$i; done; fi
-	if [ -d plugins/$(REPOBASE) ]; then for i in plugins/$(REPOBASE)/*/preinst; do chmod +x $$i; ./$$i; done; fi
-	if [ -d "preinst" ]; then chmod +x preinst; ./preinst; fi
+	if ls plugins/*/preinst 1> /dev/null 2>&1; then for i in plugins/*/preinst; do chmod +x $$i; ./$$i; done; fi
+	if ls plugins/$(DIST)/*/preinst 1> /dev/null 2>&1; then for i in plugins/$(DIST)/*/preinst; do chmod +x $$i; ./$$i; done; fi
+	if ls plugins/$(REPOBASE)*/preinst 1> /dev/null 2>&1; then for i in plugins/$(REPOBASE)/*/preinst; do chmod +x $$i; ./$$i; done; fi
 	mkdir $@/postinst
-	for i in plugins/*/postinst; do cp $$i $@/postinst/$$(dirname $$i | cut -d/ -f2)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); done
-	if [ -d plugins/$(DIST) ]; then for i in plugins/$(DIST)/*/postinst; do cp $$i $@/postinst/$(DIST)-$$(dirname $$i | cut -d/ -f3)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); done; fi
-	if [ -d plugins/$(REPOBASE) ]; then for i in plugins/$(REPOBASE)/*/postinst; do cp $$i $@/postinst/$(REPOBASE)-$$(dirname $$i | cut -d/ -f3)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); done; fi
-	if [ -d "postinst" ]; then cp -r postinst $@ ; fi
+	if ls plugins/*/postinst 1> /dev/null 2>&1; then for i in plugins/*/postinst; do cp $$i $@/postinst/$$(dirname $$i | cut -d/ -f2)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); done; fi
+	if ls plugins/$(DIST)/*/postinst 1> /dev/null 2>&1; then for i in plugins/$(DIST)/*/postinst; do cp $$i $@/postinst/$(DIST)-$$(dirname $$i | cut -d/ -f3)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); done; fi
+	if plugins/$(REPOBASE)/*/postinst 1> /dev/null 2>&1; then for i in plugins/$(REPOBASE)/*/postinst; do cp $$i $@/postinst/$(REPOBASE)-$$(dirname $$i | cut -d/ -f3)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); done; fi
 	chmod +x $@/postinst/*
 	chroot $@ /bin/bash -c "/postinstall $(DIST) $(ARCH) $(LOCALE) $(UNAME) $(UPASS) $(RPASS)"
 	for i in plugins/*/patches/*.patch; do if [ -f $$i ]; then patch -p0 -d $@ < $$i; fi; done
-	if [ -d plugins/$(DIST) ]; then for i in plugins/$(DIST)/*/patches/*.patch; do if [ -f $$i ]; then patch -p0 -d $@ < $$i; fi; done; fi
-	if [ -f plugins/*/files/etc/hostname ]; then cp plugins/*/files/etc/hostname $@/etc/hostname; fi
-	if [ -d plugins/$(DIST) ]; then if [ -f plugins/$(DIST)/*/files/etc/hostname ]; then cp plugins/$(DIST)/*/files/etc/hostname $@/etc/hostname; fi; fi
+	if ls plugins/$(DIST)/*/patches/* 1> /dev/null 2>&1; then for i in plugins/$(DIST)/*/patches/*.patch; do if [ -f $$i ]; then patch -p0 -d $@ < $$i; fi; done; fi
+	if ls plugins/*/files/etc/hostname 1> /dev/null 2>&1; then cp plugins/*/files/etc/hostname $@/etc/hostname; fi
+	if ls plugins/$(DIST)/*/files/etc/hostname 1> /dev/null 2>&1; then cp plugins/$(DIST)/*/files/etc/hostname $@/etc/hostname; fi
 	if [ -f $@/etc/hostname ]; then if ! grep "^127.0.0.1\s*$$(cat $@/etc/hostname)\s*" $@/etc/hosts > /dev/null ; then sed -i "1i 127.0.0.1\\t$$(cat $@/etc/hostname)" $@/etc/hosts; fi; fi
 	umount $@/proc
 	umount $@/sys
