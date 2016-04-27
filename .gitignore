@@ -1,4 +1,4 @@
-debian-*.img
+*.img
 *.example
 multistrap.list
 rootfs
