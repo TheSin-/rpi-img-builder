@@ -1,5 +1,11 @@
 [Raspbian]
 packages=raspbian-archive-keyring apt locales sed
+source=http://mirrordirector.raspbian.org/raspbian
+keyring=raspbian-archive-keyring
+components=main contrib non-free rpi
+suite=__SUITE__
+
+[Foundation]
 source=http://archive.raspberrypi.org/debian
 keyring=raspbian-archive-keyring
 components=main ui
