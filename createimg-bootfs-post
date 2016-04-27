@@ -19,11 +19,12 @@ mnt=$1
 boot_uuid=$2
 root_dev=$3
 
-if [ "$root_dev" != "" ]; then
-        sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/$(echo $root_dev | sed -e 's/[\/&]/\\&/g')/" cmdline.txt.template > cmdline.example
-else
-        sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/UUID=$root_uuid/" cmdline.txt.template > cmdline.example
-fi
-if [ ! -e $mnt/boot.scr ]; then
-	cp cmdline.example ${mnt}cmdline.txt
+if [ -e $mnt/cmdline.txt ]; then
+	cp ${mnt}cmdline.txt ${mnt}cmdline.tmpl
+	if [ "$root_dev" != "" ]; then
+	        sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/$(echo $root_dev | sed -e 's/[\/&]/\\&/g')/" ${mnt}cmdline.tmpl > ${mnt}cmdline.txt
+	else
+	        sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/UUID=$root_uuid/" ${mnt}cmdline.txt.tmpl > ${mnt}cmdline.txt
+	fi
+	rm -f ${mnt}cmdline.tmpl
 fi
