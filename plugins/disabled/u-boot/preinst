@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+cd /tmp
+git clone --depth 1 https://github.com/raspberrypi/firmware.git
+cd -
+cp /tmp/firmware/boot/*.bin rootfs/boot/
+cp /tmp/firmware/boot/*.elf rootfs/boot/
+cp /tmp/firmware/boot/*.dat rootfs/boot/
+
+rm -rf /tmp/firmware
