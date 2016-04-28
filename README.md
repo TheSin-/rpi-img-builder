@@ -41,18 +41,18 @@ sudo apt-get install build-essential wget git lzop u-boot-tools binfmt-support \
 ```
 
 ## Example: Build an RPi2 Jessie image with a forced size of 1G:
-Just use the make utility to build e.g. an jessie-rpi2.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
+Just use the make utility to build e.g. an Bluefalls-jessie-rpi2.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
 ```
 sudo make distclean && sudo make DIST=jessie DIST_ARCH=armhf IMAGE_MB=1024
 ```
 
 This will install the firmware, compile the kernel, bootstrap Debian and create a 1024MB img file, which then can be transferred to a sd card (e.g. using dd):
 ```
-sudo dd bs=1M if=jessie-rpi2.img of=/dev/YOUR_SD_CARD && sudo sync
+sudo dd bs=1M if=Bluefalls-jessie-rpi2.img of=/dev/YOUR_SD_CARD && sudo sync
 ```
 
 ## Example: Build a Debian U-Boot Testing image based on armmp:
-Just use the make utility to build e.g. an testing-armmp.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
+Just use the make utility to build e.g. an Debian-testing-armmp.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
 *NOTE:* usbmount isn't in testing, and sounds drivers aren't avail in debian kernel, so move both out of the way.
 ```
 mv plugins/usbmount plugins/disabled/
@@ -62,7 +62,7 @@ sudo make distclean && sudo make DIST=Testing REPOSITORY="Debian"
 
 ## Customize your image:
 ## Example: Build a Raspbian Jessie image:
-Just use the make utility to build e.g. an jessie-rpi2.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
+Just use the make utility to build e.g. an Rasbian-jessie-rpix.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
 ```
 sudo make distclean && sudo make REPOSITORY="Raspbian"
 ```
