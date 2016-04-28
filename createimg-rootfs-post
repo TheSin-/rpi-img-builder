@@ -8,4 +8,6 @@
 # was copied to the mounted partition.  Some folders like /boot, /media, /root,
 # and /tmp are not copied to the mounted partition.
 #
-
+if [ -e /etc/ld.so.preload.disabled ]; then
+	mv /etc/ld.so.preload.disabled /etc/ld.so.preload
+fi
