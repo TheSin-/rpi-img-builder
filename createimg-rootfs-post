@@ -8,10 +8,24 @@
 # was copied to the mounted partition.  Some folders like /boot, /media, /root,
 # and /tmp are not copied to the mounted partition.
 #
+# The first argument is the folder of the mounted boot partition.
+# The second is the boot partition UUID
+# This third is the root partition device name
+#
+
+if [ "$#" -ne 3 ]; then
+	echo "Usage: $0 mnt boot_uuid root_uuid"
+	exit 1
+fi
+
+set -e
 
 mnt=$1
-rootfs=$2
+buuid=$2
+ruuid=$3
 
 if [ -e ${mnt}etc/ld.so.preload.disabled ]; then
 	mv ${mnt}etc/ld.so.preload.disabled ${mnt}etc/ld.so.preload
 fi
+
+sed -e "s/\${BOOT_UUID}/$buuid/" -e "s/\${ROOT_UUID}/$ruuid/" fstab.template > ${mnt}etc/fstab

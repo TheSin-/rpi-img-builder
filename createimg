@@ -114,9 +114,8 @@ mkdir -p mnt/boot
 mkdir -p mnt/media
 mkdir -p mnt/root
 mkdir -p mnt/tmp
-sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_UUID}/$root_uuid/" fstab.template > mnt/etc/fstab
 if [ -x "./createimg-rootfs-post" ] ; then
-	./createimg-rootfs-post mnt/ $rootfs_dir/
+	./createimg-rootfs-post mnt/ $boot_uuid $root_uuid
 fi
 umount_retry mnt
 losetup_delete_retry $lodev
