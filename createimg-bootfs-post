@@ -24,7 +24,7 @@ if [ -e $mnt/cmdline.txt ]; then
 	if [ "$root_dev" != "" ]; then
 	        sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/$(echo $root_dev | sed -e 's/[\/&]/\\&/g')/" ${mnt}cmdline.tmpl > ${mnt}cmdline.txt
 	else
-	        sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/UUID=$root_uuid/" ${mnt}cmdline.txt.tmpl > ${mnt}cmdline.txt
+	        sed -e "s/\${BOOT_UUID}/$boot_uuid/" -e "s/\${ROOT_DEV}/UUID=$root_uuid/" ${mnt}cmdline.tmpl > ${mnt}cmdline.txt
 	fi
 	rm -f ${mnt}cmdline.tmpl
 fi
