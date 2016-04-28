@@ -1,7 +1,7 @@
 rpi-img-builder
 ===============
 
-Script to build a minimal Debian sd card image for RPi and RPi2.
+Script to build custom sd card image for Raspberry Pi.
 
 ## Features:
 * Debian repository (Tested with Jessie so far)
