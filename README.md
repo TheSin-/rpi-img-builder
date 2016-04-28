@@ -5,7 +5,7 @@ Script to build a minimal Debian sd card image for RPi and RPi2.
 
 ## Features:
 * Debian repository (Tested with Jessie so far)
-* Raspbian repository (This can not be added to others and is armhf only)
+* Raspbian repository ([jessie/wheezy]/armhf ONLY)
 * Custom RPi repository
 * Custom repositories
 * Architectures

@@ -32,7 +32,7 @@ ifeq ($(findstring Raspbian,$(REPOSITORIES)),Raspbian)
 	REPOS := Foundation Raspbian
 	DIST_ARCH := armhf
 	REPOBASE := Raspbian
-	ARCH := Raspbian
+	ARCH := rpix
 endif
 
 ifeq ($(shell test $(BOOT_MB) -lt 38; echo $$?),0)
