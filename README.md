@@ -55,7 +55,6 @@ sudo dd bs=1M if=jessie-rpi2.img of=/dev/YOUR_SD_CARD && sudo sync
 Just use the make utility to build e.g. an testing-armmp.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
 *NOTE:* usbmount isn't in testing, and sounds drivers aren't avail in debian kernel, so move both out of the way.
 ```
-mv plugins/disabled/u-boot plugins/
 mv plugins/usbmount plugins/disabled/
 mv plugins/alsa plugins/disabled/
 sudo make distclean && sudo make DIST=Testing REPOSITORY="Debian"
