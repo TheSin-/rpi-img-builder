@@ -20,6 +20,7 @@ Script to build custom sd card image for Raspberry Pi.
 * Automatic mounting of USB storage devices using usbmount
 * Automatic resize on first boot (It will auto reboot once done)
 * Automaticly reruns dbconfig install scripts on boot (It will auto reboot once done)
+* Many more added all the time, check the plugins directory for more
 
 ## Options
 The build process has a few options you can set.
