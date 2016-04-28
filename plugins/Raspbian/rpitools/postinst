@@ -2,4 +2,3 @@
 set -e
 
 wget http://archive.raspberrypi.org/debian/raspberrypi.gpg.key -O - | apt-key add -
-rm -f /spindle_install
