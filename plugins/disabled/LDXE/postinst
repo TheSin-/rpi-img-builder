@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
-sed -i 's/#autologin-user=/autologin-user='__RPASS__'/' /etc/lightdm/lightdm.conf
+sed -i 's/background=.*$/background=#ffffff/' /etc/lightdm/lightdm-gtk-greeter.conf
+
+update-alternatives --set libgksu-gconf-defaults /usr/share/libgksu/debian/gconf-defaults.libgksu-sudo
+update-gconf-defaults
+
+update-alternatives --install /usr/share/images/desktop-base/desktop-background desktop-background /usr/share/raspberrypi-artwork/raspberry-pi-logo.png 100
+
+ln -sf /etc/systemd/system/autologin@.service ${ROOTFS_DIR}/etc/systemd/system/getty.target.wants/getty@tty1.service
