@@ -79,3 +79,8 @@ This should allow you install extra packages (e.g. using apt-get) and modify con
 
 ## Notes
 There are lots of plugin examples included, you can add and remove to your needs.  There are only there to show how customizable these build scripts are.
+
+## Credits
+Some tweaks and info for this project was taken in whole or part from:
+* https://github.com/RPi-Distro/pi-gen
+* https://github.com/ShorTie8/my_pi_os
