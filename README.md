@@ -65,7 +65,7 @@ sudo make distclean && sudo make DIST=Testing REPOSITORY="Debian"
 ## Example: Build a Raspbian Jessie image:
 Just use the make utility to build e.g. an jessie-rpi2.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
 ```
-sudo make distclean && sudo make DIST=jessie REPOSITORY="Raspbian"
+sudo make distclean && sudo make REPOSITORY="Raspbian"
 ```
 
 ## Customize your image:
