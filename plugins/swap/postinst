@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -e
+
+sed -i /etc/dphys-swapfile -e "s/^#CONF_SWAPSIZE=/CONF_SWAPSIZE=100/"
