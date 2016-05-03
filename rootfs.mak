@@ -44,11 +44,7 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	cd plugins; for i in */files; do if [ -d $$i ]; then cd $$i && find . -type f ! -name '*~' -exec cp --preserve=mode,timestamps --parents \{\} ../../../$@ \;; cd ../..; fi; done
 	if [ -d plugins/$(DIST) ]; then cd plugins/$(DIST); for i in */files; do if [ -d $$i ]; then cd $$i; find . -type f ! -name '*~' -exec cp --preserve=mode,timestamps --parents \{\} ../../../../$@ \;; cd ../../..; fi; done; fi
 	if [ -d plugins/$(REPOBASE) ]; then cd plugins/$(REPOBASE); for i in */files; do if [ -d $$i ]; then cd $$i; find . -type f ! -name '*~' -exec cp --preserve=mode,timestamps --parents \{\} ../../../../$@ \;; cd ../../..; fi; done; fi
-	mount -o bind /proc $@/proc
-	mount -o bind /sys $@/sys
-	mount -o bind /dev $@/dev
 	cat plugins/*/packages plugins/$(DIST)/*/packages plugins/$(REPOBASE)/*/packages 2>/dev/null | sed -e "s,__ARCH__,$(ARCH),g" | xargs > $@/packages.txt
-	cp postinstall $@
 	if ls plugins/*/preinst 1> /dev/null 2>&1; then for i in plugins/*/preinst; do chmod +x $$i; echo Running ./$$i; ./$$i; done; fi
 	if ls plugins/$(DIST)/*/preinst 1> /dev/null 2>&1; then for i in plugins/$(DIST)/*/preinst; do chmod +x $$i; echo Running ./$$i; ./$$i; done; fi
 	if ls plugins/$(REPOBASE)*/preinst 1> /dev/null 2>&1; then for i in plugins/$(REPOBASE)/*/preinst; do chmod +x $$i; echo Running ./$$i; ./$$i; done; fi
@@ -57,6 +53,10 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	if ls plugins/$(DIST)/*/postinst 1> /dev/null 2>&1; then for i in plugins/$(DIST)/*/postinst; do cp $$i $@/postinst/$(DIST)-$$(dirname $$i | cut -d/ -f3)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); done; fi
 	if plugins/$(REPOBASE)/*/postinst 1> /dev/null 2>&1; then for i in plugins/$(REPOBASE)/*/postinst; do cp $$i $@/postinst/$(REPOBASE)-$$(dirname $$i | cut -d/ -f3)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); done; fi
 	chmod +x $@/postinst/*
+	cp postinstall $@
+	mount -o bind /proc $@/proc
+	mount -o bind /sys $@/sys
+	mount -o bind /dev $@/dev
 	chroot $@ /bin/bash -c "/postinstall $(DIST) $(ARCH) $(LOCALE) $(UNAME) $(UPASS) $(RPASS)"
 	for i in plugins/*/patches/*.patch; do if [ -f $$i ]; then patch -p0 -d $@ < $$i; fi; done
 	if ls plugins/$(DIST)/*/patches/* 1> /dev/null 2>&1; then for i in plugins/$(DIST)/*/patches/*.patch; do if [ -f $$i ]; then patch -p0 -d $@ < $$i; fi; done; fi
