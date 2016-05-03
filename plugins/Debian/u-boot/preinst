@@ -4,8 +4,9 @@ set -e
 cd /tmp
 git clone --depth 1 https://github.com/raspberrypi/firmware.git
 cd -
-cp /tmp/firmware/boot/*.bin rootfs/boot/
-cp /tmp/firmware/boot/*.elf rootfs/boot/
-cp /tmp/firmware/boot/*.dat rootfs/boot/
+mkdir -p rootfs/boot/firmware/
+cp /tmp/firmware/boot/*.bin rootfs/boot/firmware/
+cp /tmp/firmware/boot/*.elf rootfs/boot/firmware/
+cp /tmp/firmware/boot/*.dat rootfs/boot/firmware/
 
 rm -rf /tmp/firmware

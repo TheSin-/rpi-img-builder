@@ -115,7 +115,7 @@ mkdir -p mnt/media
 mkdir -p mnt/root
 mkdir -p mnt/tmp
 if [ -x "./createimg-rootfs-post" ] ; then
-	./createimg-rootfs-post mnt/ $boot_uuid $root_uuid
+	./createimg-rootfs-post mnt/ $boot_dir $boot_uuid $root_uuid
 fi
 umount_retry mnt
 losetup_delete_retry $lodev

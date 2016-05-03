@@ -13,19 +13,20 @@
 # This third is the root partition device name
 #
 
-if [ "$#" -ne 3 ]; then
-	echo "Usage: $0 mnt boot_uuid root_uuid"
+if [ "$#" -ne 4 ]; then
+	echo "Usage: $0 mnt boot_dir boot_uuid root_uuid"
 	exit 1
 fi
 
 set -e
 
 mnt=$1
-buuid=$2
-ruuid=$3
+boot_dir=$2
+buuid=$3
+ruuid=$4
 
 if [ -e ${mnt}etc/ld.so.preload.disabled ]; then
 	mv ${mnt}etc/ld.so.preload.disabled ${mnt}etc/ld.so.preload
 fi
 
-sed -e "s/\${BOOT_UUID}/$buuid/" -e "s/\${ROOT_UUID}/$ruuid/" fstab.template > ${mnt}etc/fstab
+sed -e "s/\${BOOT_UUID}/$boot_dir/" -e "s/\${BOOT_UUID}/$buuid/" -e "s/\${ROOT_UUID}/$ruuid/" fstab.template > ${mnt}etc/fstab

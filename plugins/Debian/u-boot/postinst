@@ -6,6 +6,6 @@ echo "flash-kernel flash-kernel/linux_cmdline string earlyprintk console=ttyAMA0
 
 dpkg-reconfigure -f noninteractive flash-kernel
 
-cp /usr/lib/u-boot/rpi*/* /boot/
+cp /usr/lib/u-boot/rpi*/* /boot/firmware/
 
 flash-kernel

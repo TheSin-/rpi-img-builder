@@ -10,6 +10,7 @@ IMAGE_MB ?= -1
 BOOT_MB ?= 38
 
 REPOBASE := Debian
+BOOT_DIR := boot
 
 ifeq ($(ARCH),0)
 	ifeq ($(DIST_ARCH),armel)
@@ -26,6 +27,10 @@ ifeq ($(findstring Debian,$(REPOSITORIES)),)
 	REPOS := Debian $(REPOSITORIES)
 else
 	REPOS := $(REPOSITORIES)
+endif
+
+ifeq (Debian, $(REPOSITORIES))
+	BOOT_DIR := boot/firmware
 endif
 
 ifeq ($(findstring Raspbian,$(REPOSITORIES)),Raspbian)
@@ -45,6 +50,5 @@ else
 endif
 
 ROOT_DEV := /dev/mmcblk0p2
-BOOT_DIR := boot
 ROOTFS_DIR := rootfs
 IMAGE_FILE := $(REPOBASE)-$(DIST)-$(ARCH).img
