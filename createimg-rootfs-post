@@ -29,4 +29,4 @@ if [ -e ${mnt}etc/ld.so.preload.disabled ]; then
 	mv ${mnt}etc/ld.so.preload.disabled ${mnt}etc/ld.so.preload
 fi
 
-sed -e "s/\${BOOT_UUID}/$boot_dir/" -e "s/\${BOOT_UUID}/$buuid/" -e "s/\${ROOT_UUID}/$ruuid/" fstab.template > ${mnt}etc/fstab
+sed -e "s/\${BOOT_DIR}/$boot_dir/" -e "s/\${BOOT_UUID}/$buuid/" -e "s/\${ROOT_UUID}/$ruuid/" fstab.template > ${mnt}etc/fstab
