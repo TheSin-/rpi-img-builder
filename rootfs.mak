@@ -7,7 +7,7 @@ all: build
 clean: delete-rootfs
 	rm -rf $(wildcard $(IMAGE_FILE))
 	rm -rf *.img.tmp
-	umount mnt
+	umount mnt || true
 	rm -rf mnt
 	rm -f multistrap.list
 	rm -f *.example
