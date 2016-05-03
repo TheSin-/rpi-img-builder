@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-cd /tmp
-git clone --depth 1 https://github.com/raspberrypi/firmware.git
-cd -
+git clone --depth 1 https://github.com/raspberrypi/firmware.git /tmp/firmware
 mkdir -p rootfs/boot/firmware/
 cp /tmp/firmware/boot/*.bin rootfs/boot/firmware/
 cp /tmp/firmware/boot/*.elf rootfs/boot/firmware/
