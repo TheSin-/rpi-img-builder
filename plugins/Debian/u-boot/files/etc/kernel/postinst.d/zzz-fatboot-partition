@@ -9,5 +9,5 @@ if ! which flash-kernel >/dev/null 2>&1; then
     exit 0
 fi
 
-rm -rf /boot/firmware/dtb* /boot/firmware/boot* /boot/firmware/config* /boot/firmware/initrd* /boot/firmware/System* /boot/firmware/vmlinuz*
+rm -rf /boot/firmware/dtb* /boot/firmware/boot.scr* /boot/firmware/config* /boot/firmware/initrd* /boot/firmware/System* /boot/firmware/vmlinuz*
 rsync --quiet --archive --devices --specials --hard-links --acls --xattrs --sparse --copy-links --exclude 'config.txt' --exclude 'firmware/' /boot/* /boot/firmware
