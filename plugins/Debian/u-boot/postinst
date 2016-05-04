@@ -9,3 +9,4 @@ dpkg-reconfigure -f noninteractive flash-kernel
 cp /usr/lib/u-boot/rpi*/* /boot/firmware/
 
 flash-kernel
+/etc/kernel/postinst.d/zzz-fatboot-partition
