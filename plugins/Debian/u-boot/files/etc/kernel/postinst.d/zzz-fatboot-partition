@@ -9,4 +9,4 @@ if ! which flash-kernel >/dev/null 2>&1; then
     exit 0
 fi
 
-rsync --quiet --archive --devices --specials --hard-links --acls --xattrs --sparse --copy-links --exclude '/boot/firmware/' /boot /boot/firmware
+rsync --quiet --archive --devices --specials --hard-links --acls --xattrs --sparse --copy-links --exclude '/boot/firmware/' /boot/* /boot/firmware
