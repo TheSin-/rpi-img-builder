@@ -52,7 +52,7 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	mkdir $@/postinst
 	if ls plugins/*/postinst 1> /dev/null 2>&1; then for i in plugins/*/postinst; do cp $$i $@/postinst/$$(dirname $$i | cut -d/ -f2)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); done; fi
 	if ls plugins/$(DIST)/*/postinst 1> /dev/null 2>&1; then for i in plugins/$(DIST)/*/postinst; do cp $$i $@/postinst/$(DIST)-$$(dirname $$i | cut -d/ -f3)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); done; fi
-	if plugins/$(REPOBASE)/*/postinst 1> /dev/null 2>&1; then for i in plugins/$(REPOBASE)/*/postinst; do cp $$i $@/postinst/$(REPOBASE)-$$(dirname $$i | cut -d/ -f3)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); done; fi
+	if ls plugins/$(REPOBASE)/*/postinst 1> /dev/null 2>&1; then for i in plugins/$(REPOBASE)/*/postinst; do cp $$i $@/postinst/$(REPOBASE)-$$(dirname $$i | cut -d/ -f3)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); done; fi
 	chmod +x $@/postinst/*
 	cp postinstall $@
 	mount -o bind /proc $@/proc
