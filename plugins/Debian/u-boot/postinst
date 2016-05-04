@@ -9,5 +9,3 @@ dpkg-reconfigure -f noninteractive flash-kernel
 cp /usr/lib/u-boot/rpi*/* /boot/firmware/
 
 flash-kernel
-
-cp /boot/boot.scr /boot/firmware/
