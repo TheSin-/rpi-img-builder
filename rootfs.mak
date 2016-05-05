@@ -76,6 +76,6 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 
 $(IMAGE_FILE): $(ROOTFS_DIR)
 	if test -f "$@.tmp"; then rm "$@.tmp" ; fi
-	./createimg $@.tmp $(BOOT_MB) $(ROOT_MB) $(ROOTFS_DIR)/$(BOOT_DIR) $(ROOTFS_DIR) "$(ROOT_DEV)"
+	./createimg $@.tmp $(BOOT_MB) $(ROOT_MB) $(BOOT_DIR) $(ROOTFS_DIR) "$(ROOT_DEV)"
 	mv $@.tmp $@
 	touch $@

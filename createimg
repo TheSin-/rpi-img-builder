@@ -109,7 +109,7 @@ mkfs.ext4 -b 4096 -E stride=16384,stripe-width=16384 -m 1 -L root $lodev
 root_uuid=`blkid $lodev | sed -n 's/.*UUID=\"\([^\"]*\)\".*/\1/p'`
 mkdir -p mnt
 mount -t ext4 $lodev mnt/
-rsync --quiet --archive --devices --specials --hard-links --acls --xattrs --sparse --exclude '/boot/' --exclude '/tmp/' --exclude '/media/' $rootfs_dir/* mnt/
+rsync --quiet --archive --devices --specials --hard-links --acls --xattrs --sparse --exclude '/$boot_dir/' --exclude '/tmp/' --exclude '/media/' $rootfs_dir/* mnt/
 mkdir -p mnt/boot
 mkdir -p mnt/media
 mkdir -p mnt/root
@@ -129,7 +129,7 @@ partprobe $lodev
 echo "Mounting boot partition on $lodev..."
 mount -t vfat $lodev mnt/
 # Copy links as FAT32 can not support links
-rsync --quiet --archive --devices --specials --hard-links --acls --xattrs --sparse --copy-links $boot_dir/* mnt/
+rsync --quiet --archive --devices --specials --hard-links --acls --xattrs --sparse --copy-links $rootfs_dir/$boot_dir/* mnt/
 if [ -x "./createimg-bootfs-post" ] ; then
 	./createimg-bootfs-post mnt/ $boot_uuid $root_dev
 fi
