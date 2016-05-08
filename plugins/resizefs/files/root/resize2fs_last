@@ -21,6 +21,7 @@ case "$1" in
 		do_finish_expand_rootfs &&
 		rm /etc/init.d/resize2fs_last &&
 		update-rc.d resize2fs_last remove &&
+		touch /var/run/ROOT_RESIZED &&
 		log_end_msg $?
 	;;
 	*)

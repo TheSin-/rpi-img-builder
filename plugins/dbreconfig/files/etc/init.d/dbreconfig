@@ -11,6 +11,10 @@
 
 . /lib/lsb/init-functions
 
+if [ ! -e /var/run/ROOT_RESIZED ]; then
+	exit 0;
+fi
+
 DO_REBOOT=0
 
 do_reconf() {
