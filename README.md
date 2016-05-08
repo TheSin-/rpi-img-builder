@@ -33,6 +33,7 @@ The build process has a few options you can set.
 * **UNAME**: user account that gets created (Default pi)
 * **UPASS**: user account password (Default pi)
 * **RPASS**: root password (Default pi)
+* **INC_REC**: include recommends for apt-get install (1 = Yes (Default), 0 = No)
 
 ## Prerequisites:
 On a x86 based Debian system, make sure the following packages are installed:

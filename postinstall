@@ -7,8 +7,8 @@ set -e
 
 set -e
 
-if [ "$#" -eq 7 ]; then
-	echo "Usage: $0 DIST ARCH LOCALE UNAME UPASS RPASS"
+if [ "$#" -eq 8 ]; then
+	echo "Usage: $0 DIST ARCH LOCALE UNAME UPASS RPASS INC_REC"
 	exit 1
 fi
 
@@ -18,6 +18,7 @@ LOCALE=$3
 UNAME=$4
 UPASS=$5
 RPASS=$6
+INC_REC=$7
 
 echo "Running postinstall script..."
 
@@ -74,9 +75,14 @@ done
 
 apt-get update
 
+APTOPTS=""
+if [ "$INC_APT" == "1" ]; then
+	$APTOPTS="$APTOPTS --no-install-recommends";
+fi
+
 # Install extra packages
 if [ -f /packages.txt ]; then
-	apt-get -y --force-yes install $(cat /packages.txt) --no-install-recommends;
+	apt-get -y --assume-yes install $(cat /packages.txt) $APTOPTS;
 fi
 
 # Run custom install scripts

@@ -58,7 +58,7 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	mount -o bind /proc $@/proc
 	mount -o bind /sys $@/sys
 	mount -o bind /dev $@/dev
-	chroot $@ /bin/bash -c "/postinstall $(DIST) $(ARCH) $(LOCALE) $(UNAME) $(UPASS) $(RPASS)"
+	chroot $@ /bin/bash -c "/postinstall $(DIST) $(ARCH) $(LOCALE) $(UNAME) $(UPASS) $(RPASS) $(INC_REC)"
 	for i in plugins/*/patches/*.patch; do if [ -f $$i ]; then patch -p0 -d $@ < $$i; fi; done
 	if ls plugins/$(DIST)/*/patches/* 1> /dev/null 2>&1; then for i in plugins/$(DIST)/*/patches/*.patch; do if [ -f $$i ]; then patch -p0 -d $@ < $$i; fi; done; fi
 	if ls plugins/*/files/etc/hostname 1> /dev/null 2>&1; then cp plugins/*/files/etc/hostname $@/etc/hostname; fi
