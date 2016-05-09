@@ -8,7 +8,7 @@ RPASS ?= pi
 LOCALE ?= en_US.UTF-8
 IMAGE_MB ?= -1
 BOOT_MB ?= 38
-INC_REC ?= 1
+INC_REC ?= 0
 
 REPOBASE := Debian
 BOOT_DIR := boot

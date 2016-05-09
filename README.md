@@ -24,16 +24,16 @@ Script to build custom sd card image for Raspberry Pi.
 
 ## Options
 The build process has a few options you can set.
-* **DIST**: debian distribution [Default jessie]
+* **DIST**: debian distribution [default jessie]
 * **DIST_ARCH**: image architecture [armel, armhf (default), arm64]
 * **REPOSITORIES**: upstream repositories based on repos dir [Bluefalls, Debian, Rasbian, "Debian Bluefalls" (default)]
 * **ARCH**: used to determin the kernel name [[Bluefalls - rpi, rpi2 (default), rpi3], [Debian - armmp (default), armmp-lpae], [Raspbian - no option]]
-* **IMAGE_MB**: size of the image, 32MB is for the fat boot, which is included in this option (-1 default which is auto and will leave 20MB on the rootfs free)
-* **LOCALE**: system locale (Default en_US.UTF-8) `Make sure you type this exactly like in /usr/share/i18n/SUPPORTED`
-* **UNAME**: user account that gets created (Default pi)
-* **UPASS**: user account password (Default pi)
-* **RPASS**: root password (Default pi)
-* **INC_REC**: include recommends for apt-get install (1 = Yes (Default), 0 = No)
+* **IMAGE_MB**: size of the image, 32MB is for the fat boot, which is included in this option [-1 = auto (default), n = size in MB]
+* **LOCALE**: system locale (en_US.UTF-8 default, Make sure you type this exactly like in /usr/share/i18n/SUPPORTED)
+* **UNAME**: user account that gets created (pi default)
+* **UPASS**: user account password (pi default)
+* **RPASS**: root password (pi default)
+* **INC_REC**: include recommends for apt-get install [1 = Yes, 0 = No (default)]
 
 ## Prerequisites:
 On a x86 based Debian system, make sure the following packages are installed:

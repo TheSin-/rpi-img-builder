@@ -76,7 +76,7 @@ done
 apt-get update
 
 APTOPTS=""
-if [ "$INC_APT" == "1" ]; then
+if [ "$INC_REC" == "0" ]; then
 	$APTOPTS="$APTOPTS --no-install-recommends";
 fi
 
