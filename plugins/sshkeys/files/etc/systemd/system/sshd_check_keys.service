@@ -8,10 +8,7 @@ ConditionPathExistsGlob=!/etc/ssh/ssh_host_*_key
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/sbin/dpkg-reconfigure openssh-server
-StandardOutput=tty
-StandardInput=tty
-StandardError=tty
+ExecStart=/usr/sbin/dpkg-reconfigure -f noninteractive openssh-server
 
 [Install]
 WantedBy=multi-user.target
