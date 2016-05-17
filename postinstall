@@ -67,6 +67,8 @@ echo "${UNAME}:${UPASS}" | chpasswd
 adduser ${UNAME} sudo
 adduser ${UNAME} audio
 adduser ${UNAME} video
+adduser ${UNAME} input
+adduser ${UNAME} tty
 
 # Initialize /etc/apt/sources.list (remove multistrap from the filenames)
 for i in /etc/apt/sources.list.d/*; do
