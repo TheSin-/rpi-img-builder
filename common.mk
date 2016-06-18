@@ -35,7 +35,9 @@ ifeq (Debian, $(REPOSITORIES))
 endif
 
 ifeq ($(findstring Raspbian,$(REPOSITORIES)),Raspbian)
-	REPOS := Foundation Raspbian
+	ifneq ($(findstring Raspbian,$(REPOSITORIES)),Foundation)
+		REPOS += Foundation
+	endif
 	DIST_ARCH := armhf
 	REPOBASE := Raspbian
 	ARCH := rpix
