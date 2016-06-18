@@ -7,7 +7,7 @@ UPASS ?= pi
 RPASS ?= pi
 LOCALE ?= en_US.UTF-8
 IMAGE_MB ?= -1
-BOOT_MB ?= 38
+BOOT_MB ?= 128
 INC_REC ?= 0
 
 REPOBASE := Debian
