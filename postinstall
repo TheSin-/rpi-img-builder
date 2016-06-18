@@ -79,7 +79,7 @@ apt-get update
 
 APTOPTS=""
 if [ "$INC_REC" == "0" ]; then
-	$APTOPTS="$APTOPTS --no-install-recommends";
+	APTOPTS="$APTOPTS --no-install-recommends";
 fi
 
 # Install extra packages
