@@ -77,14 +77,14 @@ done
 
 apt-get update
 
-APTOPTS=""
+APTOPTS="-y --assume-yes --force-yes"
 if [ "$INC_REC" == "0" ]; then
 	APTOPTS="$APTOPTS --no-install-recommends";
 fi
 
 # Install extra packages
 if [ -f /packages.txt ]; then
-	apt-get -y --assume-yes install $(cat /packages.txt) $APTOPTS;
+	apt-get $APTOPTS install $(cat /packages.txt);
 fi
 
 # Run custom install scripts
