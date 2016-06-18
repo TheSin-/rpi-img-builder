@@ -12,6 +12,7 @@ INC_REC ?= 0
 
 REPOBASE := Debian
 BOOT_DIR := boot
+REPOS := $(REPOSITORIES)
 
 ifeq ($(ARCH),0)
 	ifeq ($(DIST_ARCH),armel)
@@ -24,14 +25,12 @@ ifeq ($(ARCH),0)
 	REPOBASE := Bluefalls
 endif
 
-ifeq ($(findstring Debian,$(REPOSITORIES)),)
-	REPOS := Debian $(REPOSITORIES)
-else
-	REPOS := $(REPOSITORIES)
-endif
-
 ifeq (Debian, $(REPOSITORIES))
 	BOOT_DIR := boot/firmware
+endif
+
+ifneq ($(findstring Raspbian,$(REPOSITORIES)),Raspbian)
+	REPOS += Debian
 endif
 
 ifeq ($(findstring Raspbian,$(REPOSITORIES)),Raspbian)
