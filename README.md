@@ -84,6 +84,11 @@ All plugins in the base of the plugins dir will be included, if you do not want 
 
 For example, if you set DIST to stretch and REPSOTORIES to Raspbian, then all plugins in the base of the plugins dir will be include as well as the plugins in the stretch and Raspbian directories.  Also since Raspbian will auto add the Foundation repo, any plugins in the Foundation directory if it exists will be included as well.
 
+## Repositories
+So repositories require others, for example Raspbian will auto add Foundation, and Bluefalls with auto add Debian.
+
+You can easily add a custom repo by making a directory in the repos dir with teh repo name and making a multistrap.list.in file (see the others in that directory for examples on the files contents) and then listing it in the REPOSITORIES options.  ie: make an ubuntu repo, I could then use REPOSITORIES="Raspbian ubuntu", this is just an example I'm not sure why you would do this, but as an example.
+
 ## Notes
 There are lots of plugin examples included, you can add and remove to your needs.  There are only there to show how customizable these build scripts are.
 
