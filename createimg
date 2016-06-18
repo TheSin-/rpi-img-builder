@@ -52,9 +52,10 @@ boot_dir=$4
 rootfs_dir=$5
 root_dev=$6
 
+# add 5% for 1000 to 1024 convertions and a little extra
 if [ ${total_mb} -eq -1 ];
 then
-	total_mb=$(($(du -s --block-size=1MB ${rootfs_dir} | awk {'print $1'}) + 20 + ${boot_mb}))
+	total_mb=$(($(du -s --block-size=1MB ${rootfs_dir} | awk {'print $1'}) + ${boot_mb} * 1.05))
 fi
 
 # Create disk image
