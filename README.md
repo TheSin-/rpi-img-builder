@@ -77,6 +77,8 @@ It should be fairly easy to customize your image for your own needs.  Bulding an
 * **files**: dir which conatins files to be copied into the rootfs, perms and atts included
 * **patches**: dir which contains patch files to apply to the rootfs
 
+Order is files -> preinst -> packages -> postinst -> patches
+
 This should allow you install extra packages (e.g. using apt-get) and modify configurations to your needs.  Of course, you can do all this manually after booting the device, but the goal of this project is to be able to generate re-usable images that can be deployed on any number of RaspberryPi devices (think of it as "firmware" of a consumer device).  The `extrapackages` plugin is an example of a plugin to just add new packages, you can modify it or create a new plugin of your own.
 
 ## Plugin directory structure
