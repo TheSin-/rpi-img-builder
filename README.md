@@ -62,7 +62,6 @@ mv plugins/alsa plugins/disabled/
 sudo make distclean && sudo make DIST=testing REPOS=Debian
 ```
 
-## Customize your image:
 ## Example: Build a Raspbian Jessie image:
 Just use the make utility to build e.g. an Rasbian-jessie-rpix.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
 ```
