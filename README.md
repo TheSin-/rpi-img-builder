@@ -26,9 +26,9 @@ Script to build custom sd card image for Raspberry Pi.
 The build process has a few options you can set.
 * **DIST**: debian distribution [default jessie]
 * **DIST_ARCH**: image architecture [armel, armhf (default), arm64]
-* **REPOS**: upstream repositories based on repos dir [Bluefalls, Debian, Rasbian, "Debian Bluefalls" (default)]
-* **ARCH**: used to determin the kernel name [[Bluefalls - rpi, rpi2 (default), rpi3], [Debian - armmp (default), armmp-lpae], [Raspbian - no option]]
-* **IMAGE_MB**: size of the image, 32MB is for the fat boot, which is included in this option [-1 = auto (default), n = size in MB]
+* **REPOS**: upstream repositories based on repos dir [Bluefalls, Debian, Rasbian, Foundation, "Raspbian Foundation" (default)]
+* **ARCH**: used to determin the kernel name [[Bluefalls - rpi, rpi2 (default), rpi3], [Debian - armmp (default), armmp-lpae], [Raspbian - rpix (default)]]
+* **IMAGE_MB**: size of the image, 128MB is for the fat boot, which is included in this option [-1 = auto (default), n = size in MB]
 * **LOCALE**: system locale (en_US.UTF-8 default, Make sure you type this exactly like in /usr/share/i18n/SUPPORTED)
 * **UNAME**: user account that gets created (pi default)
 * **UPASS**: user account password (pi default)
@@ -45,7 +45,7 @@ sudo apt-get install build-essential wget git lzop u-boot-tools binfmt-support \
 ## Example: Build an RPi2 Jessie image with a forced size of 1G:
 Just use the make utility to build e.g. an Bluefalls-jessie-rpi2.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
 ```
-sudo make distclean && sudo make DIST=jessie DIST_ARCH=armhf IMAGE_MB=1024
+sudo make distclean && sudo make REPO="Bluefalls Debian" DIST=jessie DIST_ARCH=armhf IMAGE_MB=1024
 ```
 
 This will install the firmware, compile the kernel, bootstrap Debian and create a 1024MB img file, which then can be transferred to a sd card (e.g. using dd):
@@ -59,14 +59,14 @@ Just use the make utility to build e.g. an Debian-testing-armmp.img.  Be sure to
 ```
 mv plugins/usbmount plugins/disabled/
 mv plugins/alsa plugins/disabled/
-sudo make distclean && sudo make ARCH=armmp DIST=testing REPOS=Debian
+sudo make distclean && sudo make DIST=testing REPOS=Debian
 ```
 
 ## Customize your image:
 ## Example: Build a Raspbian Jessie image:
 Just use the make utility to build e.g. an Rasbian-jessie-rpix.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
 ```
-sudo make distclean && sudo make REPOS=Raspbian
+sudo make distclean && sudo make
 ```
 
 ## Customize your image:
