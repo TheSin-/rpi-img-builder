@@ -43,6 +43,9 @@ function losetup_delete_retry {
 	do
 		sleep 1
 	done
+
+	# Wait a bit, weird race condition
+	sleep 2
 }
 
 outfile=$1
@@ -105,7 +108,8 @@ losetup_delete_retry $lodev
 lodev=$(losetup_partition $outfile 2)
 partprobe $lodev
 echo "Formatting root partition on $lodev..."
-mkfs.ext4 -O ^metadata_csum -b 4096 -E stride=16384,stripe-width=16384 -m 1 -L root $lodev
+#mkfs.ext4 -O ^metadata_csum -b 4096 -E stride=16384,stripe-width=16384 -m 1 -L root $lodev
+mkfs.ext4 -O none,$(cat $rootfs_dir/etc/mke2fs.conf | grep -A3 "ext4 =" | grep "features = " | cut -d "=" -f2 | tr -d '[[:space:]]') -b 4096 -E stride=16384,stripe-width=16384 -m 1 -L root $lodev
 #tune2fs -i 0 -c 0 $lodev
 root_uuid=`blkid $lodev | sed -n 's/.*UUID=\"\([^\"]*\)\".*/\1/p'`
 mkdir -p mnt
@@ -120,9 +124,6 @@ if [ -x "./createimg-rootfs-post" ] ; then
 fi
 umount_retry mnt
 losetup_delete_retry $lodev
-
-# Wait a bit, weird race condition (see above)
-sleep 2
 
 # Mount the boot partition again and copy boot.ini
 lodev=$(losetup_partition $outfile 1)
