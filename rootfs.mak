@@ -36,15 +36,15 @@ $(ROOTFS_DIR).base:
 	@echo "System architecture: $(ARCH)"
 	@echo "Plugins: $$(cat plugins.txt | xargs | sed -e 's;plugins/;;g' -e 's; ;, ;g')"
 	@echo
-	@echo -n "5... "
+	@echo -n "5..."
 	@sleep 1
-	@echo -n "4... "
+	@echo -n "4..."
 	@sleep 1
-	@echo -n "3... "
+	@echo -n "3..."
 	@sleep 1
-	@echo -n "2... "
+	@echo -n "2..."
 	@sleep 1
-	@echo -n "1... "
+	@echo -n "1..."
 	@sleep 1
 	@echo "OK"
 	if test -d "$@.tmp"; then rm -rf "$@.tmp" ; fi
