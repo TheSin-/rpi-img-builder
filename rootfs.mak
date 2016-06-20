@@ -23,6 +23,30 @@ delete-rootfs:
 build: $(IMAGE_FILE)
 
 $(ROOTFS_DIR).base:
+	@rm -f plugins.txt
+	@for i in plugins/*; do if [ -f $$i/packages -o -f $$i/preinst -o -f $$i/postinst -o -d $$i/files -o -d $$i/patches ]; then echo $$i >> plugins.txt; fi; done
+	@for i in plugins/$(DIST)/*; do if [ -f $$i/packages -o -f $$i/preinst -o -f $$i/postinst -o -d $$i/files -o -d $$i/patches ]; then echo $$i >> plugins.txt; fi; done
+	@for j in $(REPOS); do for i in plugins/$$j/*; do if [ -f $$i/baseonly -a $$j != $(REPOBASE) ]; then continue; fi; if [ -f $$i/packages -o -f $$i/preinst -o -f $$i/postinst -o -d $$i/files -o -d $$i/patches ]; then echo $$i >> plugins.txt; fi; done; done
+	@echo
+	@echo "Building $(IMAGE_FILE)"
+	@echo "Repositories: $(REPOS)"
+	@echo "Base repositories: $(REPOBASE)"
+	@echo "Distribution: $(DIST)"
+	@echo "Repository architecture: $(DIST_ARCH)"
+	@echo "System architecture: $(ARCH)"
+	@echo "Plugins: $$(cat plugins.txt | xargs | sed -e 's;plugins/;;g' -e 's; ;, ;g')"
+	@echo
+	@echo -n "5... "
+	@sleep 1
+	@echo -n "4... "
+	@sleep 1
+	@echo -n "3... "
+	@sleep 1
+	@echo -n "2... "
+	@sleep 1
+	@echo -n "1... "
+	@sleep 1
+	@echo "OK"
 	@if test -d "$@.tmp"; then rm -rf "$@.tmp" ; fi
 	@mkdir -p $@.tmp
 	@cat $(shell echo multistrap.list.in; for i in $(REPOS); do echo repos/$$i/multistrap.list.in; done | xargs) | sed -e 's,__REPOSITORIES__,$(REPOS),g' -e 's,__SUITE__,$(DIST),g' -e 's,__ARCH__,$(ARCH),g' > multistrap.list
