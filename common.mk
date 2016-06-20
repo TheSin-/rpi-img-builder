@@ -25,10 +25,6 @@ ifeq ($(ARCH),0)
 	REPOBASE := Bluefalls
 endif
 
-ifeq (Debian, $(REPOSITORIES))
-	BOOT_DIR := boot/firmware
-endif
-
 ifneq ($(findstring Raspbian,$(REPOSITORIES)),Raspbian)
 	REPOS += Debian
 endif
@@ -40,6 +36,10 @@ ifeq ($(findstring Raspbian,$(REPOSITORIES)),Raspbian)
 	DIST_ARCH := armhf
 	REPOBASE := Raspbian
 	ARCH := rpix
+endif
+
+ifeq (Debian, $(REPOBASE))
+	BOOT_DIR := boot/firmware
 endif
 
 ifeq ($(shell test $(BOOT_MB) -lt 38; echo $$?),0)
