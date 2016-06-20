@@ -4,6 +4,7 @@ multistrap.list
 rootfs
 rootfs.base
 mnt
+plugins.txt
 *~
 *.tmp
 *.tar*
