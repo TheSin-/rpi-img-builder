@@ -14,7 +14,7 @@ REPOBASE := Raspbian
 BOOT_DIR := boot
 
 ifeq ($(findstring Raspbian,$(REPOS)),Raspbian)
-	ifneq ($(findstring Raspbian,$(REPOS)),Foundation)
+	ifneq ($(findstring Foundation,$(REPOS)),Foundation)
 		REPOS += Foundation
 	endif
 	REPOBASE := Raspbian
