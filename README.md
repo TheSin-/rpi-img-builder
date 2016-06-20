@@ -68,7 +68,7 @@ Just use the make utility to build e.g. an Rasbian-jessie-rpix.img.  Be sure to 
 sudo make distclean && sudo make
 ```
 
-## Customize your image:
+## Plugins:
 It should be fairly easy to customize your image for your own needs.  Bulding and adding plugins is easy.  Each plugin can contain:
 * **packages**: file with one line containing debian packages to install
 * **preinst**: script to run pre chroot
@@ -81,7 +81,6 @@ Order is files -> preinst -> packages -> postinst -> patches
 
 This should allow you install extra packages (e.g. using apt-get) and modify configurations to your needs.  Of course, you can do all this manually after booting the device, but the goal of this project is to be able to generate re-usable images that can be deployed on any number of RaspberryPi devices (think of it as "firmware" of a consumer device).  The `extrapackages` plugin is an example of a plugin to just add new packages, you can modify it or create a new plugin of your own.
 
-## Plugin directory structure
 All plugins in the base of the plugins dir will be included, if you do not want a plugin included move it to the disabled directory within the plugins directory.  There are a few special cases, and subdirectory in the plugins directory that match an enable Reporitory (via REPOS option or the defaults) or Distribution (vis DIST option or the default) could have a sub set of plugins without a directory that is named like it.
 
 For example, if you set DIST to stretch and REPSOTORIES to Raspbian, then all plugins in the base of the plugins dir will be include as well as the plugins in the stretch and Raspbian directories.  Also since Raspbian will auto add the Foundation repo, any plugins in the Foundation directory if it exists will be included as well.
