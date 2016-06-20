@@ -50,19 +50,29 @@ function losetup_delete_retry {
 
 outfile=$1
 boot_mb=$2
-total_mb=$3
+root_mb=$3
 boot_dir=$4
 rootfs_dir=$5
 root_dev=$6
 
-# add 5% for 1000 to 1024 convertions and a little extra
-if [ ${total_mb} -eq -1 ];
+# needed + 20mb
+needed_mb=$(($(du -s --block-size=1MB ${rootfs_dir} | awk {'print $1'}) + 20))
+
+if [ ${root_mb} -lt $needed_mb ];
 then
-	total_mb=$(((($(du -s --block-size=1MB ${rootfs_dir} | awk {'print $1'}) + ${boot_mb}) * 1050) / 1000))
+	if [ ${root_mb} -eq -1 ];
+	then
+		echo "Auto sizing root partition..."
+	else
+		echo "Requested root partition (${root_mb} MB) is too small, auto resizing..."
+	fi
+	root_mb=$needed_mb
 fi
 
+echo "Building image, p1 ${boot_mb} MB, p2 ${root_mb} MB"
+
 # Create disk image
-dd if=/dev/zero of=$outfile bs=1024 count=$(( $total_mb*1024 ))
+dd if=/dev/zero of=$outfile bs=1024 count=$(((${boot_mb} + ${root_mb}) * 1024))
 sync
 
 # Partition the disk
