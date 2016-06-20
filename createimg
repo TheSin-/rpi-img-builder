@@ -72,7 +72,7 @@ fi
 echo "Building image, p1 ${boot_mb} MB, p2 ${root_mb} MB"
 
 # Create disk image
-dd if=/dev/zero of=$outfile bs=1024 count=$(((${boot_mb} + ${root_mb}) * 1024))
+dd if=/dev/zero of=$outfile bs=1024 count=$(((${boot_mb} + ${root_mb} + 1) * 1024))
 sync
 
 # Partition the disk
