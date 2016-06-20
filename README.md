@@ -77,7 +77,7 @@ It should be fairly easy to customize your image for your own needs.  Bulding an
 * **patches**: dir which contains patch files to apply to the rootfs
 * **baseonly**: is a special file for repo plugins, if the file exists the plugin is only included if the repo is the base repo
 
-Order is files -> preinst -> packages -> postinst -> patches
+Execute order is files -> preinst -> packages -> postinst -> patches, per plugin. For example if alsa runs before common, the files for common will not be available when alsa files/preinst run.  All files, preinst and patches scripts are run outside of the chroot.  All files and preinst are available when packages, postinst and patches are run.
 
 This should allow you install extra packages (e.g. using apt-get) and modify configurations to your needs.  Of course, you can do all this manually after booting the device, but the goal of this project is to be able to generate re-usable images that can be deployed on any number of RaspberryPi devices (think of it as "firmware" of a consumer device).  The `extrapackages` plugin is an example of a plugin to just add new packages, you can modify it or create a new plugin of your own.
 
