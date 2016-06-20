@@ -1,7 +1,7 @@
 DIST ?= jessie
 REPOS ?= Raspbian
 DIST_ARCH ?= armhf
-ARCH ?= armhf
+ARCH ?= rpix
 UNAME ?= pi
 UPASS ?= pi
 RPASS ?= pi
@@ -20,9 +20,11 @@ ifeq ($(findstring Raspbian,$(REPOS)),Raspbian)
 	REPOBASE := Raspbian
 	DIST_ARCH := armhf
 	ARCH := rpix
-endif
-
-ifeq ($(findstring Bluefalls,$(REPOS)),Bluefalls)
+else ifeq ($(findstring Bluefalls,$(REPOS)),Bluefalls)
+	ifneq ($(findstring Debian,$(REPOS)),Debian)
+		REPOS += Debian
+	endif
+	REPOBASE := Bluefalls
 	ifeq ($(DIST_ARCH),armel)
 		ARCH := rpi
 	else ifeq ($(DIST_ARCH),arm64)
@@ -31,13 +33,7 @@ ifeq ($(findstring Bluefalls,$(REPOS)),Bluefalls)
 		DIST_ARCH := armhf
 		ARCH := rpi2
 	endif
-	REPOBASE := Bluefalls
-	ifneq ($(findstring Debian,$(REPOS)),Debian)
-		REPOS += Debian
-	endif
-endif
-
-ifeq (Debian,$(REPOS))
+else ifeq ($(findstring Debian,$(REPOS)),Debian)
 	REPOBASE := Debian
 	BOOT_DIR := boot/firmware
 	DIST_ARCH := armhf
