@@ -11,11 +11,11 @@ rootfs-pr:
 define BUILDSTEP_TEMPLATE
 .PHONY: build-$(1) clean-$(1) distclean-$(1) $$($(1)-pr)
 build-$(1): $(1)-pr
-	$$(MAKE) -f $(1).mak build
+	$$(MAKE) -s -f $(1).mak build
 clean-$(1):
-	$$(MAKE) -f $(1).mak clean
+	$$(MAKE) -s -f $(1).mak clean
 distclean-$(1):
-	$$(MAKE) -f $(1).mak distclean
+	$$(MAKE) -s -f $(1).mak distclean
 endef
 
 $(foreach step,$(BUILD_STEPS),$(eval $(call BUILDSTEP_TEMPLATE,$(step))))
