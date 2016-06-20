@@ -1,5 +1,5 @@
 DIST ?= jessie
-REPOSITORIES ?= Debian Bluefalls
+REPOS ?= Debian Bluefalls
 DIST_ARCH ?= armhf
 ARCH ?= 0
 UNAME ?= pi
@@ -12,7 +12,6 @@ INC_REC ?= 0
 
 REPOBASE := Debian
 BOOT_DIR := boot
-REPOS := $(REPOSITORIES)
 
 ifeq ($(ARCH),0)
 	ifeq ($(DIST_ARCH),armel)
@@ -25,12 +24,12 @@ ifeq ($(ARCH),0)
 	REPOBASE := Bluefalls
 endif
 
-ifneq ($(findstring Raspbian,$(REPOSITORIES)),Raspbian)
+ifneq ($(findstring Raspbian,$(REPOS)),Raspbian)
 	REPOS += Debian
 endif
 
-ifeq ($(findstring Raspbian,$(REPOSITORIES)),Raspbian)
-	ifneq ($(findstring Raspbian,$(REPOSITORIES)),Foundation)
+ifeq ($(findstring Raspbian,$(REPOS)),Raspbian)
+	ifneq ($(findstring Raspbian,$(REPOS)),Foundation)
 		REPOS += Foundation
 	endif
 	DIST_ARCH := armhf
