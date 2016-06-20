@@ -42,9 +42,9 @@ $(ROOTFS_DIR).base:
 
 $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	rsync --quiet --archive --devices --specials --hard-links --acls --xattrs --sparse $(ROOTFS_DIR).base/* $@
-	cd plugins; for i in */files; do if [ -d $$i ]; then cd $$i && find . -type f ! -name '*~' -exec cp --preserve=mode,timestamps --parents \{\} ../../../$@ \;; cd ../..; fi; done
-	if [ -d plugins/$(DIST) ]; then cd plugins/$(DIST); for i in */files; do if [ -d $$i ]; then cd $$i; find . -type f ! -name '*~' -exec cp --preserve=mode,timestamps --parents \{\} ../../../../$@ \;; cd ../../..; fi; done; fi
-	if [ -d plugins/$(REPOBASE) ]; then cd plugins/$(REPOBASE); for i in */files; do if [ -d $$i ]; then cd $$i; find . -type f ! -name '*~' -exec cp --preserve=mode,timestamps --parents \{\} ../../../../$@ \;; cd ../../..; fi; done; fi
+	cd plugins; for i in */files; do if [ -d $$i ]; then cd $$i && find . -type f ! -name '*~' -exec cp --preserve=mode,timestamps --parents \{\} $@ \;; cd $(BASE_DIR); fi; done
+	if [ -d plugins/$(DIST) ]; then cd plugins/$(DIST); for i in */files; do if [ -d $$i ]; then cd $$i; find . -type f ! -name '*~' -exec cp --preserve=mode,timestamps --parents \{\} $@ \;; cd $(BASE_DIR); fi; done; fi
+	if [ -d plugins/$(REPOBASE) ]; then cd plugins/$(REPOBASE); for i in */files; do if [ -d $$i ]; then cd $$i; find . -type f ! -name '*~' -exec cp --preserve=mode,timestamps --parents \{\} $@ \;; cd $(BASE_DIR); fi; done; fi
 	cat plugins/*/packages plugins/$(DIST)/*/packages plugins/$(REPOBASE)/*/packages 2>/dev/null | sed -e "s,__ARCH__,$(ARCH),g" | xargs > $@/packages.txt
 	if ls plugins/*/preinst 1> /dev/null 2>&1; then for i in plugins/*/preinst; do chmod +x $$i; echo Running ./$$i; ./$$i; done; fi
 	if ls plugins/$(DIST)/*/preinst 1> /dev/null 2>&1; then for i in plugins/$(DIST)/*/preinst; do chmod +x $$i; echo Running ./$$i; ./$$i; done; fi

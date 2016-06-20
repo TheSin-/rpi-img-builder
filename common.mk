@@ -57,5 +57,6 @@ else
 endif
 
 ROOT_DEV := /dev/mmcblk0p2
-ROOTFS_DIR := rootfs
+BASE_DIR := $(shell pwd)
+ROOTFS_DIR := $(BASE_DIR)/rootfs
 IMAGE_FILE := $(REPOBASE)-$(DIST)-$(ARCH).img
