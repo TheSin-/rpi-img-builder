@@ -6,7 +6,7 @@ all: build
 .PHONY: clean
 clean: delete-rootfs
 	@umount mnt || true
-	rm -rf $(wildcard $(IMAGE_FILE)) *.img.tmp mnt multistrap.list *.example
+	rm -rf $(wildcard $(IMAGE_FILE)) *.img.tmp mnt multistrap.list *.example plugins.txt
 
 .PHONY: distclean
 distclean: delete-rootfs
@@ -38,25 +38,16 @@ $(ROOTFS_DIR).base:
 
 $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	@rsync --quiet --archive --devices --specials --hard-links --acls --xattrs --sparse $(ROOTFS_DIR).base/* $@
-	@cd plugins; for i in */files; do if [ -d $$i ]; then cd $$i && find . -type f ! -name '*~' -exec cp --preserve=mode,timestamps --parents \{\} $@ \;; cd $(BASE_DIR); fi; done
-	@if [ -d plugins/$(DIST) ]; then cd plugins/$(DIST); for i in */files; do if [ -d $$i ]; then cd $$i; find . -type f ! -name '*~' -exec cp --preserve=mode,timestamps --parents \{\} $@ \;; cd $(BASE_DIR); fi; done; fi
-	@if [ -d plugins/$(REPOBASE) ]; then cd plugins/$(REPOBASE); for i in */files; do if [ -d $$i ]; then cd $$i; find . -type f ! -name '*~' -exec cp --preserve=mode,timestamps --parents \{\} $@ \;; cd $(BASE_DIR); fi; done; fi
-	@cat plugins/*/packages plugins/$(DIST)/*/packages plugins/$(REPOBASE)/*/packages 2>/dev/null | sed -e "s,__ARCH__,$(ARCH),g" | xargs > $@/packages.txt
-	@if ls plugins/*/preinst 1> /dev/null 2>&1; then for i in plugins/*/preinst; do chmod +x $$i; echo Running ./$$i; ./$$i; done; fi
-	@if ls plugins/$(DIST)/*/preinst 1> /dev/null 2>&1; then for i in plugins/$(DIST)/*/preinst; do chmod +x $$i; echo Running ./$$i; ./$$i; done; fi
-	@if ls plugins/$(REPOBASE)/*/preinst 1> /dev/null 2>&1; then for i in plugins/$(REPOBASE)/*/preinst; do chmod +x $$i; echo Running ./$$i; ./$$i; done; fi
 	@mkdir $@/postinst
-	@if ls plugins/*/postinst 1> /dev/null 2>&1; then for i in plugins/*/postinst; do cp $$i $@/postinst/$$(dirname $$i | cut -d/ -f2)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); done; fi
-	@if ls plugins/$(DIST)/*/postinst 1> /dev/null 2>&1; then for i in plugins/$(DIST)/*/postinst; do cp $$i $@/postinst/$(DIST)-$$(dirname $$i | cut -d/ -f3)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); done; fi
-	@if ls plugins/$(REPOBASE)/*/postinst 1> /dev/null 2>&1; then for i in plugins/$(REPOBASE)/*/postinst; do cp $$i $@/postinst/$(REPOBASE)-$$(dirname $$i | cut -d/ -f3)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); done; fi
+	@touch $@/packages.txt
+	@for i in $$(cat plugins.txt | xargs); do echo "Processing $$i..."; if [ -d $$i/files ]; then echo " - found files ... adding"; cd $$i/files && find . -type f ! -name '*~' -exec cp --preserve=mode,timestamps --parents \{\} $@ \;; cd $(BASE_DIR); fi; if [ -f $$i/packages ]; then echo " - found packages ... adding"; echo -n "$$(cat $$i/packages | sed -e "s,__ARCH__,$(ARCH),g" | xargs) " >> $@/packages.txt; fi; if [ -f $$i/preinst ]; then chmod +x $$i/preinst; echo " - found preinst ... running"; ./$$i/preinst; fi; if [ -f $$i/postinst ]; then echo " - found postinst ... adding"; cp $$i/postinst $@/postinst/$$(dirname $$i/postinst | rev | cut -d/ -f1 | rev)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); fi; done
 	@chmod +x $@/postinst/*
 	@cp postinstall $@
 	@mount -o bind /proc $@/proc
 	@mount -o bind /sys $@/sys
 	@mount -o bind /dev $@/dev
 	@chroot $@ /bin/bash -c "/postinstall $(DIST) $(ARCH) $(LOCALE) $(UNAME) $(UPASS) $(RPASS) $(INC_REC)"
-	@for i in plugins/*/patches/*.patch; do if [ -f $$i ]; then patch -p0 -d $@ < $$i; fi; done
-	@if ls plugins/$(DIST)/*/patches/* 1> /dev/null 2>&1; then for i in plugins/$(DIST)/*/patches/*.patch; do if [ -f $$i ]; then patch -p0 -d $@ < $$i; fi; done; fi
+	@for i in $$(cat plugins.txt | xargs); do if [ -d $$i/patches ]; then for j in $$i/patches/*; do patch -p0 -d $@ < $$j; done; fi; done
 	@if ls plugins/*/files/etc/hostname 1> /dev/null 2>&1; then cp plugins/*/files/etc/hostname $@/etc/hostname; fi
 	@if ls plugins/$(DIST)/*/files/etc/hostname 1> /dev/null 2>&1; then cp plugins/$(DIST)/*/files/etc/hostname $@/etc/hostname; fi
 	@if [ -f $@/etc/hostname ]; then if ! grep "^127.0.0.1\s*$$(cat $@/etc/hostname)\s*" $@/etc/hosts > /dev/null ; then sed -i "1i 127.0.0.1\\t$$(cat $@/etc/hostname)" $@/etc/hosts; fi; fi
@@ -74,4 +65,13 @@ $(IMAGE_FILE): $(ROOTFS_DIR)
 	@if test -f "$@.tmp"; then rm "$@.tmp" ; fi
 	@./createimg $@.tmp $(BOOT_MB) $(ROOT_MB) $(BOOT_DIR) $(ROOTFS_DIR) "$(ROOT_DEV)"
 	@mv $@.tmp $@
+	@echo
+	@echo "Built $(IMAGE_FILE)"
+	@echo "Repositories: $(REPOS)"
+	@echo "Base repositories: $(REPOBASE)"
+	@echo "Distribution: $(DIST)"
+	@echo "Repository architecture: $(DIST_ARCH)"
+	@echo "System architecture: $(ARCH)"
+	@echo "Plugins: $$(cat plugins.txt | xargs | sed -e 's;plugins/;;g' -e 's; ;, ;g')"
+	@echo
 	touch $@

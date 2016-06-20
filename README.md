@@ -76,6 +76,7 @@ It should be fairly easy to customize your image for your own needs.  Bulding an
 * **postinst**: script to run in chroot of the rootfs
 * **files**: dir which conatins files to be copied into the rootfs, perms and atts included
 * **patches**: dir which contains patch files to apply to the rootfs
+* **baseonly**: is a special file for repo plugins, if the file exists the plugin is only included if the repo is the base repo
 
 Order is files -> preinst -> packages -> postinst -> patches
 
