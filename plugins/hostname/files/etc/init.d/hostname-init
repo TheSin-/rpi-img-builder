@@ -5,7 +5,7 @@
 # Required-Stop:     
 # Default-Start:     S
 # Default-Stop:      
-# X-Start-Before:    hostname
+# X-Start-Before:    
 # Short-Description: Creates /etc/hostname if missing.
 # Description:       Creates the /etc/hostname file on the first boot.
 ### END INIT INFO
