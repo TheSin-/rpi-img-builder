@@ -1,5 +1,5 @@
 DIST ?= jessie
-REPOS ?= Raspbian
+REPO ?= Raspbian
 DIST_ARCH ?= armhf
 ARCH ?= rpix
 UNAME ?= pi
@@ -11,6 +11,7 @@ BOOT_MB ?= 128
 INC_REC ?= 0
 
 REPOBASE := Raspbian
+REPOS := $(REPO)
 BOOT_DIR := boot
 
 ifeq ($(findstring Raspbian,$(REPOS)),Raspbian)

@@ -26,7 +26,7 @@ Script to build custom sd card image for Raspberry Pi.
 The build process has a few options you can set.
 * **DIST**: debian distribution [default jessie]
 * **DIST_ARCH**: image architecture [armel, armhf (default), arm64]
-* **REPOS**: upstream repositories based on repos dir [Bluefalls, Debian, Rasbian, Foundation, "Raspbian Foundation" (default)]
+* **REPO**: upstream repositories based on repos dir [Bluefalls, Debian, Rasbian, Foundation, "Raspbian Foundation" (default)]
 * **ARCH**: used to determin the kernel name [[Bluefalls - rpi, rpi2 (default), rpi3], [Debian - armmp (default), armmp-lpae], [Raspbian - rpix (default)]]
 * **IMAGE_MB**: size of the image, 128MB is for the fat boot, which is included in this option [-1 = auto (default), n = size in MB]
 * **LOCALE**: system locale (en_US.UTF-8 default, Make sure you type this exactly like in /usr/share/i18n/SUPPORTED)
@@ -59,7 +59,7 @@ Just use the make utility to build e.g. an Debian-testing-armmp.img.  Be sure to
 ```
 mv plugins/usbmount plugins/disabled/
 mv plugins/alsa plugins/disabled/
-sudo make distclean && sudo make DIST=testing REPOS=Debian
+sudo make distclean && sudo make DIST=testing REPO=Debian
 ```
 
 ## Example: Build a Raspbian Jessie image:
@@ -81,14 +81,14 @@ Execute order is files -> preinst -> packages -> postinst -> patches, per plugin
 
 This should allow you install extra packages (e.g. using apt-get) and modify configurations to your needs.  Of course, you can do all this manually after booting the device, but the goal of this project is to be able to generate re-usable images that can be deployed on any number of RaspberryPi devices (think of it as "firmware" of a consumer device).  The `extrapackages` plugin is an example of a plugin to just add new packages, you can modify it or create a new plugin of your own.
 
-All plugins in the base of the plugins dir will be included, if you do not want a plugin included move it to the disabled directory within the plugins directory.  There are a few special cases, and subdirectory in the plugins directory that match an enable Reporitory (via REPOS option or the defaults) or Distribution (vis DIST option or the default) could have a sub set of plugins without a directory that is named like it.
+All plugins in the base of the plugins dir will be included, if you do not want a plugin included move it to the disabled directory within the plugins directory.  There are a few special cases, and subdirectory in the plugins directory that match an enable Reporitory (via REPO option or the defaults) or Distribution (vis DIST option or the default) could have a sub set of plugins without a directory that is named like it.
 
 For example, if you set DIST to stretch and REPSOTORIES to Raspbian, then all plugins in the base of the plugins dir will be include as well as the plugins in the stretch and Raspbian directories.  Also since Raspbian will auto add the Foundation repo, any plugins in the Foundation directory if it exists will be included as well.
 
 ## Repositories
 So repositories require others, for example Raspbian will auto add Foundation, and Bluefalls with auto add Debian.
 
-You can easily add a custom repo by making a directory in the repos dir with teh repo name and making a multistrap.list.in file (see the others in that directory for examples on the files contents) and then listing it in the REPOS options.  ie: make an ubuntu repo, I could then use REPOS="Raspbian ubuntu", this is just an example I'm not sure why you would do this, but as an example.
+You can easily add a custom repo by making a directory in the repos dir with teh repo name and making a multistrap.list.in file (see the others in that directory for examples on the files contents) and then listing it in the REPO options.  ie: make an ubuntu repo, I could then use REPO="Raspbian ubuntu", this is just an example I'm not sure why you would do this, but as an example.
 
 ## Notes
 There are lots of plugin examples included, you can add and remove to your needs.  There are only there to show how customizable these build scripts are.
