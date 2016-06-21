@@ -18,6 +18,10 @@ fi
 DO_REBOOT=0
 
 do_reconf() {
+	while lsof /var/cache/debconf/templates.dat > /dev/null; do
+		sleep 5
+	done
+
 	if [ -d /etc/dbconfig-common ] && [ -e /etc/dbconfig-common/*.conf ]; then
 		for i in /etc/dbconfig-common/*.conf; do
 			PKGNAME=$(dpkg -S $i | cut -d: -f1)
