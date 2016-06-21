@@ -4,7 +4,7 @@ rpi-img-builder
 Script to build custom sd card image for Raspberry Pi.
 
 ## Features:
-* Debian repository (Tested with Jessie so far)
+* Debian repository (Tested with jessie and stretch so far)
 * Raspbian repository ([jessie/wheezy]/armhf ONLY)
 * Custom RPi repository
 * Custom repositories
@@ -26,7 +26,7 @@ Script to build custom sd card image for Raspberry Pi.
 The build process has a few options you can set.
 * **DIST**: debian distribution [default jessie]
 * **DIST_ARCH**: image architecture [armel, armhf (default), arm64]
-* **REPO**: upstream repositories based on repos dir [Bluefalls, Debian, Rasbian, Foundation, "Raspbian Foundation" (default)]
+* **REPO**: upstream repositories based on repos dir [Bluefalls, Debian, Raspbian, Foundation, "Raspbian Foundation" (default)]
 * **ARCH**: used to determin the kernel name [[Bluefalls - rpi, rpi2 (default), rpi3], [Debian - armmp (default), armmp-lpae], [Raspbian - rpix (default)]]
 * **IMAGE_MB**: size of the image, 128MB is for the fat boot, which is included in this option [-1 = auto (default), n = size in MB]
 * **LOCALE**: system locale (en_US.UTF-8 default, Make sure you type this exactly like in /usr/share/i18n/SUPPORTED)
@@ -42,7 +42,7 @@ sudo apt-get install build-essential wget git lzop u-boot-tools binfmt-support \
                      qemu qemu-user-static multistrap parted dosfstools
 ```
 
-## Example: Build an RPi2 Jessie image with a forced size of 1G:
+## Example: Build an RPi2 jessie image with a forced size of 1G:
 Just use the make utility to build e.g. an Bluefalls-jessie-rpi2.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
 ```
 sudo make distclean && sudo make REPO="Bluefalls Debian" DIST=jessie DIST_ARCH=armhf IMAGE_MB=1024
@@ -88,7 +88,7 @@ For example, if you set DIST to stretch and REPSOTORIES to Raspbian, then all pl
 ## Repositories
 So repositories require others, for example Raspbian will auto add Foundation, and Bluefalls with auto add Debian.
 
-You can easily add a custom repo by making a directory in the repos dir with teh repo name and making a multistrap.list.in file (see the others in that directory for examples on the files contents) and then listing it in the REPO options.  ie: make an ubuntu repo, I could then use REPO="Raspbian ubuntu", this is just an example I'm not sure why you would do this, but as an example.
+You can easily add a custom repo by making a directory in the repos dir with the repo name and making a multistrap.list.in file (see the others in that directory for examples on the files contents) and then listing it in the REPO options.  ie: make an ubuntu repo, I could then use REPO="Raspbian ubuntu", this is just an example I'm not sure why you would do this, but as an example.
 
 ## Notes
 There are lots of plugin examples included, you can add and remove to your needs.  There are only there to show how customizable these build scripts are.
