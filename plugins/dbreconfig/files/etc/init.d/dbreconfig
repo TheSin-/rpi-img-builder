@@ -25,7 +25,10 @@ do_reconf() {
 	if [ -d /etc/dbconfig-common ] && [ -e /etc/dbconfig-common/*.conf ]; then
 		for i in /etc/dbconfig-common/*.conf; do
 			PKGNAME=$(dpkg -S $i | cut -d: -f1)
+			oldval=$(debconf-show ${PKGNAME} | grep ${PKGNAME}/dbconfig-reinstall | cut -d: -f2 | tr -d '[[:space:]]')
+			/bin/echo "${PKGNAME} ${PKGNAME}/dbconfig-reinstall select true" | /usr/bin/debconf-set-selections
 			dpkg-reconfigure -f noninteractive ${PKGNAME}
+			/bin/echo "${PKGNAME} ${PKGNAME}/dbconfig-reinstall select ${oldval}" | /usr/bin/debconf-set-selections
 			DO_REBOOT=1
 		done
 	fi
