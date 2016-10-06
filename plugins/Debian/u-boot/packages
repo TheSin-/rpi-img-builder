@@ -1,1 +1,1 @@
-flash-kernel u-boot-rpi u-boot-tools rsync systemd initscripts
+flash-kernel u-boot-rpi u-boot-tools rsync systemd
