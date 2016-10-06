@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -e
+
+adduser $1 input || true
