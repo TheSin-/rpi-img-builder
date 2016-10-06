@@ -39,9 +39,13 @@ else ifeq ($(findstring Bluefalls,$(REPOS)),Bluefalls)
 else ifeq ($(findstring Debian,$(REPOS)),Debian)
 	REPOBASE := Debian
 	BOOT_DIR := boot/firmware
-	DIST_ARCH := armhf
-	ifneq ($(findstring armmp,$(ARCH)),armmp)
-		ARCH := armmp
+	ifeq ($(DIST_ARCH),arm64)
+		ARCH := arm64
+	else
+		DIST_ARCH := armhf
+		ifneq ($(findstring armmp,$(ARCH)),armmp)
+			ARCH := armmp
+		endif
 	endif
 endif
 
