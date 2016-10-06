@@ -64,11 +64,11 @@ useradd -m ${UNAME} -s /bin/bash
 echo "${UNAME}:${UPASS}" | chpasswd
 
 # Add $UNAME to sudo group
-adduser ${UNAME} sudo
-adduser ${UNAME} audio
-adduser ${UNAME} video
-adduser ${UNAME} input
-adduser ${UNAME} tty
+adduser ${UNAME} sudo || true
+adduser ${UNAME} audio || true
+adduser ${UNAME} video || true
+adduser ${UNAME} input || true
+adduser ${UNAME} tty || true
 
 # Initialize /etc/apt/sources.list (remove multistrap from the filenames)
 for i in /etc/apt/sources.list.d/*; do
