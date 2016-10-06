@@ -32,7 +32,6 @@ else ifeq ($(findstring Bluefalls,$(REPOS)),Bluefalls)
 		ARCH := rpi
 	else ifeq ($(DIST_ARCH),arm64)
 		ARCH := rpi3
-		QEMU := qemu-aarch64-static
 	else
 		DIST_ARCH := armhf
 		ARCH := rpi2
@@ -44,6 +43,10 @@ else ifeq ($(findstring Debian,$(REPOS)),Debian)
 	ifneq ($(findstring armmp,$(ARCH)),armmp)
 		ARCH := armmp
 	endif
+endif
+
+ifeq ($(DIST_ARCH),arm64)
+	QEMU := qemu-aarch64-static
 endif
 
 ifeq ($(shell test $(BOOT_MB) -lt 38; echo $$?),0)
