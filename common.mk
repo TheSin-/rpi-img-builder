@@ -14,6 +14,8 @@ REPOBASE := Raspbian
 REPOS := $(REPO)
 BOOT_DIR := boot
 
+QEMU := qemu-arm-static
+
 ifeq ($(findstring Raspbian,$(REPOS)),Raspbian)
 	ifneq ($(findstring Foundation,$(REPOS)),Foundation)
 		REPOS += Foundation
@@ -30,6 +32,7 @@ else ifeq ($(findstring Bluefalls,$(REPOS)),Bluefalls)
 		ARCH := rpi
 	else ifeq ($(DIST_ARCH),arm64)
 		ARCH := rpi3
+		QEMU := qemu-aarch64-static
 	else
 		DIST_ARCH := armhf
 		ARCH := rpi2

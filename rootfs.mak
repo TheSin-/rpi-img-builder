@@ -51,7 +51,7 @@ $(ROOTFS_DIR).base:
 	mkdir -p $@.tmp
 	cat $(shell echo multistrap.list.in; for i in $(REPOS); do echo repos/$$i/multistrap.list.in; done | xargs) | sed -e 's,__REPOSITORIES__,$(REPOS),g' -e 's,__SUITE__,$(DIST),g' -e 's,__ARCH__,$(ARCH),g' > multistrap.list
 	multistrap --arch $(DIST_ARCH) --file multistrap.list --dir $@.tmp
-	cp `which qemu-arm-static` $@.tmp/usr/bin
+	cp `which $(QEMU)` $@.tmp/usr/bin
 	mkdir -p $@.tmp/usr/share/fatboothack/overlays
 	if test ! -f $@.tmp/etc/resolv.conf; then cp /etc/resolv.conf $@.tmp/etc/; fi
 	# No idea why multistrap does this
@@ -81,7 +81,7 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	rm -f $@/packages.txt
 	rm -f $@/postinstall
 	rm -rf $@/postinst/
-	rm -f $@/usr/bin/qemu-arm-static
+	rm -f $@/usr/bin/$(QEMU)
 	rm -f $@/etc/resolv.conf
 	touch $@
 
