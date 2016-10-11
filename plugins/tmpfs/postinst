@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -e
+
+sed -i -e 's/#RAMTMP=no/RAMTMP=yes/g' /etc/default/tmpfs
