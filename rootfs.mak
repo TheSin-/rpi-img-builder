@@ -6,7 +6,7 @@ all: build
 .PHONY: clean
 clean: delete-rootfs
 	umount mnt || true
-	rm -rf $(wildcard $(IMAGE_FILE)) *.img.tmp mnt multistrap.list *.example plugins.txt
+	rm -rf $(IMAGE_FILE)*.img *.img.tmp mnt multistrap.list *.example plugins.txt
 
 .PHONY: distclean
 distclean: delete-rootfs
