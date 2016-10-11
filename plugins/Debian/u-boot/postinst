@@ -2,7 +2,7 @@
 set -e
 
 # Set RPi kernel cmdline
-echo "flash-kernel flash-kernel/linux_cmdline string earlyprintk console=ttyAMA0 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 rootwait quiet" | debconf-set-selections
+echo "flash-kernel flash-kernel/linux_cmdline string earlyprintk dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait" | debconf-set-selections
 
 dpkg-reconfigure -f noninteractive flash-kernel
 
