@@ -28,7 +28,7 @@ $(ROOTFS_DIR).base:
 	for i in plugins/$(DIST)/*; do if [ -f $$i/packages -o -f $$i/preinst -o -f $$i/postinst -o -d $$i/files -o -d $$i/patches ]; then echo $$i >> plugins.txt; fi; done
 	for j in $(REPOS); do for i in plugins/$$j/*; do if [ -f $$i/baseonly -a $$j != $(REPOBASE) ]; then continue; fi; if [ -f $$i/packages -o -f $$i/preinst -o -f $$i/postinst -o -d $$i/files -o -d $$i/patches ]; then echo $$i >> plugins.txt; fi; done; done
 	@echo
-	@echo "Building $(IMAGE_FILE)"
+	@echo "Building $(IMAGE_FILE)_$(TIMESTAMP).img"
 	@echo "Repositories: $(REPOS)"
 	@echo "Base repositories: $(REPOBASE)"
 	@echo "Distribution: $(DIST)"
@@ -86,11 +86,11 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	touch $@
 
 $(IMAGE_FILE): $(ROOTFS_DIR)
-	if test -f "$@.tmp"; then rm "$@.tmp" ; fi
-	./createimg $@.tmp $(BOOT_MB) $(ROOT_MB) $(BOOT_DIR) $(ROOTFS_DIR) "$(ROOT_DEV)"
-	mv $@.tmp $@
+	if test -f "$@.img.tmp"; then rm "$@.img.tmp" ; fi
+	./createimg $@.img.tmp $(BOOT_MB) $(ROOT_MB) $(BOOT_DIR) $(ROOTFS_DIR) "$(ROOT_DEV)"
+	mv $@.img.tmp $@_$(TIMESTAMP).img
 	@echo
-	@echo "Built $(IMAGE_FILE)"
+	@echo "Built $(IMAGE_FILE)_$(TIMESTAMP).img"
 	@echo "Repositories: $(REPOS)"
 	@echo "Base repositories: $(REPOBASE)"
 	@echo "Distribution: $(DIST)"

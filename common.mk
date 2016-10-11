@@ -63,7 +63,8 @@ else
 	ROOT_MB := $(shell expr $(IMAGE_MB) - $(BOOT_MB))
 endif
 
+TIMESTAMP := $(shell date +'%y-%m-%d_%H_%M_%S')
 ROOT_DEV := /dev/mmcblk0p2
 BASE_DIR := $(shell pwd)
 ROOTFS_DIR := $(BASE_DIR)/rootfs
-IMAGE_FILE := $(REPOBASE)-$(DIST)-$(ARCH)-$$(date +'%y-%m-%d_%H_%M_%S').img
+IMAGE_FILE := $(REPOBASE)-$(DIST)-$(ARCH)
