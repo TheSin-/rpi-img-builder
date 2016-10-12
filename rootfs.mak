@@ -98,4 +98,4 @@ $(IMAGE_FILE): $(ROOTFS_DIR)
 	@echo "System architecture: $(ARCH)"
 	@echo "Plugins: $$(cat plugins.txt | xargs | sed -e 's;plugins/;;g' -e 's; ;, ;g')"
 	@echo
-	touch $@
+	touch $@_$(TIMESTAMP).img
