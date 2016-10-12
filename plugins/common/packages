@@ -1,1 +1,1 @@
-apt-utils mawk ca-certificates sudo openssh-server vim locales ntpdate initramfs-tools ifupdown net-tools crda whiptail parted man-db udev systemd
+apt-utils mawk ca-certificates sudo openssh-server vim locales ntpdate initramfs-tools ifupdown net-tools crda whiptail parted man-db udev systemd systemd-sysv
