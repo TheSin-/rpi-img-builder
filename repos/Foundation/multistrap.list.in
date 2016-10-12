@@ -2,5 +2,5 @@
 source=http://archive.raspberrypi.org/debian
 keyring=raspbian-archive-keyring
 components=main ui
-suite=__SUITE__
+suite=jessie
 omitdebsrc=true
