@@ -7,7 +7,7 @@ set -e
 
 set -e
 
-if [ "$#" -eq 8 ]; then
+if [ "$#" -lt 9 ]; then
 	echo "Usage: $0 DIST ARCH LOCALE UNAME UPASS RPASS INC_REC UBOOT_DIR"
 	exit 1
 fi
