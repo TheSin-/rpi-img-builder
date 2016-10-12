@@ -70,7 +70,7 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	mount -o bind /proc $@/proc
 	mount -o bind /sys $@/sys
 	mount -o bind /dev $@/dev
-	chroot $@ /bin/bash -c "/postinstall $(DIST) $(ARCH) $(LOCALE) $(UNAME) $(UPASS) $(RPASS) $(INC_REC)"
+	chroot $@ /bin/bash -c "/postinstall $(DIST) $(ARCH) $(LOCALE) $(UNAME) $(UPASS) $(RPASS) $(INC_REC) $(UBOOT_DIR)"
 	for i in $$(cat plugins.txt | xargs); do if [ -d $$i/patches ]; then for j in $$i/patches/*; do patch -p0 -d $@ < $$j; done; fi; done
 	if ls plugins/*/files/etc/hostname 1> /dev/null 2>&1; then cp plugins/*/files/etc/hostname $@/etc/hostname; fi
 	if ls plugins/$(DIST)/*/files/etc/hostname 1> /dev/null 2>&1; then cp plugins/$(DIST)/*/files/etc/hostname $@/etc/hostname; fi

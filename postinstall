@@ -8,7 +8,7 @@ set -e
 set -e
 
 if [ "$#" -eq 8 ]; then
-	echo "Usage: $0 DIST ARCH LOCALE UNAME UPASS RPASS INC_REC"
+	echo "Usage: $0 DIST ARCH LOCALE UNAME UPASS RPASS INC_REC UBOOT_DIR"
 	exit 1
 fi
 
@@ -19,6 +19,7 @@ UNAME=$4
 UPASS=$5
 RPASS=$6
 INC_REC=$7
+UBOOT_DIR=$8
 
 echo "Running postinstall script..."
 
@@ -92,7 +93,7 @@ if [ -d /postinst ]; then
 	echo "Running custom postinst scripts"
 	for i in `find /postinst -maxdepth 1 -type f -executable -not -name "*~"`; do
 		echo "  Running $i"
-		$i ${UNAME}
+		$i ${UNAME} ${UBOOT_DIR}
 	done
 else
 	echo "No custom postinst scripts found"

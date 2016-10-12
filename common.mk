@@ -1,5 +1,6 @@
 DIST ?= jessie
 REPO ?= Raspbian
+RPI ?= 2
 DIST_ARCH ?= armhf
 ARCH ?= rpix
 UNAME ?= pi
@@ -12,7 +13,9 @@ INC_REC ?= 0
 
 REPOBASE := Raspbian
 REPOS := $(REPO)
+RPIV := $(RPI)
 BOOT_DIR := boot
+UBOOT_DIR := rpi_2
 
 QEMU := qemu-arm-static
 
@@ -41,7 +44,14 @@ else ifeq ($(findstring Debian,$(REPOS)),Debian)
 	BOOT_DIR := boot/firmware
 	ifeq ($(DIST_ARCH),arm64)
 		ARCH := arm64
+		UBOOT_DIR := rpi_3
+	else ifeq ($(DIST_ARCH),armel)
+		ARCH := armel
+		UBOOT_DIR := rpi
 	else
+		ifeq ($(RPIV),3)
+			UBOOT_DIR := rpi_3_32b
+		endif
 		DIST_ARCH := armhf
 		ifneq ($(findstring armmp,$(ARCH)),armmp)
 			ARCH := armmp

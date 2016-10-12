@@ -34,6 +34,7 @@ The build process has a few options you can set.
 * **UPASS**: user account password (pi default)
 * **RPASS**: root password (pi default)
 * **INC_REC**: include recommends for apt-get install [1 = Yes, 0 = No (default)]
+* **RPI**: sets the base RPi board version, ONLY used with U-Boot [ 2 (default, 3 ]
 
 ## Prerequisites:
 On a x86 based Debian system, make sure the following packages are installed:
@@ -59,7 +60,7 @@ Just use the make utility to build e.g. an Debian-testing-armmp.img.  Be sure to
 ```
 mv plugins/usbmount plugins/disabled/
 mv plugins/alsa plugins/disabled/
-sudo make distclean && sudo make DIST=testing REPO=Debian
+sudo make distclean && sudo make DIST=testing REPO=Debian RPI=2
 ```
 
 ## Example: Build a Raspbian Jessie image:

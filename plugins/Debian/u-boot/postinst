@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 set -e
 
+ubootdir=$2
+
 # Set RPi kernel cmdline
 echo "flash-kernel flash-kernel/linux_cmdline string earlyprintk dwc_otg.lpm_enable=0 console=ttyAMA0,115200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait" | debconf-set-selections
 
 dpkg-reconfigure -f noninteractive flash-kernel
 
-cp /usr/lib/u-boot/rpi*/* /boot/firmware/
+cp /usr/lib/u-boot/${ubootdir}/* /boot/firmware/
 
 flash-kernel
 /etc/kernel/postinst.d/zzz-fatboot-partition
