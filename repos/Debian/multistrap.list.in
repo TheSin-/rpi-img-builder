@@ -5,3 +5,11 @@ keyring=debian-archive-keyring
 components=main contrib non-free
 suite=__SUITE__
 omitdebsrc=true
+
+[Debian-security]
+packages=
+source=http://security.debian.org/
+keyring=debian-archive-keyring
+components=main contrib non-free
+suite=__SUITE__
+omitdebsrc=true
