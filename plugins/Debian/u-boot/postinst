@@ -10,5 +10,11 @@ dpkg-reconfigure -f noninteractive flash-kernel
 
 cp /usr/lib/u-boot/${ubootdir}/* /boot/firmware/
 
-flash-kernel
+unset FLASH_KERNEL_SKIP
+if [ "$RIB_DIST" = "Ubuntu" ]; then
+	flash-kernel $FK_MACHINE
+else
+	flash-kernel
+fi
+
 /etc/kernel/postinst.d/zzz-fatboot-partition
