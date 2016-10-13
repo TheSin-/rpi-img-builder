@@ -1,1 +1,1 @@
-parted util-linux init-system-helpers
+parted util-linux init-system-helpers lsb-base e2fsprogs
