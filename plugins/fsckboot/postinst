@@ -3,4 +3,4 @@ set -e
 
 sed -i /etc/default/rcS -e "s/^#FSCKFIX=no/FSCKFIX=yes/"
 
-update-initramfs -u
+#update-initramfs -u
