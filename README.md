@@ -56,10 +56,7 @@ sudo dd bs=1M if=Bluefalls-jessie-rpi2.img of=/dev/YOUR_SD_CARD && sudo sync
 
 ## Example: Build a Debian U-Boot Testing image based on armmp:
 Just use the make utility to build e.g. an Debian-testing-armmp.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
-*NOTE:* usbmount isn't in testing, and sounds drivers aren't avail in debian kernel, so move both out of the way.
 ```
-mv plugins/usbmount plugins/disabled/
-mv plugins/alsa plugins/disabled/
 sudo make distclean && sudo make DIST=testing REPO=Debian RPI=2
 ```
 
