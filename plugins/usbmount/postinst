@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-set -e
-
-update-rc.d usbmount-start defaults
