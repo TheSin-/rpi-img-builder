@@ -1,1 +1,1 @@
-raspberrypi-bootloader raspberrypi-sys-mods libraspberrypi-bin raspi-config wget
+raspberrypi-sys-mods raspi-config rpi-update raspberrypi-kernel raspberrypi-bootloader libraspberrypi-bin libraspberrypi0 wget
