@@ -31,10 +31,11 @@ LANG=C
 export DEBIAN_FRONTEND=noninteractive
 export FLASH_KERNEL_SKIP=1
 export RIB_DIST=${DIST}
-
-# For now there is only one avail, but we will check ARCH to set this in the
-# future (For flash-kernel)
-export FK_MACHINE="Raspberry Pi 2 Model B"
+if [ "${UBOOT_DIR}" = "rpi_3" ]; then
+	export FK_MACHINE="Raspberry Pi 3 Model B"
+else
+	export FK_MACHINE="Raspberry Pi 2 Model B"
+fi
 
 # Prevent apt-get from starting services
 echo "#!/bin/sh

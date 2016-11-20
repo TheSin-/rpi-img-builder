@@ -9,6 +9,7 @@ echo "flash-kernel flash-kernel/linux_cmdline string earlyprintk dwc_otg.lpm_ena
 dpkg-reconfigure -f noninteractive flash-kernel
 
 cp /usr/lib/u-boot/${ubootdir}/* /boot/firmware/
+echo "$FK_MACHINE" > /etc/flash-kernel/machine
 
 unset FLASH_KERNEL_SKIP
 if [ "$RIB_DIST" = "Ubuntu" ]; then
