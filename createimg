@@ -55,8 +55,8 @@ boot_dir=$4
 rootfs_dir=$5
 root_dev=$6
 
-# needed + 20mb
-needed_mb=$(($(du -s --block-size=1MB ${rootfs_dir} | awk {'print $1'}) + 20))
+# needed + 40mb for first boot and resizing to work, just for logs and such
+needed_mb=$(($(du -s --block-size=1MB ${rootfs_dir} | awk {'print $1'}) + 40))
 
 if [ ${root_mb} -lt $needed_mb ];
 then
