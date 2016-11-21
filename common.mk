@@ -40,6 +40,15 @@ else ifeq ($(findstring Bluefalls,$(REPOS)),Bluefalls)
 		DARCH := armhf
 		ARCH := rpi2
 	endif
+else ifeq ($(findstring Ubuntu,$(REPOS)),Ubuntu)
+	REPOBASE := Ubuntu
+	ifeq ($(findstring jessie,$(DIST)),jessie)
+		DIST := yakkety
+	endif
+	BOOT_DIR := boot/firmware
+	ARCH := raspi2
+	DARCH := armhf
+	RPIV := 2
 else ifeq ($(findstring Debian,$(REPOS)),Debian)
 	REPOBASE := Debian
 	BOOT_DIR := boot/firmware

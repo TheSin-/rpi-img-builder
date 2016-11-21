@@ -5,7 +5,8 @@ Script to build custom sd card image for Raspberry Pi.
 
 ## Features:
 * Debian repository (Tested with jessie and stretch so far)
-* Raspbian repository ([jessie/wheezy]/armhf ONLY)
+* Ubuntu repository (yakkety/zesty only since no rpi support before that and currently rpi2 only)
+* Raspbian repository (armhf ONLY)
 * Custom RPi repository
 * Custom repositories
 * Architectures
@@ -24,10 +25,10 @@ Script to build custom sd card image for Raspberry Pi.
 
 ## Make Options
 The build process has a few options you can set.
-* **DIST**: debian distribution [default jessie]
+* **DIST**: debian distribution [default jessie (yakkety for Ubuntu)]
 * **DIST_ARCH**: image architecture [armel, armhf (default), arm64]
-* **REPO**: upstream repositories based on repos dir [Bluefalls, Debian, Raspbian, Foundation, "Raspbian Foundation" (default)]
-* **ARCH**: used to determin the kernel name [[Bluefalls - rpi, rpi2 (default), rpi3], [Debian - armmp (default), armmp-lpae], [Raspbian - rpix (default)]]
+* **REPO**: upstream repositories based on repos dir [Bluefalls, Debian, Ubuntu, Raspbian, Foundation, "Raspbian Foundation" (default)]
+* **ARCH**: used to determin the kernel name [[Bluefalls - rpi, rpi2 (default), rpi3], [Debian - armmp (default), armmp-lpae], [Ubuntu - raspi2 (default)], [Raspbian - rpix (default)]]
 * **IMAGE_MB**: size of the image, 128MB is for the fat boot, which is included in this option [-1 = auto (default), n = size in MB]
 * **LOCALE**: system locale (en_US.UTF-8 default, Make sure you type this exactly like in /usr/share/i18n/SUPPORTED)
 * **UNAME**: user account that gets created (pi default)
@@ -58,6 +59,14 @@ sudo dd bs=1M if=Bluefalls-jessie-rpi2.img of=/dev/YOUR_SD_CARD && sudo sync
 Just use the make utility to build e.g. an Debian-testing-armmp.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
 ```
 sudo make distclean && sudo make DIST=testing REPO=Debian RPI=2
+```
+
+## Example: Build a Ubuntu U-Boot Yakkety image based on raspi2:
+Just use the make utility to build e.g. an Ubuntu-xenial-raspi2.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
+```
+mv plugins/tmpfs plugins/disabled/
+mv plugins/fsckboot plugins/disabled/
+sudo make distclean && sudo make REPO=Ubuntu
 ```
 
 ## Example: Build a Raspbian Jessie image:
