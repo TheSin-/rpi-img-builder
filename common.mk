@@ -14,6 +14,7 @@ INC_REC ?= 0
 REPOBASE := Raspbian
 REPOS := $(REPO)
 RPIV := $(RPI)
+DARCH := $(DIST_ARCH)
 BOOT_DIR := boot
 UBOOT_DIR := rpi_2
 
@@ -24,42 +25,42 @@ ifeq ($(findstring Raspbian,$(REPOS)),Raspbian)
 		REPOS += Foundation
 	endif
 	REPOBASE := Raspbian
-	DIST_ARCH := armhf
+	DARCH := armhf
 	ARCH := rpix
 else ifeq ($(findstring Bluefalls,$(REPOS)),Bluefalls)
 	ifneq ($(findstring Debian,$(REPOS)),Debian)
 		REPOS += Debian
 	endif
 	REPOBASE := Bluefalls
-	ifeq ($(DIST_ARCH),armel)
+	ifeq ($(DARCH),armel)
 		ARCH := rpi
-	else ifeq ($(DIST_ARCH),arm64)
+	else ifeq ($(DARCH),arm64)
 		ARCH := rpi3
 	else
-		DIST_ARCH := armhf
+		DARCH := armhf
 		ARCH := rpi2
 	endif
 else ifeq ($(findstring Debian,$(REPOS)),Debian)
 	REPOBASE := Debian
 	BOOT_DIR := boot/firmware
-	ifeq ($(DIST_ARCH),arm64)
+	ifeq ($(DARCH),arm64)
 		ARCH := arm64
 		UBOOT_DIR := rpi_3
-	else ifeq ($(DIST_ARCH),armel)
+	else ifeq ($(DARCH),armel)
 		ARCH := armel
 		UBOOT_DIR := rpi
 	else
 		ifeq ($(RPIV),3)
 			UBOOT_DIR := rpi_3_32b
 		endif
-		DIST_ARCH := armhf
+		DARCH := armhf
 		ifneq ($(findstring armmp,$(ARCH)),armmp)
 			ARCH := armmp
 		endif
 	endif
 endif
 
-ifeq ($(DIST_ARCH),arm64)
+ifeq ($(DARCH),arm64)
 	QEMU := qemu-aarch64-static
 endif
 

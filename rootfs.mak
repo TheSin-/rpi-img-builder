@@ -32,7 +32,7 @@ $(ROOTFS_DIR).base:
 	@echo "Repositories: $(REPOS)"
 	@echo "Base repositories: $(REPOBASE)"
 	@echo "Distribution: $(DIST)"
-	@echo "Repository architecture: $(DIST_ARCH)"
+	@echo "Repository architecture: $(DARCH)"
 	@echo "System architecture: $(ARCH)"
 	@echo "Plugins: $$(cat plugins.txt | xargs | sed -e 's;plugins/;;g' -e 's; ;, ;g')"
 	@echo
@@ -50,7 +50,7 @@ $(ROOTFS_DIR).base:
 	if test -d "$@.tmp"; then rm -rf "$@.tmp" ; fi
 	mkdir -p $@.tmp
 	cat $(shell echo multistrap.list.in; for i in $(REPOS); do echo repos/$$i/multistrap.list.in; done | xargs) | sed -e 's,__REPOSITORIES__,$(REPOS),g' -e 's,__SUITE__,$(DIST),g' -e 's,__ARCH__,$(ARCH),g' > multistrap.list
-	multistrap --arch $(DIST_ARCH) --file multistrap.list --dir $@.tmp
+	multistrap --arch $(DARCH) --file multistrap.list --dir $@.tmp
 	cp `which $(QEMU)` $@.tmp/usr/bin
 	mkdir -p $@.tmp/usr/share/fatboothack/overlays
 	if test ! -f $@.tmp/etc/resolv.conf; then cp /etc/resolv.conf $@.tmp/etc/; fi
@@ -94,7 +94,7 @@ $(IMAGE_FILE): $(ROOTFS_DIR)
 	@echo "Repositories: $(REPOS)"
 	@echo "Base repositories: $(REPOBASE)"
 	@echo "Distribution: $(DIST)"
-	@echo "Repository architecture: $(DIST_ARCH)"
+	@echo "Repository architecture: $(DARCH)"
 	@echo "System architecture: $(ARCH)"
 	@echo "Plugins: $$(cat plugins.txt | xargs | sed -e 's;plugins/;;g' -e 's; ;, ;g')"
 	@echo
