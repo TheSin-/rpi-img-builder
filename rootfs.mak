@@ -75,6 +75,7 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	if ls plugins/*/files/etc/hostname 1> /dev/null 2>&1; then cp plugins/*/files/etc/hostname $@/etc/hostname; fi
 	if ls plugins/$(DIST)/*/files/etc/hostname 1> /dev/null 2>&1; then cp plugins/$(DIST)/*/files/etc/hostname $@/etc/hostname; fi
 	if [ -f $@/etc/hostname ]; then if ! grep "^127.0.0.1\s*$$(cat $@/etc/hostname)\s*" $@/etc/hosts > /dev/null ; then sed -i "1i 127.0.0.1\\t$$(cat $@/etc/hostname)" $@/etc/hosts; fi; fi
+	if [ -f $(ROOTFS)/$(BOOT_DIR)/config.txt -a "$(DARCH)" = "arm64" ]; then echo "arm_64bit=1" >> $(ROOTFS)/$(BOOT_DIR)/config.txt; fi
 	umount $@/proc
 	umount $@/sys
 	umount $@/dev

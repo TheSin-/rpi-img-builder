@@ -71,6 +71,7 @@ endif
 
 ifeq ($(DARCH),arm64)
 	QEMU := qemu-aarch64-static
+	RPIV := 3
 endif
 
 ifeq ($(shell test $(BOOT_MB) -lt 38; echo $$?),0)
