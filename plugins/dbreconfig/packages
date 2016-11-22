@@ -1,1 +1,1 @@
-dbconfig-common lsb-base
+dbconfig-common lsb-base init-system-helpers policykit-1
