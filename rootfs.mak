@@ -76,7 +76,7 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	if ls plugins/$(DIST)/*/files/etc/hostname 1> /dev/null 2>&1; then cp plugins/$(DIST)/*/files/etc/hostname $@/etc/hostname; fi
 	if [ -f $@/etc/hostname ]; then if ! grep "^127.0.0.1\s*$$(cat $@/etc/hostname)\s*" $@/etc/hosts > /dev/null ; then sed -i "1i 127.0.0.1\\t$$(cat $@/etc/hostname)" $@/etc/hosts; fi; fi
 	if [ -f $(ROOTFS_DIR)/$(BOOT_DIR)/config.txt -a "$(DARCH)" = "arm64" ]; then if ! grep "arm_64bit=1" $(ROOTFS_DIR)/$(BOOT_DIR)/config.txt > /dev/null; then echo "arm_64bit=1" >> $(ROOTFS_DIR)/$(BOOT_DIR)/config.txt; fi; fi
-	if [ "$(RPIV)" = "3" ]; then git clone https://github.com/RPi-Distro/firmware-nonfree.git tmp; mkdir -p $@/lib/firmware/brcm; cp tmp/brcm80211/brcm/brcmfmac43430-sdio.* $@/lib/firmware/brcm/; rm -rf tmp; fi
+	if [ "$(RPIV)" = "3" ]; then git clone --depth=1 http://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git tmp; mkdir -p $@/lib/firmware/brcm; cp tmp/brcm/brcmfmac43430-sdio.* $@/lib/firmware/brcm/; rm -rf tmp; fi
 	umount $@/proc
 	umount $@/sys
 	umount $@/dev
