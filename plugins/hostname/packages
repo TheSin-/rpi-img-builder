@@ -1,1 +1,1 @@
-init-system-helpers policykit-1
+init-system-helpers policykit-1 coreutils
