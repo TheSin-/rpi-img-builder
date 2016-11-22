@@ -38,8 +38,8 @@ case "$1" in
 	start)
 		log_daemon_msg "Starting dbreconfig" &&
 		do_reconf &&
-		rm /etc/init.d/dbreconfig &&
 		update-rc.d dbreconfig remove &&
+		rm -f /etc/init.d/dbreconfig &&
 		log_end_msg $? &&
 		if [ $DO_REBOOT == 1 ]; then reboot; fi
 	;;
