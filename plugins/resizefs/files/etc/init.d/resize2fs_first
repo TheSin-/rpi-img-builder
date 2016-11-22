@@ -46,7 +46,7 @@ case "$1" in
 		do_expand_rootfs &&
 		update-rc.d resize2fs_first remove &&
 		rm -f /etc/init.d/resize2fs_first &&
-		touch /var/run/ROOT_RESIZE &&
+		touch /var/tmp/ROOT_RESIZE &&
 		update-rc.d resize2fs_last defaults &&
 		log_end_msg $? &&
 		reboot

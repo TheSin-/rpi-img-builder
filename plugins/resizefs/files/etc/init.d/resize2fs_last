@@ -11,7 +11,7 @@
 
 . /lib/lsb/init-functions
 
-if [ ! -f /var/run/ROOT_RESIZE ]; then
+if [ ! -f /var/tmp/ROOT_RESIZE ]; then
 	exit 0
 fi
 
@@ -25,8 +25,8 @@ case "$1" in
 		do_finish_expand_rootfs &&
 		update-rc.d resize2fs_last remove &&
 		rm -f /etc/init.d/resize2fs_last &&
-		rm -f /var/run/ROOT_RESIZE &&
-		touch /var/run/ROOT_RESIZED &&
+		rm -f /var/tmp/ROOT_RESIZE &&
+		touch /var/tmp/ROOT_RESIZED &&
 		log_end_msg $?
 	;;
 	*)
