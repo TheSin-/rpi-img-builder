@@ -17,8 +17,13 @@ PATH="/sbin:/bin"
 case "$1" in
     start)
     if [ ! -e "/etc/hostname" ]; then
-        mac=`cat /sys/class/net/eth0/address | sed s/://g`
-        hostname="raspberrypi-$mac"
+	mac=`cat $(ls -1d /sys/class/net/en* | head -n1)/address | sed s/:/
+/g`
+	if [ "$mac" != "" ]; then
+        	hostname="raspberrypi-$mac"
+	else
+        	hostname="raspberrypi"
+	fi
         log_action_begin_msg "Creating /etc/hostname with $hostname"
         echo "$hostname" > /etc/hostname
         hostname "$hostname"
