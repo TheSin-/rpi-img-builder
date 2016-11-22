@@ -44,8 +44,8 @@ case "$1" in
 	start)
 		log_daemon_msg "Starting resize2fs_first" &&
 		do_expand_rootfs &&
-		rm /etc/init.d/resize2fs_first &&
 		update-rc.d resize2fs_first remove &&
+		rm -f /etc/init.d/resize2fs_first &&
 		touch /var/run/ROOT_RESIZE &&
 		update-rc.d resize2fs_last defaults &&
 		log_end_msg $? &&
