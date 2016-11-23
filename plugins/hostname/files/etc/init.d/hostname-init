@@ -3,7 +3,7 @@
 # Provides:          hostname-init
 # Required-Start:    $local_fs
 # Required-Stop:     
-# Default-Start:     S
+# Default-Start: 2 3 4 5
 # Default-Stop:      
 # X-Start-Before:    
 # Short-Description: Creates /etc/hostname if missing.

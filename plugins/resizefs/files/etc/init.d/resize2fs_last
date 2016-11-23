@@ -3,7 +3,7 @@
 # Provides:          resize2fs_last
 # Required-Start: $local_fs
 # Required-Stop:
-# Default-Start: S
+# Default-Start: 2 3 4 5
 # Default-Stop:
 # Short-Description: Resize the root filesystem to fill partition
 # Description:
