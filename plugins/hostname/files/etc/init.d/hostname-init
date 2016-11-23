@@ -17,7 +17,7 @@ PATH="/sbin:/bin"
 case "$1" in
     start)
     if [ ! -e "/etc/hostname" ]; then
-	address=( $(ls -1d /sys/class/net/en*) )
+	address=( $(ls -1d /sys/class/net/e*) )
 	mac=`cat ${address[0]}/address | sed s/://g`
 	if [ "$mac" != "" ]; then
         	hostname="raspberrypi-$mac"
