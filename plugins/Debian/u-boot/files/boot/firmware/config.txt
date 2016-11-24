@@ -4,3 +4,4 @@ device_tree_end=0x8000
 kernel=u-boot.bin
 dtparam=i2c_arm=on
 dtparam=spi=on
+dtparam=audio=on
