@@ -19,3 +19,9 @@ else
 fi
 
 /etc/kernel/postinst.d/zzz-fatboot-partition
+
+if grep 'snd_bcm2835' /etc/modules > /dev/null; then
+	sed -i -e 's,snd_bcm2835,snd-soc-bcm2835-i2s,g' /etc/modules
+else if ! grep 'snd*bcm2835' /etc/modules > /dev/null; then
+	echo 'snd-soc-bcm2835-i2s' >> /etc/modules
+fi

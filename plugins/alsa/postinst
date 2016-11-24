@@ -16,4 +16,6 @@ pcm.!default {
 }
 EOF
 
-echo 'snd_bcm2835' >> /etc/modules
+if ! grep 'snd*bcm2835' /etc/modules > /dev/null; then
+	echo 'snd_bcm2835' >> /etc/modules
+fi
