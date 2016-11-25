@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 ### BEGIN INIT INFO
 # Provides:          hostname-init
 # Required-Start:    $local_fs $network
