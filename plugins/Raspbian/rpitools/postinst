@@ -2,3 +2,5 @@
 set -e
 
 wget http://archive.raspberrypi.org/debian/raspberrypi.gpg.key -O - | apt-key add -
+
+sed -i -e 's,PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games",PATH="/usr/local/bin:/usr/sbin:/sbin:/usr/bin:/bin:/usr/local/games:/usr/games",g' /etc/profile
