@@ -10,7 +10,7 @@ Script to build custom sd card image for Raspberry Pi.
 * Custom RPi repository
 * Custom repositories
 * Architectures
-* Login: pi/pi
+* Login: pi/raspberry (Default)
 * Auto size, make as compact as possible or set a size
 * Plugins
 
@@ -32,8 +32,8 @@ The build process has a few options you can set.
 * **IMAGE_MB**: size of the image, 128MB is for the fat boot, which is included in this option [-1 = auto (default), n = size in MB]
 * **LOCALE**: system locale (en_US.UTF-8 default, Make sure you type this exactly like in /usr/share/i18n/SUPPORTED)
 * **UNAME**: user account that gets created (pi default)
-* **UPASS**: user account password (pi default)
-* **RPASS**: root password (pi default)
+* **UPASS**: user account password (raspberry default)
+* **RPASS**: root password (raspberry default)
 * **INC_REC**: include recommends for apt-get install [1 = Yes, 0 = No (default)]
 * **RPI**: sets the base RPi board version, ONLY used with U-Boot [ 2 (default, 3 ]
 
