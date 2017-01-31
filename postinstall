@@ -44,7 +44,9 @@ exit 101
 chmod +x /usr/sbin/policy-rc.d
 
 # Set the locale
-ln -s /usr/share/i18n/SUPPORTED /etc/locale.gen
+if [ ! -e /etc/locale.gen ] && [ -e /usr/share/i18n/SUPPORTED ]; then
+	cp /usr/share/i18n/SUPPORTED /etc/locale.gen
+fi
 sed -i -e 's/^ *[a-zA-Z]/# &/' /etc/locale.gen
 sed -i "s/^#[[:space:]]*${LOCALE}\(.*\)/${LOCALE}\1/g" /etc/locale.gen
 echo "LANG=${LOCALE}" >> /etc/default/locale
