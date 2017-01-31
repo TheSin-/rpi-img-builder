@@ -65,7 +65,7 @@ locale-gen
 # Finish multistrap
 /var/lib/dpkg/info/base-passwd.preinst install
 /var/lib/dpkg/info/dash.preinst install
-dpkg --force-all --configure debconf mawk || exit 0
+dpkg --force-all --configure debconf mawk || true
 dpkg --configure -a
 
 # Set root password
