@@ -50,19 +50,9 @@ exit 101
 chmod +x /usr/sbin/policy-rc.d
 
 # Set the locale
-#if [ ! -e /etc/locale.gen ]; then
-#	if [ -e /usr/share/i18n/SUPPORTED ]; then
-#		cp /usr/share/i18n/SUPPORTED /etc/locale.gen
-#	else
-#		echo ${LOCALE} > /etc/locale.gen
-#	fi
-#fi
-#sed -i -e 's/^ *[a-zA-Z]/# &/' /etc/locale.gen
-#sed -i "s/^#[[:space:]]*${LOCALE}\(.*\)/${LOCALE}\1/g" /etc/locale.gen
 echo "LANG=${LOCALE}" >> /etc/default/locale
 echo "locales locales/default_environment_locale select ${LOCALE}" | debconf-set-selections
 echo "locales locales/locales_to_be_generated select ${LOCALE} UTF-8" | debconf-set-selections
-#locale-gen
 
 # Finish multistrap
 /var/lib/dpkg/info/base-passwd.preinst install
