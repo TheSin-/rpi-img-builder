@@ -5,7 +5,11 @@ set -e
 # NOTE: This script is run within the chroot after second stage debootstrap!
 #
 
-set -e
+# Make sure we are chrooted
+if [ "$(stat -c %d:%i /)" = "$(stat -c %d:%i /proc/1/root/.)" ]; then
+	echo "Something went wrong and we aren't in a chroot, to save your system from damage the script will fail and exit now."
+	exit 1;
+fi
 
 if [ "$#" -lt 8 ]; then
 	echo "Usage: $0 DIST ARCH LOCALE UNAME UPASS RPASS INC_REC UBOOT_DIR"
