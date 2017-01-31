@@ -67,7 +67,9 @@ echo "locales locales/locales_to_be_generated select ${LOCALE} UTF-8" | debconf-
 # Finish multistrap
 /var/lib/dpkg/info/base-passwd.preinst install
 /var/lib/dpkg/info/dash.preinst install
-dpkg --force-all --configure apt-utils debconf mawk || true
+dpkg --force-all --configure apt-utils || true
+dpkg --force-all --configure debconf || true
+dpkg --force-all --configure mawk || true
 dpkg --configure -a
 
 # Set root password
