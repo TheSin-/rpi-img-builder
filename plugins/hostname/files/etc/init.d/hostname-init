@@ -10,7 +10,7 @@
 # Description:       Creates the /etc/hostname file on the first boot.
 ### END INIT INFO
 
-PATH="/sbin:/bin"
+PATH="/sbin:/bin:/usr/bin"
 
 . /lib/lsb/init-functions
 
@@ -18,7 +18,7 @@ case "$1" in
     start)
     if [ ! -e "/etc/hostname" ]; then
 	hostname=""
-	address=( $(ls -1d /sys/class/net/e* /sys/class/net/wlan* 2>/dev/null) )
+	address=( $(ls -1d /sys/class/net/e* /sys/class/net/wlan* 2>/dev/null || true) )
 	if [ -z ${address} ]; then
 		mac=`cat ${address[0]}/address | sed s/://g`
 		if [ "$mac" != "" ]; then
