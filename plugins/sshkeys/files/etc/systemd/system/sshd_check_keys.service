@@ -7,7 +7,7 @@ ConditionPathExistsGlob=!/etc/ssh/ssh_host_*_key
 
 [Service]
 Type=simple
-ExecStart=/usr/sbin/dpkg-reconfigure -f noninteractive openssh-server
+ExecStart=/usr/bin/ssh-keygen -A
 ExecAfterStart=/bin/sleep 15; service sshd restart
 
 [Install]
