@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -e
+
+BRANCH=next SKIP_BACKUP=1 rpi-update
