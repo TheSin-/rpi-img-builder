@@ -5,7 +5,9 @@ all: build
 
 .PHONY: clean
 clean: delete-rootfs
-	umount mnt || true
+	if mountpoint -q mnt; then \
+		umount mnt;
+	fi
 	rm -rf $(IMAGE_FILE)*.img *.img.tmp mnt multistrap.list *.example plugins.txt multistrap.err
 
 .PHONY: distclean
@@ -77,15 +79,15 @@ $(ROOTFS_DIR).base:
 	cat $(shell echo multistrap.list.in; for i in $(REPOS); do echo repos/$$i/multistrap.list.in; done | xargs) | sed -e 's,__REPOSITORIES__,$(REPOS),g' -e 's,__SUITE__,$(DIST),g' -e 's,__ARCH__,$(ARCH),g' > multistrap.list
 	multistrap --arch $(DARCH) --file multistrap.list --dir $@.tmp 2>multistrap.err || true
 	if test -e multistrap.err; then \
-		@echo; \
-		@echo; \
-		@echo "Something went wrong please review multistrap.err to figure out what."; \
-		@echo; \
-		@echo; \
-		@cat multistrap.err; \
-		@echo; \
-		@echo; \
-		@exit 1; \
+		echo; \
+		echo; \
+		echo "Something went wrong please review multistrap.err to figure out what."; \
+		echo; \
+		echo; \
+		cat multistrap.err; \
+		echo; \
+		echo; \
+		exit 1; \
 	fi
 	cp `which $(QEMU)` $@.tmp/usr/bin
 	mkdir -p $@.tmp/usr/share/fatboothack/overlays
@@ -103,23 +105,23 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	mkdir $@/postinst
 	touch $@/packages.txt
 	for i in $$(cat plugins.txt | xargs); do \
-		@echo "Processing $$i..."; \
+		echo "Processing $$i..."; \
 		if [ -d $$i/files ]; then \
-			@echo " - found files ... adding"; \
+			echo " - found files ... adding"; \
 			cd $$i/files && find . -type f ! -name '*~' -exec cp --preserve=mode,timestamps --parents \{\} $@ \;; \
 			cd $(BASE_DIR); \
 		fi; \
 		if [ -f $$i/packages ]; then \
-			@echo " - found packages ... adding"; \
-			@echo -n "$$(cat $$i/packages | sed -e "s,__ARCH__,$(ARCH),g" | xargs) " >> $@/packages.txt; \
+			echo " - found packages ... adding"; \
+			echo -n "$$(cat $$i/packages | sed -e "s,__ARCH__,$(ARCH),g" | xargs) " >> $@/packages.txt; \
 		fi; \
 		if [ -f $$i/preinst ]; then \
 			chmod +x $$i/preinst; \
-			@echo " - found preinst ... running"; \
+			echo " - found preinst ... running"; \
 			./$$i/preinst; \
 		fi; \
 		if [ -f $$i/postinst ]; then \
-			@echo " - found postinst ... adding"; \
+			echo " - found postinst ... adding"; \
 			cp $$i/postinst $@/postinst/$$(dirname $$i/postinst | rev | cut -d/ -f1 | rev)-$$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9" | head -c 5); \
 		fi; \
 	done
