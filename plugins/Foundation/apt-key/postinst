@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-set -e
-
-wget http://archive.raspberrypi.org/debian/raspberrypi.gpg.key -O - | apt-key add -
