@@ -3,6 +3,7 @@ cleanup=true
 noauth=true
 unpack=true
 ignorenativearch=true
+omitrequired=true
 aptsources=__REPOSITORIES__
 bootstrap=__REPOSITORIES__
 
