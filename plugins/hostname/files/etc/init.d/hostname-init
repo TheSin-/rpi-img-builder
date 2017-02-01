@@ -12,19 +12,18 @@
 
 PATH="/sbin:/bin:/usr/bin"
 
-. /lib/lsb/init-functions
+HOSTNAME="raspberrypi"
 
-if -e /etc/defaults/hostname-init; then
-	. /etc/defaults/hostname-init;
+if [ -f /etc/default/hostname-init ]; then
+	. /etc/default/hostname-init;
 fi
+
+. /lib/lsb/init-functions
 
 case "$1" in
     start)
     if [ ! -e "/etc/hostname" ]; then
 	hostname=""
-	if -z ${HOSTNAME}; then
-		HOSTNAME="raspberrypi";
-	fi
 	address=( $(ls -1d /sys/class/net/e* /sys/class/net/wlan* 2>/dev/null || true) )
 	if [ -z ${address} ]; then
 		mac=`cat ${address[0]}/address | sed s/://g`
