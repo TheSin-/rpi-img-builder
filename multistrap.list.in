@@ -1,6 +1,6 @@
 [General]
 cleanup=true
-noauth=false
+noauth=true
 unpack=true
 aptsources=__REPOSITORIES__
 bootstrap=__REPOSITORIES__
