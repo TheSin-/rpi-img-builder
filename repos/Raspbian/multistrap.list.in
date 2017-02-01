@@ -1,5 +1,5 @@
 [Raspbian]
-packages=raspbian-archive-keyring apt locales sed
+packages=raspbian-archive-keyring apt locales sed base-files bash dash debconf coreutils base-passwd diffutils grep findutils libpam-runtime adduser
 source=http://mirrordirector.raspbian.org/raspbian
 keyring=raspbian-archive-keyring
 components=main contrib non-free rpi

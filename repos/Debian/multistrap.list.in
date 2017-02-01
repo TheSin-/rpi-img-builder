@@ -1,5 +1,5 @@
 [Debian]
-packages=debian-archive-keyring apt locales sed
+packages=debian-archive-keyring apt locales sed base-files bash dash debconf coreutils base-passwd diffutils grep findutils libpam-runtime adduser
 source=http://http.debian.net/debian
 keyring=debian-archive-keyring
 components=main contrib non-free

@@ -1,5 +1,5 @@
 [Ubuntu]
-packages=debian-ports-archive-keyring apt locales sed
+packages=debian-ports-archive-keyring apt locales sed base-files bash dash debconf coreutils base-passwd diffutils grep findutils libpam-runtime adduser
 source=http://ports.ubuntu.com/ubuntu-ports
 keyring=debian-ports-archive-keyring
 components=main universe restricted multiverse
