@@ -1,6 +1,7 @@
 *.img
 *.example
 multistrap.list
+multistrap.err
 rootfs
 rootfs.base
 mnt

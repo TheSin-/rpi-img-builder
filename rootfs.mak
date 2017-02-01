@@ -6,7 +6,7 @@ all: build
 .PHONY: clean
 clean: delete-rootfs
 	umount mnt || true
-	rm -rf $(IMAGE_FILE)*.img *.img.tmp mnt multistrap.list *.example plugins.txt
+	rm -rf $(IMAGE_FILE)*.img *.img.tmp mnt multistrap.list *.example plugins.txt multistrap.err
 
 .PHONY: distclean
 distclean: delete-rootfs
@@ -50,7 +50,13 @@ $(ROOTFS_DIR).base:
 	if test -d "$@.tmp"; then rm -rf "$@.tmp" ; fi
 	mkdir -p $@.tmp
 	cat $(shell echo multistrap.list.in; for i in $(REPOS); do echo repos/$$i/multistrap.list.in; done | xargs) | sed -e 's,__REPOSITORIES__,$(REPOS),g' -e 's,__SUITE__,$(DIST),g' -e 's,__ARCH__,$(ARCH),g' > multistrap.list
-	multistrap --arch $(DARCH) --file multistrap.list --dir $@.tmp
+	multistrap --arch $(DARCH) --file multistrap.list --dir $@.tmp 2>multistrap.err || true
+	if test -e multistrap.err; then \
+		echo "\n\nSomething went wrong please review multistrap.err to figure out what.\n\n"; \
+		cat multistrap.err; \
+		echo "\n\n"; \
+		exit 1; \
+	fi
 	cp `which $(QEMU)` $@.tmp/usr/bin
 	mkdir -p $@.tmp/usr/share/fatboothack/overlays
 	if test ! -f $@.tmp/etc/resolv.conf; then cp /etc/resolv.conf $@.tmp/etc/; fi
