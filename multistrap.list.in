@@ -2,6 +2,7 @@
 cleanup=true
 noauth=true
 unpack=true
+ignorenativearch=true
 aptsources=__REPOSITORIES__
 bootstrap=__REPOSITORIES__
 
