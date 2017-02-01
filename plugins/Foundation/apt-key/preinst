@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -e
+
+wget http://archive.raspberrypi.org/debian/raspberrypi.gpg.key -O rootfs/apt-keys/foundation-archive-keyring.asc
