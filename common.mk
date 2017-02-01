@@ -27,19 +27,6 @@ ifeq ($(findstring Raspbian,$(REPOS)),Raspbian)
 	REPOBASE := Raspbian
 	DARCH := armhf
 	ARCH := rpix
-else ifeq ($(findstring Bluefalls,$(REPOS)),Bluefalls)
-	ifneq ($(findstring Debian,$(REPOS)),Debian)
-		REPOS += Debian
-	endif
-	REPOBASE := Bluefalls
-	ifeq ($(DARCH),armel)
-		ARCH := rpi
-	else ifeq ($(DARCH),arm64)
-		ARCH := rpi3
-	else
-		DARCH := armhf
-		ARCH := rpi2
-	endif
 else ifeq ($(findstring Ubuntu,$(REPOS)),Ubuntu)
 	REPOBASE := Ubuntu
 	ifeq ($(findstring jessie,$(DIST)),jessie)
