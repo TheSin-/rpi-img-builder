@@ -61,6 +61,11 @@ dpkg --force-all --configure debconf 2>/dev/null || true
 dpkg --force-all --configure mawk 2>/dev/null || true
 dpkg --configure -a
 
+# Make sure all apt keys are installed
+for i in /apt-keys/*.asc; do
+	apt-key --keyring /etc/apt/trusted.gpg.d/${i%.*}.gpg add ${i}
+done
+
 # Set root password
 echo "root:${RPASS}" | chpasswd
 

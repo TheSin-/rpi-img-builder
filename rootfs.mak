@@ -105,6 +105,7 @@ $(ROOTFS_DIR).base:
 $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	rsync --quiet --archive --devices --specials --hard-links --acls --xattrs --sparse $(ROOTFS_DIR).base/* $@
 	mkdir $@/postinst
+	mkdir $@/apt-keys
 	touch $@/packages.txt
 	for i in $$(cat plugins.txt | xargs); do \
 		echo "Processing $$i..."; \
@@ -168,6 +169,7 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 	rm -f $@/packages.txt
 	rm -f $@/postinstall
 	rm -rf $@/postinst/
+	rm -rf $@/apt-keys/
 	rm -f $@/usr/bin/$(QEMU)
 	rm -f $@/etc/resolv.conf
 	touch $@
