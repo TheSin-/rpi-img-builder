@@ -14,19 +14,26 @@ PATH="/sbin:/bin:/usr/bin"
 
 . /lib/lsb/init-functions
 
+if -e /etc/defaults/hostname-init; then
+	. /etc/defaults/hostname-init;
+fi
+
 case "$1" in
     start)
     if [ ! -e "/etc/hostname" ]; then
 	hostname=""
+	if -z ${HOSTNAME}; then
+		HOSTNAME="raspberrypi";
+	fi
 	address=( $(ls -1d /sys/class/net/e* /sys/class/net/wlan* 2>/dev/null || true) )
 	if [ -z ${address} ]; then
 		mac=`cat ${address[0]}/address | sed s/://g`
 		if [ "$mac" != "" ]; then
-        		hostname="raspberrypi-$mac"
+        		hostname="${HOSTNAME}-${mac}"
 		fi
 	fi
 	if [ "$hostname" = "" ]; then
-        	hostname="raspberrypi-$(tr -cd 'a-f0-9' < /dev/urandom | head -c12)"
+        	hostname="${HOSTNAME}-$(tr -cd 'a-f0-9' < /dev/urandom | head -c12)"
 	fi
         log_action_begin_msg "Creating /etc/hostname with $hostname"
         echo "$hostname" > /etc/hostname
