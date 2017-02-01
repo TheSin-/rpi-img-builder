@@ -121,7 +121,7 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 		if [ -f $$i/preinst ]; then \
 			chmod +x $$i/preinst; \
 			echo " - found preinst ... running"; \
-			./$$i/preinst; \
+			./$$i/preinst || exit 1; \
 		fi; \
 		if [ -f $$i/postinst ]; then \
 			echo " - found postinst ... adding"; \
