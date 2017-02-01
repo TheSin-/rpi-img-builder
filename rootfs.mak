@@ -6,7 +6,7 @@ all: build
 .PHONY: clean
 clean: delete-rootfs
 	if mountpoint -q mnt; then \
-		umount mnt;
+		umount mnt; \
 	fi
 	rm -rf $(IMAGE_FILE)*.img *.img.tmp mnt multistrap.list *.example plugins.txt multistrap.err
 
