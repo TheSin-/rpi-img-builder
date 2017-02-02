@@ -1,5 +1,6 @@
 [Debian]
-packages=debian-archive-keyring apt locales sed base-files bash dash debconf coreutils base-passwd diffutils grep findutils libpam-runtime adduser
+packages=base-files base-passwd bash bsdutils coreutils dash debconf debconf-i18n debianutils diffutils dpkg e2fslibs e2fsprogs findutils grep gzip hostname init init-system-helpers initscripts libpam-runtime login lsb-base mawk mount ncurses-base ncurses-bin ncurses-term passwd perl-base sed sensible-utils startpar systemd systemd-sysv sysv-rc sysvinit-utils tar tzdata util-linux zlib1g
+packages=debian-archive-keyring apt locales adduser
 source=http://http.debian.net/debian
 keyring=debian-archive-keyring
 components=main contrib non-free
