@@ -1,1 +1,1 @@
-login apt-utils mawk ca-certificates sudo openssh-server locales ntpdate initramfs-tools ifupdown net-tools crda whiptail parted man-db udev init systemd systemd-sysv libpam-systemd debconf util-linux init-system-helpers lsb-base e2fsprogs gzip nano vim
+login apt-utils mawk ca-certificates sudo openssh-server locales ntpdate initramfs-tools ifupdown net-tools crda whiptail parted man-db udev init systemd systemd-sysv libpam-systemd debconf util-linux init-system-helpers lsb-base e2fsprogs gzip nano vim ncurses-term
