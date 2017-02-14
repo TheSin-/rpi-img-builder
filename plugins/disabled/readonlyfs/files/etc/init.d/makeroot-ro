@@ -19,6 +19,7 @@ case "$1" in
 	start)
 		log_daemon_msg "Starting root-ro" &&
 		update-rc.d makeroot-ro remove &&
+		rm -f /etc/init.d/markroot-ro &&
 		rm -f /disable-root-fs &&
 		log_end_msg $? &&
 		reboot
