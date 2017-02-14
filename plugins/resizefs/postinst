@@ -2,3 +2,5 @@
 set -e
 
 update-rc.d resize2fs_first defaults
+
+touch /var/tmp/system-resizefs

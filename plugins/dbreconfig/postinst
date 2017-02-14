@@ -2,3 +2,5 @@
 set -e
 
 update-rc.d dbreconfig defaults
+
+touch /var/run/system-dbreconfig

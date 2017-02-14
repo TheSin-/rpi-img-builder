@@ -1,0 +1,32 @@
+#!/bin/sh -e
+### BEGIN INIT INFO
+# Provides:          makeroot-ro
+# Required-Start: $local_fs
+# Required-Stop:
+# Default-Start: 2 3 4 5
+# Default-Stop:
+# Short-Description: Set fs to RO and reboot
+# Description:
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+if ls /var/tmp/system-* 1> /dev/null 2>&1; then \
+	exit 0
+fi
+
+case "$1" in
+	start)
+		log_daemon_msg "Starting root-ro" &&
+		update-rc.d makeroot-ro remove &&
+		rm -f /disable-root-fs &&
+		log_end_msg $? &&
+		reboot
+	;;
+	*)
+		echo "Usage: $0 start" >&2
+		exit 3
+	;;
+esac
+
+exit 0

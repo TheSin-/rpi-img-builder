@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+update-rc.d makeroot-ro defaults
+
 if ! grep 'overlay' /etc/initramfs-tools/modules > /dev/null; then
 	echo 'overlay' >> /etc/initramfs-tools/modules
 fi
