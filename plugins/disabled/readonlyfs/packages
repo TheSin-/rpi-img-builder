@@ -1,1 +1,1 @@
-lsb-base init-system-helpers
+lsb-base init-system-helpers initramfs-tools
