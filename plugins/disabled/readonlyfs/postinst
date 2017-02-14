@@ -10,7 +10,7 @@ fi
 mkinitramfs -o /boot/initrd
 
 if ! grep 'root-ro-driver=' /boot/cmdline.txt > /dev/null; then
-	echo $(cat /boot/cmdline.txt) root-ro-driver=overlay >> /boot/cmdline.txt
+	echo $(cat /boot/cmdline.txt) root-ro-driver=overlay > /boot/cmdline.txt
 else
 	sed -i -e 's,root-ro-driver=[[:alnum:]_-]*,root-ro-driver=overlay,' /boot/cmdline.txt > /dev/null
 fi
