@@ -20,11 +20,3 @@ if ! grep '^initramfs' /boot/config.txt > /dev/null; then
 else
 	sed -i -e 's,^initramfs,initramfs initrd followkernel,' /boot/config.txt > /dev/null
 fi
-
-if ! grep 'ramfsfile=initrd' /boot/config.txt > /dev/null; then
-	echo 'ramfsfile=initrd' >> /boot/config.txt
-fi
-
-if ! grep 'ramfsaddr=-1' /boot/config.txt > /dev/null; then
-	echo 'ramfsaddr=-1' >> /boot/config.txt
-fi
