@@ -40,6 +40,7 @@ case "$1" in
 		do_reconf &&
 		update-rc.d dbreconfig remove &&
 		rm -f /etc/init.d/dbreconfig &&
+		rm -f /var/tmp/system-dbreconfig &&
 		log_end_msg $? &&
 		if [ $DO_REBOOT == 1 ]; then reboot; fi
 	;;
