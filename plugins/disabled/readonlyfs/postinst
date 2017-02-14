@@ -1,2 +1,28 @@
 #!/usr/bin/env bash
 set -e
+
+if ! grep 'overlay' /etc/initramfs-tools/modules > /dev/null; then
+	echo 'overlay' >> /etc/initramfs-tools/modules
+fi
+
+mkinitramfs -o /boot/initrd
+
+if ! grep 'root-ro-driver=' /boot/cmdline.txt > /dev/null; then
+	echo $(cat /boot/cmdline.txt) root-ro-driver=overlay >> /boot/cmdline.txt
+else
+	sed -i -e 's,root-ro-driver=[[:alnum:]_-]*,root-ro-driver=overlay,' /boot/cmdline.txt > /dev/null
+fi
+
+if ! grep '^initramfs' /boot/config.txt > /dev/null; then
+	echo 'initramfs initrd followkernel' >> /boot/config.txt
+else
+	sed -i -e 's,^initramfs,initramfs initrd followkernel,' /boot/config.txt > /dev/null
+fi
+
+if ! grep 'ramfsfile=initrd' /boot/config.txt > /dev/null; then
+	echo 'ramfsfile=initrd' >> /boot/config.txt
+fi
+
+if ! grep 'ramfsaddr=-1' /boot/config.txt > /dev/null; then
+	echo 'ramfsaddr=-1' >> /boot/config.txt
+fi
