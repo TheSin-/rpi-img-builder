@@ -42,7 +42,7 @@ case "$1" in
 		rm -f /etc/init.d/dbreconfig &&
 		rm -f /var/tmp/system-dbreconfig &&
 		log_end_msg $? &&
-		if [ $DO_REBOOT == 1 ]; then reboot; fi
+		if [[ $DO_REBOOT -eq 1 ]]; then reboot; fi
 	;;
 	*)
 		echo "Usage: $0 start" >&2
