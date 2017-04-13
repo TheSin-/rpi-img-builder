@@ -86,6 +86,8 @@ So repositories require others, for example Raspbian will auto add Foundation.
 
 You can easily add a custom repo by making a directory in the repos dir with the repo name and making a multistrap.list.in file (see the others in that directory for examples on the files contents) and then listing it in the REPO options.  ie: make an ubuntu repo, I could then use REPO="Raspbian ubuntu", this is just an example I'm not sure why you would do this, but as an example.
 
+More information in repos/README.md
+
 ## Notes
 There are lots of plugin examples included, you can add and remove to your needs.  There are only there to show how customizable these build scripts are.
 
