@@ -157,12 +157,10 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 			echo "arm_64bit=1" >> $(ROOTFS_DIR)/$(BOOT_DIR)/config.txt; \
 		fi; \
 	fi
-	if [ "$(REPOBASE)" != "Raspbian" -a "$(RPIV)" = "3" ]; then \
-		git clone --depth=1 http://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git tmp; \
-		mkdir -p $@/lib/firmware/brcm; \
-		cp tmp/brcm/brcmfmac43430-sdio.* $@/lib/firmware/brcm/; \
-		rm -rf tmp; \
-	fi
+	wget --no-check-certificate https://github.com/RPi-Distro/firmware-nonfree/raw/master/brcm80211/brcm/brcmfmac43430-sdio.txt -o /tmp/brcmfmac43430-sdio.txt; \
+	mkdir -p $@/lib/firmware/brcm; \
+	cp /tmp/brcm/brcmfmac43430-sdio.* $@/lib/firmware/brcm/; \
+	rm -rf /tmp/brcmfmac43430-sdio.txt; \
 	umount $@/proc
 	umount $@/sys
 	umount $@/dev
