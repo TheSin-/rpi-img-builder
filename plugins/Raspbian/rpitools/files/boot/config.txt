@@ -54,3 +54,6 @@
  
 # Enable audio (loads snd_bcm2835)
 dtparam=audio=on
+
+# Disable BT on RPi3, so console works, comment out if you want BT
+dtoverlay=pi3-disable-bt
