@@ -152,15 +152,15 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 			sed -i "1i 127.0.0.1\\t$$(cat $@/etc/hostname)" $@/etc/hosts; \
 		fi; \
 	fi
-	if [ -f $(ROOTFS_DIR)/$(BOOT_DIR)/config.txt -a "$(DARCH)" = "arm64" ]; then \
-		if ! grep "arm_64bit=1" $(ROOTFS_DIR)/$(BOOT_DIR)/config.txt > /dev/null; then \
-			echo "arm_64bit=1" >> $(ROOTFS_DIR)/$(BOOT_DIR)/config.txt; \
+	if [ -f $@/$(BOOT_DIR)/config.txt -a "$(DARCH)" = "arm64" ]; then \
+		if ! grep "arm_64bit=1" $@/$(BOOT_DIR)/config.txt > /dev/null; then \
+			echo "arm_64bit=1" >> $@/$(BOOT_DIR)/config.txt; \
 		fi; \
 	fi
-	wget --no-check-certificate https://github.com/RPi-Distro/firmware-nonfree/raw/master/brcm80211/brcm/brcmfmac43430-sdio.txt -O /tmp/brcmfmac43430-sdio.txt; \
-	mkdir -p $@/lib/firmware/brcm; \
-	cp /tmp/brcm/brcmfmac43430-sdio.* $@/lib/firmware/brcm/; \
-	rm -rf /tmp/brcmfmac43430-sdio.txt; \
+	wget --no-check-certificate https://github.com/RPi-Distro/firmware-nonfree/raw/master/brcm80211/brcm/brcmfmac43430-sdio.txt -O /tmp/brcmfmac43430-sdio.txt
+	mkdir -p $@/lib/firmware/brcm
+	cp /tmp/brcmfmac43430-sdio.txt $@/lib/firmware/brcm/
+	rm -rf /tmp/brcmfmac43430-sdio.txt
 	umount $@/proc
 	umount $@/sys
 	umount $@/dev
