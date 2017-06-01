@@ -11,7 +11,7 @@
 
 . /lib/lsb/init-functions
 
-if [ -e /var/tmp/system-fsresize ]; then
+if [ -e /var/tmp/system-resizefs ]; then
 	exit 0;
 fi
 
