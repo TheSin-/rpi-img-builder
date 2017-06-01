@@ -28,6 +28,10 @@ case "$1" in
 		rm -f /var/tmp/ROOT_RESIZE &&
 		rm -f /var/tmp/system-resizefs &&
 		log_end_msg $?
+
+		if [ -f /var/tmp/system-* ]; then
+			reboot
+		fi
 	;;
 	*)
 		echo "Usage: $0 start" >&2
