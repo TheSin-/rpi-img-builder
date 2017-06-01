@@ -26,7 +26,7 @@ case "$1" in
 		update-rc.d resize2fs_last remove &&
 		rm -f /etc/init.d/resize2fs_last &&
 		rm -f /var/tmp/ROOT_RESIZE &&
-		rm -f /var/tmp/system-fsresize &&
+		rm -f /var/tmp/system-resizefs &&
 		log_end_msg $?
 	;;
 	*)
