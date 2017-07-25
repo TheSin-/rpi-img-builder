@@ -79,7 +79,7 @@ $(ROOTFS_DIR).base:
 	cat $(shell echo multistrap.list.in; for i in $(REPOS); do echo repos/$$i/multistrap.list.in; done | xargs) | sed -e 's,__REPOSITORIES__,$(REPOS),g' -e 's,__SUITE__,$(DIST),g' -e 's,__ARCH__,$(ARCH),g' > multistrap.list
 	multistrap --arch $(DARCH) --file multistrap.list --dir $@.tmp 2>multistrap.err || true
 	if [ -f multistrap.err ]; then \
-		if grep -v 'is not signed' multistrap.err | grep -q '^E'; then \
+		if grep -q '^E' multistrap.err; then \
 			echo; \
 			echo; \
 			echo "::: Something went wrong please review multistrap.err to figure out what."; \
