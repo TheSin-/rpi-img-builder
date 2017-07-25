@@ -1,0 +1,50 @@
+#!/usr/bin/perl -w
+
+$| = 1;
+use strict;
+
+my ($rootfs, $debug) = @ARGV;
+
+if (not defined $debug) {
+	$debug = 0;
+} else {
+	$debug = 1;
+}
+
+if (not defined $rootfs) {
+	die "Arg missing, please specify absolute path to rootfs mke2fs.conf.\n";
+} elsif (! -f $rootfs) {
+	die "$rootfs not found\n";
+}
+my ($base, $root);
+
+$base = `echo \$(cat /etc/mke2fs.conf | grep "base_features = " | cut -d "=" -f2 | tr -d '[[:space:]]'),\$(cat /etc/mke2fs.conf | grep -A3 "ext4 =" | grep "features = " | cut -d "=" -f2 | tr -d '[[:space:]]')` if -e "/etc/mke2fs.conf";
+chomp($base);
+
+$root = `echo \$(cat $rootfs | grep "base_features = " | cut -d "=" -f2 | tr -d '[[:space:]]'),\$(cat $rootfs | grep -A3 "ext4 =" | grep "features = " | cut -d "=" -f2 | tr -d '[[:space:]]')` if -e "$rootfs";
+chomp($root);
+
+my @combined;
+if ($base && $root) {
+	my @base_array = split /,/, $base;
+	my @root_array = split /,/, $root;
+
+	foreach my $opt (@base_array) {
+		print "Checking $opt ... " if $debug;
+		if (grep(/^$opt$/, @root_array)) {
+			print "Found" if $debug;
+			push @combined, $opt;
+		} else {
+			print "Skipping" if $debug;
+		}
+		print "\n" if $debug;
+	}
+} elsif ($base) {
+	@combined = split /,/, $base;
+} elsif ($root) {
+	@combined = split /,/, $root;
+}
+
+my $str = join ",", @combined;
+
+print "none,$str\n";
