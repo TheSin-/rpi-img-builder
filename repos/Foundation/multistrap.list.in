@@ -1,7 +1,6 @@
 [Foundation]
 packages=
 source=http://archive.raspberrypi.org/debian
-keyring=raspbian-archive-keyring
 components=main ui
 suite=jessie
 omitdebsrc=true
