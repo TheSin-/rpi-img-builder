@@ -1,4 +1,4 @@
-DIST ?= jessie
+DIST ?= stretch
 REPO ?= Raspbian
 RPI ?= 2
 DIST_ARCH ?= armhf
@@ -29,7 +29,7 @@ ifeq ($(findstring Raspbian,$(REPOS)),Raspbian)
 	ARCH := rpix
 else ifeq ($(findstring Ubuntu,$(REPOS)),Ubuntu)
 	REPOBASE := Ubuntu
-	ifeq ($(findstring jessie,$(DIST)),jessie)
+	ifeq ($(findstring stretch,$(DIST)),stretch)
 		DIST := yakkety
 	endif
 	BOOT_DIR := boot/firmware

@@ -25,7 +25,7 @@ Script to build custom sd card image for Raspberry Pi.
 
 ## Make Options
 The build process has a few options you can set.
-* **DIST**: debian distribution [default jessie (yakkety for Ubuntu)]
+* **DIST**: debian distribution [default stretch (yakkety for Ubuntu)]
 * **DIST_ARCH**: image architecture [armel, armhf (default), arm64]
 * **REPO**: upstream repositories based on repos dir [Bluefalls, Debian, Ubuntu, Raspbian, Foundation, "Raspbian Foundation" (default)]
 * **ARCH**: used to determin the kernel name [[Debian - armmp (default), armmp-lpae], [Ubuntu - raspi2 (default)], [Raspbian - rpix (default)]]
@@ -59,7 +59,7 @@ sudo make REPO=Ubuntu
 ```
 
 ## Example: Build a Raspbian Jessie image:
-Just use the make utility to build e.g. an Rasbian-jessie-rpix.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
+Just use the make utility to build e.g. an Rasbian-stretch-rpix.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
 ```
 sudo make
 ```
