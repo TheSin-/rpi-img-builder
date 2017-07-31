@@ -14,6 +14,12 @@ PATH="/sbin:/bin:/usr/bin"
 
 HOSTNAME="raspberrypi"
 
+if [ -e /var/tmp/system-hostname ]; then
+	if [ -e /etc/hostname ]; then
+		rm -f /etc/hostname;
+	fi
+fi
+
 if [ -f /etc/default/hostname-init ]; then
 	. /etc/default/hostname-init;
 fi
@@ -40,6 +46,7 @@ case "$1" in
         if ! grep "^127.0.0.1\s*$hostname\s*" /etc/hosts > /dev/null ; then
             sed -i "1i 127.0.0.1\\t$hostname" /etc/hosts
         fi
+	rm -f /var/tmp/system-hostname
         log_action_end_msg 0
 
 	if [ -e /disable-root-fs.wait ]; then

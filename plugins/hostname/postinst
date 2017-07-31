@@ -6,3 +6,5 @@ update-rc.d hostname-init defaults
 if [ -e /disable-root-fs ]; then
 	mv disable-root-fs disable-root-fs.wait
 fi
+
+touch /var/tmp/system-hostname
