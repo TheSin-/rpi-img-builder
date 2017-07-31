@@ -41,6 +41,11 @@ case "$1" in
             sed -i "1i 127.0.0.1\\t$hostname" /etc/hosts
         fi
         log_action_end_msg 0
+
+	if [ -e /disable-root-fs.wait ]; then
+		mv disable-root-fs.wait disable-root-fs
+		reboot
+	fi
     fi
     ;;
 
