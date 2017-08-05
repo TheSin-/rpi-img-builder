@@ -4,8 +4,8 @@ rpi-img-builder
 Script to build custom sd card image for Raspberry Pi.
 
 ## Features:
-* Debian repository (Tested with jessie and stretch so far)
-* Ubuntu repository (yakkety/zesty only since no rpi support before that and currently rpi2 only)
+* Debian repository (Tested with Jessie and Stretch so far)
+* Ubuntu repository (Yakkety/Zesty only since no rpi support before that and currently rpi2 only)
 * Raspbian repository (armhf ONLY)
 * Custom RPi repository
 * Custom repositories
@@ -20,15 +20,15 @@ Script to build custom sd card image for Raspberry Pi.
 * Run configdb-common scripts on first boot
 * Automatic mounting of USB storage devices using usbmount
 * Automatic resize on first boot (It will auto reboot once done)
-* Automaticly reruns dbconfig install scripts on boot (It will auto reboot once done)
+* Automatically reruns dbconfig install scripts on boot (It will auto reboot once done)
 * Many more added all the time, check the plugins directory for more
 
 ## Make Options
 The build process has a few options you can set.
-* **DIST**: debian distribution [default stretch (yakkety for Ubuntu)]
+* **DIST**: Debian distribution [default stretch (yakkety for Ubuntu)]
 * **DIST_ARCH**: image architecture [armel, armhf (default), arm64]
 * **REPO**: upstream repositories based on repos dir [Bluefalls, Debian, Ubuntu, Raspbian, Foundation, "Raspbian Foundation" (default)]
-* **ARCH**: used to determin the kernel name [[Debian - armmp (default), armmp-lpae], [Ubuntu - raspi2 (default)], [Raspbian - rpix (default)]]
+* **ARCH**: used to determine the kernel name [[Debian - armmp (default), armmp-lpae], [Ubuntu - raspi2 (default)], [Raspbian - rpix (default)]]
 * **IMAGE_MB**: size of the image, 128MB is for the fat boot, which is included in this option [-1 = auto (default), n = size in MB]
 * **LOCALE**: system locale (en_US.UTF-8 default, Make sure you type this exactly like in /usr/share/i18n/SUPPORTED)
 * **UNAME**: user account that gets created (pi default)
@@ -65,11 +65,11 @@ sudo make
 ```
 
 ## Plugins:
-It should be fairly easy to customize your image for your own needs.  Bulding and adding plugins is easy.  Each plugin can contain:
+It should be fairly easy to customize your image for your own needs.  Building and adding plugins is easy.  Each plugin can contain:
 * **packages**: file with one line containing debian packages to install
 * **preinst**: script to run pre chroot
 * **postinst**: script to run in chroot of the rootfs
-* **files**: dir which conatins files to be copied into the rootfs, perms and atts included
+* **files**: dir which contains files to be copied into the rootfs, perms and atts included
 * **patches**: dir which contains patch files to apply to the rootfs
 * **baseonly**: is a special file for repo plugins, if the file exists the plugin is only included if the repo is the base repo
 
@@ -79,7 +79,7 @@ This should allow you install extra packages (e.g. using apt-get) and modify con
 
 All plugins in the base of the plugins dir will be included, if you do not want a plugin included move it to the disabled directory within the plugins directory.  There are a few special cases, and subdirectory in the plugins directory that match an enable Reporitory (via REPO option or the defaults) or Distribution (vis DIST option or the default) could have a sub set of plugins without a directory that is named like it.
 
-For example, if you set DIST to stretch and REPSOTORIES to Raspbian, then all plugins in the base of the plugins dir will be include as well as the plugins in the stretch and Raspbian directories.  Also since Raspbian will auto add the Foundation repo, any plugins in the Foundation directory if it exists will be included as well.
+For example, if you set DIST to stretch and REPO to Raspbian, then all plugins in the base of the plugins dir will be include as well as the plugins in the stretch and Raspbian directories.  Also since Raspbian will auto add the Foundation repo, any plugins in the Foundation directory if it exists will be included as well.
 
 ## Repositories
 So repositories require others, for example Raspbian will auto add Foundation.
