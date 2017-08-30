@@ -31,7 +31,7 @@ case "$1" in
     if [ ! -e "/etc/hostname" ]; then
 	hostname=""
 	address=( $(ls -1d /sys/class/net/e* /sys/class/net/wlan* 2>/dev/null || true) )
-	if [ -z ${address} ]; then
+	if [ ! -z ${address[0]} ]; then
 		mac=`cat ${address[0]}/address | sed s/://g`
 		if [ "$mac" != "" ]; then
         		hostname="${HOSTNAME}-${mac}"
