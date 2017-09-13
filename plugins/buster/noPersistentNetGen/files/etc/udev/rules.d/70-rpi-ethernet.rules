@@ -1,0 +1,2 @@
+# Onboard RPi Ethernet Adaptor is also eth0
+SUBSYSTEM=="net", ACTION=="add", ATTRS{idVendor}=="0424", ATTRS{idProduct}=="ec00", ATTR{type}=="1", NAME="eth0"
