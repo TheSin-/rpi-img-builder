@@ -32,16 +32,6 @@ build: $(IMAGE_FILE)
 
 $(ROOTFS_DIR).base:
 	rm -f plugins.txt
-	for i in plugins/*; do \
-		if [ -f $$i/packages -o -f $$i/preinst -o -f $$i/postinst -o -d $$i/files -o -d $$i/patches ]; then \
-			echo $$i >> plugins.txt; \
-		fi; \
-	done
-	for i in plugins/$(DIST)/*; do \
-		if [ -f $$i/packages -o -f $$i/preinst -o -f $$i/postinst -o -d $$i/files -o -d $$i/patches ]; then \
-			echo $$i >> plugins.txt; \
-		fi; \
-	done
 	for j in $(REPOS); do \
 		for i in plugins/$$j/*; do \
 			if [ -f $$i/baseonly -a $$j != $(REPOBASE) ]; then \
@@ -51,6 +41,16 @@ $(ROOTFS_DIR).base:
 				echo $$i >> plugins.txt; \
 			fi; \
 		done; \
+	done
+	for i in plugins/$(DIST)/*; do \
+		if [ -f $$i/packages -o -f $$i/preinst -o -f $$i/postinst -o -d $$i/files -o -d $$i/patches ]; then \
+			echo $$i >> plugins.txt; \
+		fi; \
+	done
+	for i in plugins/*; do \
+		if [ -f $$i/packages -o -f $$i/preinst -o -f $$i/postinst -o -d $$i/files -o -d $$i/patches ]; then \
+			echo $$i >> plugins.txt; \
+		fi; \
 	done
 	@echo
 	@echo "Building $(IMAGE_FILE)_$(TIMESTAMP).img"
