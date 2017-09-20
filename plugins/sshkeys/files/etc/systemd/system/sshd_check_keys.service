@@ -9,7 +9,8 @@ ConditionPathExistsGlob=!/etc/ssh/ssh_host_*_key
 Environment=TERM=linux
 Type=oneshot
 ExecStart=/usr/bin/ssh-keygen -A
-ExecStartPost=/bin/sleep 15; service sshd restart
+ExecStart=/bin/sleep 15
+ExecStart=/usr/sbin/service sshd restart
 StandardError=syslog
 RemainAfterExit=no
 
