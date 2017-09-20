@@ -1,0 +1,12 @@
+[Unit]
+Description=Create /etc/hostname
+DefaultDependencies=no
+Conflicts=shutdown.target
+After=local-fs.target
+Before=systemd-hostnamed.service systemd-journald.service sysinit.target shutdown.target
+RefuseManualStop=yes
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/sbin/createhs

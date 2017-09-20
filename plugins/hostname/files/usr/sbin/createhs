@@ -1,0 +1,40 @@
+#!/bin/bash -e
+PATH="/sbin:/bin:/usr/bin"
+
+PREFIX="raspberrypi"
+
+if [ -e /var/tmp/system-hostname ]; then
+	if [ -e /etc/hostname ]; then
+		rm -f /etc/hostname;
+	fi
+fi
+
+if [ -f /etc/default/createhs ]; then
+	. /etc/default/createhs;
+fi
+
+if [ ! -e "/etc/hostname" ]; then
+	hostname=""
+	address=( $(ls -1d /sys/class/net/e* /sys/class/net/wlan* 2>/dev/null || true) )
+	if [ ! -z ${address[0]} ]; then
+		mac=`cat ${address[0]}/address | sed s/://g`
+		if [ "$mac" != "" ]; then
+        		hostname="${PREFIX}-${mac}"
+		fi
+	fi
+	if [ "$hostname" = "" ]; then
+        	hostname="${PREFIX}-$(tr -cd 'a-f0-9' < /dev/urandom | head -c12)"
+	fi
+        echo "Creating /etc/hostname with $hostname"
+        echo "$hostname" > /etc/hostname
+        hostname "$hostname"
+        if ! grep "^127.0.0.1\s*$hostname\s*" /etc/hosts > /dev/null ; then
+            sed -i "1i 127.0.0.1\\t$hostname" /etc/hosts
+        fi
+	rm -f /var/tmp/system-hostname
+
+	if [ -e /disable-root-fs.wait ]; then
+		mv disable-root-fs.wait disable-root-fs
+		reboot
+	fi
+fi
