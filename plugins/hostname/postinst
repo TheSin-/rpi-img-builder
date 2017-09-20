@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-update-rc.d hostname-init defaults
+mkdir -p /lib/systemd/system/sysinit.target.wants
+ln -s ../createhs.service /lib/systemd/system/sysinit.target.wants/createhs.service
+systemctl deamon-reload
 
 if [ -e /disable-root-fs ]; then
 	mv disable-root-fs disable-root-fs.wait
