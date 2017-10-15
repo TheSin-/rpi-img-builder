@@ -1,1 +1,1 @@
-xserver-xorg-video-fbdev xserver-xorg xinit lxde lxtask menu-xdg gksu lightdm xfonts-100dpi xfonts-75dpi xfonts-scalable omxplayer raspberrypi-artwork policykit-1
+xserver-xorg-video-fbdev xserver-xorg xinit lxde lxtask menu-xdg gksu lightdm xfonts-100dpi xfonts-75dpi xfonts-scalable omxplayer raspberrypi-artwork policykit-1 desktop-base
