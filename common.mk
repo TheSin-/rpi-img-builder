@@ -11,7 +11,7 @@ IMAGE_MB ?= -1
 BOOT_MB ?= 128
 INC_REC ?= 0
 
-FSUITE := stretch
+FDIST := stretch
 REPOBASE := Raspbian
 REPOS := $(REPO)
 RPIV := $(RPI)
@@ -79,7 +79,7 @@ ROOTFS_DIR := $(BASE_DIR)/rootfs
 IMAGE_FILE := $(REPOBASE)-$(DIST)-$(ARCH)
 
 ifeq ($(DIST),$(filter $(DIST), wheezy oldoldstable))
-	FSUITE := wheezy
+	FDIST := wheezy
 else ifeq ($(DIST),$(filter $(DIST), jessie oldstable))
-	FSUITE := jessie
+	FDIST := jessie
 endif
