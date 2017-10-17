@@ -78,8 +78,8 @@ BASE_DIR := $(shell pwd)
 ROOTFS_DIR := $(BASE_DIR)/rootfs
 IMAGE_FILE := $(REPOBASE)-$(DIST)-$(ARCH)
 
-ifeq ($(DIST),$(filter $(DIST), wheezy oldoldstable)
+ifeq ($(DIST),$(filter $(DIST), wheezy oldoldstable))
 	FSUITE := wheezy
-else ifeq ($(DIST),$(filter $(DIST), jessie oldstable)
+else ifeq ($(DIST),$(filter $(DIST), jessie oldstable))
 	FSUITE := jessie
 endif
