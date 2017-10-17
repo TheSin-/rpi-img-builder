@@ -2,6 +2,6 @@
 packages=
 source=http://archive.raspberrypi.org/debian
 components=main ui
-suite=jessie
+suite=stretch
 omitdebsrc=true
 
