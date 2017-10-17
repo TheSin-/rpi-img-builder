@@ -4,16 +4,16 @@ Description=Check and regenerate SSH host keys
 DefaultDependencies=no
 Before=sshd.service
 ConditionPathExistsGlob=!/etc/ssh/ssh_host_*_key
+ConditionPathExistsGlob=!/var/tmp/system-*
 
 [Service]
 Environment=TERM=linux
 Type=oneshot
-ExecStart=/usr/bin/ssh-keygen -A
-ExecStart=/bin/sleep 15
-ExecStart=/usr/sbin/service sshd restart
+ExecStartPre=/usr/bin/ssh-keygen -A
+ExecStart=/bin/sleep 10
+ExecStartPost=/usr/sbin/service sshd restart
 StandardError=syslog
 RemainAfterExit=no
 
 [Install]
 WantedBy=multi-user.target
-
