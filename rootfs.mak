@@ -77,7 +77,7 @@ $(ROOTFS_DIR).base:
 	fi
 	mkdir -p $@.tmp/etc/apt/apt.conf.d
 	cp apt.conf $@.tmp/etc/apt/apt.conf.d/00multistrap
-	cat $(shell echo multistrap.list.in; for i in $(REPOS); do echo repos/$$i/multistrap.list.in; done | xargs) | sed -e 's,__REPOSITORIES__,$(REPOS),g' -e 's,__SUITE__,$(DIST),g' -e 's,__ARCH__,$(ARCH),g' > multistrap.list
+	cat $(shell echo multistrap.list.in; for i in $(REPOS); do echo repos/$$i/multistrap.list.in; done | xargs) | sed -e 's,__REPOSITORIES__,$(REPOS),g' -e 's,__SUITE__,$(DIST),g' -e 's,__FSUITE__,$(FDIST),g' -e 's,__ARCH__,$(ARCH),g' > multistrap.list
 	multistrap --arch $(DARCH) --file multistrap.list --dir $@.tmp 2>multistrap.err || true
 	rm -f $@.tmp/etc/apt/apt.conf.d/00multistrap
 	if [ -f multistrap.err ]; then \
