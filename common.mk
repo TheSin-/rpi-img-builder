@@ -83,3 +83,8 @@ ifeq ($(DIST),$(filter $(DIST), wheezy oldoldstable))
 else ifeq ($(DIST),$(filter $(DIST), jessie oldstable))
 	FDIST := jessie
 endif
+
+QEMUFULL := S(shell which qemu-arm-static)
+ifeq ("$(wildcard $(QEMUFULL))","")
+	QEMUFULL := ""
+endif

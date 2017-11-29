@@ -31,6 +31,10 @@ delete-rootfs:
 build: $(IMAGE_FILE)
 
 $(ROOTFS_DIR).base:
+	if [ "$(QEMUFULL)" = "" ]; then \
+		echo "ERROR: $(QEMU) not found."; \
+		exit 1; \
+	fi
 	rm -f plugins.txt
 	for j in $(REPOS); do \
 		for i in plugins/$$j/*; do \
@@ -93,7 +97,7 @@ $(ROOTFS_DIR).base:
 			exit 1; \
 		fi; \
 	fi
-	cp `which $(QEMU)` $@.tmp/usr/bin
+	cp $(QEMUFULL) $@.tmp/usr/bin
 	mkdir -p $@.tmp/usr/share/fatboothack/overlays
 	if test ! -f $@.tmp/etc/resolv.conf; then \
 		cp /etc/resolv.conf $@.tmp/etc/; \
