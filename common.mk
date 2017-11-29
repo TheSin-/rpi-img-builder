@@ -84,7 +84,7 @@ else ifeq ($(DIST),$(filter $(DIST), jessie oldstable))
 	FDIST := jessie
 endif
 
-QEMUFULL := S(shell which qemu-arm-static)
+QEMUFULL := $(shell which qemu-arm-static)
 ifeq ("$(wildcard $(QEMUFULL))","")
 	QEMUFULL := ""
 endif
