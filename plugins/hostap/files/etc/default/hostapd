@@ -1,0 +1,1 @@
+DAEMON_CONF="/etc/hostapd/hostapd.conf"
