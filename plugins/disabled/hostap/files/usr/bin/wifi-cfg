@@ -1,0 +1,44 @@
+#!/bin/bash
+if [ ! -f /sbin/iw ]; then
+    echo "Unable to find wireless tools"
+    exit;
+fi
+
+function install()
+{
+    echo "Insert wifi password for " ${1};
+    read password
+    echo "Set up password " $password " for wireless network "  ${1};
+    echo "Are you sure ? Type 'Y' if you want to continue."
+    read cont
+    if [ "$cont" == "Y" ]; then
+        echo "Done";
+        sed -i '/^denyinterfaces wlan0$/s/^/#/' /etc/dhcpcd.conf
+        echo "allow-hotplug wlan0" > /etc/network/interfaces.d/wlan0.cfg
+        echo "iface wlan0 inet dhcp" >> /etc/network/interfaces.d/wlan0.cfg
+        echo "wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf" >> /etc/network/interfaces.d/wlan0.cfg
+        echo "network={" > /etc/wpa_supplicant/wpa_supplicant.conf
+        echo "ssid=\""${1}"\"" >> /etc/wpa_supplicant/wpa_supplicant.conf
+        echo "psk=\"$password\"" >> /etc/wpa_supplicant/wpa_supplicant.conf
+        echo "}" >> /etc/wpa_supplicant/wpa_supplicant.conf
+        systemctl disable hostapd
+        systemctl disable dnsmasq
+        reboot
+        exit 1;
+    else
+        exit;
+    fi
+
+
+
+}
+
+select SSID in $(iw wlan0 scan |grep SSID |cut -d ":" -f2) exit; do
+      case $SSID in
+      exit) echo "exiting"
+            break ;;
+         *) install $SSID;
+   esac
+done
+
+
