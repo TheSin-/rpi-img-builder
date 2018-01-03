@@ -35,7 +35,7 @@ The build process has a few options you can set.
 * **UPASS**: user account password (raspberry default)
 * **RPASS**: root password (raspberry default)
 * **INC_REC**: include recommends for apt-get install [1 = Yes, 0 = No (default)]
-* **RPI**: sets the base RPi board version, ONLY used with U-Boot [ 2 (default, 3 ]
+* **RPI**: sets the base RPi board version, ONLY used with U-Boot [ 2 (default), 3 ]
 
 ## Prerequisites:
 On a x86 based Debian system, make sure the following packages are installed:
