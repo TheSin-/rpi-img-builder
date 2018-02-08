@@ -163,10 +163,8 @@ $(ROOTFS_DIR): $(ROOTFS_DIR).base
 			echo "arm_64bit=1" >> $@/$(BOOT_DIR)/config.txt; \
 		fi; \
 	fi
-	wget --no-check-certificate https://github.com/RPi-Distro/firmware-nonfree/raw/master/brcm80211/brcm/brcmfmac43430-sdio.txt -O /tmp/brcmfmac43430-sdio.txt
 	mkdir -p $@/lib/firmware/brcm
-	cp /tmp/brcmfmac43430-sdio.txt $@/lib/firmware/brcm/
-	rm -rf /tmp/brcmfmac43430-sdio.txt
+	cp brcmfmac43430-sdio.txt $@/lib/firmware/brcm/
 	umount $@/proc
 	umount $@/sys
 	umount $@/dev
