@@ -4,4 +4,10 @@ set -e
 echo "denyinterfaces wlan0" >> /etc/dhcpcd.conf
 
 sed -i 's/After=network.target/After=network-online.target/g' /lib/systemd/system/dnsmasq.service
+mv /etc/default/hostapd /etc/_default_hostapd.orig
+mv /etc/default/hostapd-build /etc/default/hostapd
+
+mv /etc/dnsmasq.conf /etc/_dnsmasq.conf.orig
+mv /etc/dnsmasq.conf-build /etc/dnsmasq.conf
+
 #touch /var/tmp/system-hostname
