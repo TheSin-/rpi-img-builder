@@ -58,7 +58,7 @@ mv plugins/fsckboot plugins/disabled/
 sudo make REPO=Ubuntu
 ```
 
-## Example: Build a Raspbian Jessie image:
+## Example: Build a Raspbian Stretch image:
 Just use the make utility to build e.g. an Rasbian-stretch-rpix.img.  Be sure to run this with sudo, as root privileges are required to mount the image.
 ```
 sudo make
